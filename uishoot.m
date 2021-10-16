@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
 				copyToClipboard = true;
 				break;
 			case 'f':
-				filePath = [NSString stringWithCString:optarg encoding:NSUTF8StringEncoding];
+				filePath = [NSString stringWithUTF8String:optarg];
 				break;
 			case 'p':
 				saveToPhotos = true;
@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
 				delay = strtoll(optarg, NULL, 10);
 				break;
 			case 'i':
-				imageFormat = [NSString stringWithCString:optarg encoding:NSUTF8StringEncoding];
+				imageFormat = [NSString stringWithUTF8String:optarg];
 				break;
 			case '?':
 				usage(1);

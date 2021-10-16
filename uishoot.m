@@ -1,9 +1,13 @@
-#include <UIKit/UIKit.h>
+#include <getopt.h>
+#include <stdio.h>
+#include <stdbool.h>
+#import <Foundation/NSString.h>
+#import <UIKit/UIKit.h>
 
 OBJC_EXTERN UIImage *_UICreateScreenUIImage(void);
 
 void usage(uint8_t ret) {
-	fprintf(stderr, "insert usage here\n");
+	fprintf(stderr, "uishoot [-cp] [-d num] [-f file] [-i [png | jpeg | heic]]\n");
 	exit(ret);
 }
 

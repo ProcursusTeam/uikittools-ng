@@ -19,6 +19,7 @@ int main(int argc, char** argv) {
 	NSString* filePath = nil;
 	NSString* imageFormat = @"png";
 	int c;
+	__block int ret = 0;
 
 	while ((c = getopt(argc, argv, "cpf:d:i:")) != -1) {
 		switch (c) {
@@ -69,6 +70,7 @@ int main(int argc, char** argv) {
 
 	if (filePath) {
 		NSString* imageUTI;
+		NSError* error;
 		if ([imageFormat isEqualToString:@"png"]) {
 			imageUTI = @"public.png";
 		}
@@ -89,7 +91,11 @@ int main(int argc, char** argv) {
 		CGImageDestinationRef destinationRef = CGImageDestinationCreateWithData((CFMutableDataRef)imageData, (CFStringRef)imageUTI, 1, NULL);
 		CGImageDestinationAddImage(destinationRef, screenShot.CGImage, NULL);
 		CGImageDestinationFinalize(destinationRef);
-		[imageData writeToFile:filePath atomically:YES];
+
+		if (![imageData writeToFile:filePath options:NSDataWritingAtomic error:&error]) {
+			fprintf(stderr, "Could not write image to %s: %s\n", filePath.UTF8String, error.localizedDescription.UTF8String);
+			ret = 1;
+		}
 	}
 
 	if (saveToPhotos) {
@@ -100,6 +106,7 @@ int main(int argc, char** argv) {
 		} completionHandler:^(BOOL success, NSError* error) {
 			if (!success) {
 				fprintf(stderr, "Could not save screenshot to Photos.\n");
+				ret = 2;
 			}
 
 			dispatch_semaphore_signal(sema);
@@ -108,5 +115,5 @@ int main(int argc, char** argv) {
 		dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
 	}
 
-	return 0;
+	return ret;
 }

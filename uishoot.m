@@ -1,8 +1,9 @@
 #include <getopt.h>
 #include <stdio.h>
 #include <stdbool.h>
-#import <Foundation/NSString.h>
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <Photos/Photos.h>
 
 OBJC_EXTERN UIImage *_UICreateScreenUIImage(void);
 
@@ -48,6 +49,8 @@ int main(int argc, char** argv) {
 		usage(2);
 	}
 
+	if (delay) sleep(delay);
+
 	UIImage* screenShot = _UICreateScreenUIImage();
 	if (!screenShot) {
 		fprintf(stderr, "Could not capture screenshot!\n");
@@ -87,6 +90,22 @@ int main(int argc, char** argv) {
 		CGImageDestinationAddImage(destinationRef, screenShot.CGImage, NULL);
 		CGImageDestinationFinalize(destinationRef);
 		[imageData writeToFile:filePath atomically:YES];
+	}
+
+	if (saveToPhotos) {
+		dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+
+		[[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+	     		[PHAssetChangeRequest creationRequestForAssetFromImage:screenShot];
+		} completionHandler:^(BOOL success, NSError* error) {
+			if (!success) {
+				fprintf(stderr, "Could not save screenshot to Photos.\n");
+			}
+
+			dispatch_semaphore_signal(sema);
+		}];
+
+		dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
 	}
 
 	return 0;

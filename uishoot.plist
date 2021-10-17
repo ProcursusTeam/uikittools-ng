@@ -24,5 +24,9 @@
 		<string>IOMobileFramebufferUserClient</string>
 		<string>IOSurfaceRootUserClient</string>
 	</array>
+	<key>com.apple.private.tcc.allow</key>
+	<array>
+		<string>kTCCServicePhotos</string>
+	</array>
 </dict>
 </plist>

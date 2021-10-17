@@ -37,8 +37,10 @@ int main(int argc, char** argv) {
 				break;
 			case 'i':
 				imageFormat = [NSString stringWithUTF8String:optarg];
-				if (imageFormat && ![imageFormat isEqualToString:@"png"] && ![imageFormat isEqualToString:@"jpeg"] && ![imageFormat isEqualToString:@"heic"])
+				if (imageFormat && ![imageFormat isEqualToString:@"png"] && ![imageFormat isEqualToString:@"jpeg"] && ![imageFormat isEqualToString:@"heic"]) {
+					fprintf(stderr, "Invalid image format %s\n", imageFormat.UTF8String);
 					usage(2);
+				}
 				break;
 			case '?':
 				usage(1);

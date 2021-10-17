@@ -37,6 +37,8 @@ int main(int argc, char** argv) {
 				break;
 			case 'i':
 				imageFormat = [NSString stringWithUTF8String:optarg];
+				if (imageFormat && ![imageFormat isEqualToString:@"png"] && ![imageFormat isEqualToString:@"jpeg"] && ![imageFormat isEqualToString:@"heic"])
+					usage(2);
 				break;
 			case '?':
 				usage(1);
@@ -44,10 +46,6 @@ int main(int argc, char** argv) {
 			default:
 				usage(1);
 		}
-	}
-
-	if (imageFormat && ![imageFormat isEqualToString:@"png"] && ![imageFormat isEqualToString:@"jpeg"] && ![imageFormat isEqualToString:@"heic"]) {
-		usage(2);
 	}
 
 	if (delay) sleep(delay);
@@ -102,10 +100,10 @@ int main(int argc, char** argv) {
 		dispatch_semaphore_t sema = dispatch_semaphore_create(0);
 
 		[[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-	     		[PHAssetChangeRequest creationRequestForAssetFromImage:screenShot];
+			[PHAssetChangeRequest creationRequestForAssetFromImage:screenShot];
 		} completionHandler:^(BOOL success, NSError* error) {
 			if (!success) {
-				fprintf(stderr, "Could not save screenshot to Photos.\n");
+				fprintf(stderr, "Could not save screenshot to Photos: %s\n", error.localizedDescription.UTF8String);
 				ret = 2;
 			}
 

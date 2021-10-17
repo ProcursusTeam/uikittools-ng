@@ -46,7 +46,7 @@ uiopen: uiopen.m ent.plist
 	$(CC) -fobjc-arc -O3 $(CFLAGS) uiopen.m -o uiopen $(LDFLAGS) -framework Foundation -framework MobileCoreServices
 
 uishoot: uishoot.m uishoot.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) uishoot.m -o uishoot $(LDFLAGS) -framework Foundation -framework UIKit -framework ImageIO
+	$(CC) -fobjc-arc -O3 $(CFLAGS) uishoot.m -o uishoot $(LDFLAGS) -framework ImageIO -framework Photos -framework UIKit
 
 deviceinfo: deviceinfo.c ecidecid.m uiduid.m serial.m locale.m cfversion.c
 	$(CC) -fobjc-arc -O3 $(CFLAGS) $^ -o $@ $(LDFLAGS) -framework CoreFoundation -lMobileGestalt

@@ -7,3 +7,6 @@ uiopen
 deviceinfo
 uialert
 uishoot
+compile_commands.json
+.cache
+include/

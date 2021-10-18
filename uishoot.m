@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
 			case 'i':
 				imageFormat = [NSString stringWithUTF8String:optarg];
 				if (imageFormat && ![imageFormat isEqualToString:@"png"] && ![imageFormat isEqualToString:@"jpeg"] && ![imageFormat isEqualToString:@"heic"]) {
-					fprintf(stderr, "Invalid image format %s\n", imageFormat.UTF8String);
+					fprintf(stderr, "Invalid image format '%s'\n", imageFormat.UTF8String);
 					usage(2);
 				}
 				break;
@@ -72,30 +72,20 @@ int main(int argc, char** argv) {
 	}
 
 	if (filePath) {
-		NSString* imageUTI;
 		NSError* error;
-		if ([imageFormat isEqualToString:@"png"]) {
-			imageUTI = @"public.png";
-		}
-
-		else if ([imageFormat isEqualToString:@"jpeg"]) {
-			imageUTI = @"public.jpeg";
-		}
-
-		else if ([imageFormat isEqualToString:@"heic"]) {
-			imageUTI = @"public.heic";
-		}
-
-		else {
-			imageUTI = @"public.png";
-		}
+		NSString* imageUTI = [NSString stringWithFormat:@"public.%@", imageFormat];
 
 		NSMutableData* imageData = [[NSMutableData alloc] init];
 		CGImageDestinationRef destinationRef = CGImageDestinationCreateWithData((CFMutableDataRef)imageData, (CFStringRef)imageUTI, 1, NULL);
 		CGImageDestinationAddImage(destinationRef, screenShot.CGImage, NULL);
-		CGImageDestinationFinalize(destinationRef);
+		if (!CGImageDestinationFinalize(destinationRef)) {
+			fprintf(stderr, "Could not get image data to write to file!\n");
+			ret = 3;
+		}
 
-		if (![imageData writeToFile:filePath options:NSDataWritingAtomic error:&error]) {
+		CFRelease(destinationRef);
+
+		if (ret != 3 && ![imageData writeToFile:filePath options:NSDataWritingAtomic error:&error]) {
 			fprintf(stderr, "Could not write image to %s: %s\n", filePath.UTF8String, error.localizedDescription.UTF8String);
 			ret = 3;
 		}

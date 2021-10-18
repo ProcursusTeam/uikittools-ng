@@ -1,6 +1,7 @@
+#include <err.h>
 #include <getopt.h>
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
@@ -8,7 +9,7 @@
 OBJC_EXTERN UIImage *_UICreateScreenUIImage(void);
 
 void usage(uint8_t ret) {
-	fprintf(stderr, "uishoot [-cp] [-d num] [-f file] [-i [png | jpeg | heic]]\n");
+	fprintf(stderr, "uishoot [-cp] [-d number] [-f [png | jpeg | heic]] [-o file]\n");
 	exit(ret);
 }
 
@@ -19,23 +20,35 @@ int main(int argc, char** argv) {
 	NSString* filePath = nil;
 	NSString* imageFormat = @"png";
 	int c;
+	const char *errstr;
 	__block int ret = 0;
 
-	while ((c = getopt(argc, argv, "cpf:d:i:")) != -1) {
+	static struct option longopts[] = {
+		{ "clipboard",	no_argument,	NULL,		'b' },
+		{ "photos",	no_argument,	NULL,		'p' },
+		{ "delay",	required_argument,	NULL,		'd' },
+		{ "format",	required_argument,	NULL,		'f' },
+		{ "output",	required_argument,	NULL,		'o' },
+		{ NULL,		0,			NULL, 		0 }
+	};
+
+	while ((c = getopt_long(argc, argv, "cpd:f:o:", longopts, NULL)) != -1) {
 		switch (c) {
 			case 'c':
 				copyToClipboard = true;
 				break;
-			case 'f':
+			case 'o':
 				filePath = [NSString stringWithUTF8String:optarg];
 				break;
 			case 'p':
 				saveToPhotos = true;
 				break;
 			case 'd':
-				delay = strtoll(optarg, NULL, 10);
+				delay = strtonum(optarg, 0, INT_MAX, &errstr);
+				if (errstr != NULL)
+					errx(1, "the timout is %s: %s", errstr, optarg);
 				break;
-			case 'i':
+			case 'f':
 				imageFormat = [NSString stringWithUTF8String:optarg];
 				if (imageFormat && ![imageFormat isEqualToString:@"png"] && ![imageFormat isEqualToString:@"jpeg"] && ![imageFormat isEqualToString:@"heic"]) {
 					fprintf(stderr, "Invalid image format '%s'\n", imageFormat.UTF8String);

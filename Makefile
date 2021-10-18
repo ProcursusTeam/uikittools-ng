@@ -7,7 +7,7 @@ LDID    ?= ldid
 INSTALL ?= install
 
 ALL := gssc ldrestart sbdidlaunch sbreload uicache uiopen deviceinfo uialert uishoot
-MAN := gssc.1 ldrestart.1 sbdidlaunch.1 sbreload.1 uicache.1 uiopen.1 deviceinfo.1 uialert.1
+MAN := gssc.1 ldrestart.1 sbdidlaunch.1 sbreload.1 uicache.1 uiopen.1 deviceinfo.1 uialert.1 uishoot.1
 ALLMAC := gssc deviceinfo uialert
 MANMAC := gssc.1 deviceinfo.1 uialert.1
 
@@ -45,8 +45,8 @@ uicache: uicache.m uicache.plist
 uiopen: uiopen.m ent.plist
 	$(CC) -fobjc-arc -O3 $(CFLAGS) uiopen.m -o uiopen $(LDFLAGS) -framework Foundation -framework MobileCoreServices
 
-uishoot: uishoot.m uishoot.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) uishoot.m -o uishoot $(LDFLAGS) -framework ImageIO -framework Photos -framework UIKit
+uishoot: uishoot.m strtonum.c uishoot.plist
+	$(CC) -fobjc-arc -O3 $(CFLAGS) uishoot.m strtonum.c -o uishoot $(LDFLAGS) -framework ImageIO -framework Photos -framework UIKit
 
 deviceinfo: deviceinfo.c ecidecid.m uiduid.m serial.m locale.m cfversion.c
 	$(CC) -fobjc-arc -O3 $(CFLAGS) $^ -o $@ $(LDFLAGS) -framework CoreFoundation -lMobileGestalt

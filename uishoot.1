@@ -1,0 +1,48 @@
+.\"-
+.\" Copyright (c) 2020-2021 ProcursusTeam
+.\" SPDX-License-Identifier: BSD-4-Clause
+.\"
+.Dd October 18, 2021
+.Dt UISHOOT 1
+.Os
+.Sh NAME
+.Nm uishoot
+.Nd Take a screenshot
+.Sh SYNOPSIS
+.Nm
+.Op Fl cp
+.Op Fl d Ar number
+.Op Fl f Op Ar jpeg | png | heic
+.Op Fl o Ar file
+.Sh DESCRIPTION
+The
+.Nm
+utility will take a screenshot.
+.Sh OPTIONS
+.Bl -tag -width indent
+.It Fl c , -clipboard
+Save the screenshot to the clipboard.
+.It Fl d , -delay Ar number
+Wait
+.Ar number
+seconds before taking the screenshot.
+.It Fl p , -photos
+Add the screenshot to the photos album.
+.It Fl f , -format Op Ar jpeg | png | heic
+Save and output the image in the specified format.
+.It Fl o , -output Ar file
+Save the photo to
+.Ar file .
+If
+.F; f
+is unset, the format will be derived from the file extension of
+.Ar file .
+.El
+.Sh HISTORY
+The
+.Nm
+utility first appeared in uikittools on August 29, 2008, written by
+.An Jay Qo Saurik Qc Freeman .
+Later, it was reimplemented by
+.An sunchipnacho
+for uikittools-ng on October 18, 2021 with added options.

@@ -50,12 +50,15 @@ int main(int argc, char** argv) {
 		}
 	}
 
+	if (optind <= 1)
+		usage(1);
+
 	if (delay) sleep(delay);
 
 	UIImage* screenShot = _UICreateScreenUIImage();
 	if (!screenShot) {
 		fprintf(stderr, "Could not capture screenshot!\n");
-		return 1;
+		return 2;
 	}
 
 	if (copyToClipboard) { 
@@ -94,7 +97,7 @@ int main(int argc, char** argv) {
 
 		if (![imageData writeToFile:filePath options:NSDataWritingAtomic error:&error]) {
 			fprintf(stderr, "Could not write image to %s: %s\n", filePath.UTF8String, error.localizedDescription.UTF8String);
-			ret = 1;
+			ret = 3;
 		}
 	}
 
@@ -106,7 +109,7 @@ int main(int argc, char** argv) {
 		} completionHandler:^(BOOL success, NSError* error) {
 			if (!success) {
 				fprintf(stderr, "Could not save screenshot to Photos: %s\n", error.localizedDescription.UTF8String);
-				ret = 2;
+				ret = 3;
 			}
 
 			dispatch_semaphore_signal(sema);

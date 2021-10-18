@@ -6,8 +6,8 @@ STRIP   ?= strip
 LDID    ?= ldid
 INSTALL ?= install
 
-ALL := gssc ldrestart sbdidlaunch sbreload uicache uiopen deviceinfo uialert uishoot uinotify
-MAN := gssc.1 ldrestart.1 sbdidlaunch.1 sbreload.1 uicache.1 uiopen.1 deviceinfo.1 uialert.1 uishoot.1 uinotify.1
+ALL := gssc ldrestart sbdidlaunch sbreload uicache uiopen deviceinfo uialert uishoot uinotify uisave
+MAN := gssc.1 ldrestart.1 sbdidlaunch.1 sbreload.1 uicache.1 uiopen.1 deviceinfo.1 uialert.1 uishoot.1 uinotify.1 uisave.1
 ALLMAC := gssc deviceinfo uialert
 MANMAC := gssc.1 deviceinfo.1 uialert.1
 
@@ -22,6 +22,7 @@ sign: $(ALL)
 	$(LDID) -Suiopen.plist uiopen
 	$(LDID) -Suishoot.plist uishoot
 	$(LDID) -Suinotify.plist uinotify
+	$(LDID) -Suisave.plist uisave
 
 all: sign
 
@@ -52,6 +53,9 @@ uishoot: uishoot.m strtonum.c uishoot.plist
 uinotify: uinotify.m strtonum.c uinotify.plist
 	$(CC) -fobjc-arc -O3 $(CFLAGS) uinotify.m strtonum.c -o uinotify $(LDFLAGS) -framework UserNotifications
 
+uisave: uisave.m uisave.plist
+	$(CC) -fobjc-arc -O3 $(CFLAGS) uisave.m -o uisave $(LDFLAGS) -framework Foundation -framework Photos -framework UIKit
+
 deviceinfo: deviceinfo.c ecidecid.m uiduid.m serial.m locale.m cfversion.c
 	$(CC) -fobjc-arc -O3 $(CFLAGS) $^ -o $@ $(LDFLAGS) -framework CoreFoundation -lMobileGestalt
 
@@ -71,4 +75,4 @@ install-macosx: $(ALLMAC) $(MANMAC)
 	$(INSTALL) -m644 $(MANMAC) $(DESTDIR)$(PREFIX)/share/man/man1/
 
 clean:
-	rm -rf gssc ldrestart sbdidlaunch sbreload uicache uiopen deviceinfo uialert *.dSYM
+	rm -rf gssc ldrestart sbdidlaunch sbreload uicache uiopen deviceinfo uialert uisave *.dSYM

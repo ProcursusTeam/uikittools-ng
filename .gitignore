@@ -8,6 +8,7 @@ deviceinfo
 uialert
 uishoot
 uinotify
+uisave
 compile_commands.json
 .cache
 include/

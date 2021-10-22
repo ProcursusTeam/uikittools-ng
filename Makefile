@@ -26,34 +26,34 @@ sign: $(ALL)
 all: sign
 
 gssc: gssc.m gssc.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) gssc.m -o gssc $(LDFLAGS) -framework Foundation -lMobileGestalt
+	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -lMobileGestalt
 
 ldrestart: ldrestart.c ent.plist
-	$(CC) -O3 $(CFLAGS) ldrestart.c -o ldrestart $(LDFLAGS)
+	$(CC) -O3 $(CFLAGS) $< -o $@ $(LDFLAGS)
 
 sbdidlaunch: sbdidlaunch.c ent.plist
-	$(CC) -O3 $(CFLAGS) sbdidlaunch.c -o sbdidlaunch $(LDFLAGS) -framework CoreFoundation
+	$(CC) -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework CoreFoundation
 
 uialert: uialert.m strtonum.c ent.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) uialert.m strtonum.c -o uialert $(LDFLAGS) -framework CoreFoundation
+	$(CC) -fobjc-arc -O3 $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework CoreFoundation
 
 sbreload: sbreload.m sbreload-launchd.c sbreload.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) sbreload.m sbreload-launchd.c -o sbreload $(LDFLAGS) -framework Foundation
+	$(CC) -fobjc-arc -O3 $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework Foundation
 
 uicache: uicache.m uicache.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) uicache.m -o uicache -framework Foundation $(LDFLAGS) -framework MobileCoreServices -DAPP_PATH="@\"$(APP_PATH)\""
+	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ -framework Foundation $(LDFLAGS) -framework MobileCoreServices -DAPP_PATH="@\"$(APP_PATH)\""
 
 uiopen: uiopen.m ent.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) uiopen.m -o uiopen $(LDFLAGS) -framework Foundation -framework MobileCoreServices
+	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -framework MobileCoreServices
 
 uishoot: uishoot.m strtonum.c uishoot.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) uishoot.m strtonum.c -o uishoot $(LDFLAGS) -framework ImageIO -framework Photos -framework UIKit
+	$(CC) -fobjc-arc -O3 $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework ImageIO -framework Photos -framework UIKit
 
 uinotify: uinotify.m strtonum.c uinotify.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) uinotify.m strtonum.c -o uinotify $(LDFLAGS) -framework UserNotifications
+	$(CC) -fobjc-arc -O3 $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework UserNotifications
 
 uisave: uisave.m uisave.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) uisave.m -o uisave $(LDFLAGS) -framework Foundation -framework Photos -framework UIKit
+	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -framework Photos -framework UIKit
 
 deviceinfo: deviceinfo.c ecidecid.m uiduid.m serial.m locale.m cfversion.c
 	$(CC) -fobjc-arc -O3 $(CFLAGS) $^ -o $@ $(LDFLAGS) -framework CoreFoundation -lMobileGestalt

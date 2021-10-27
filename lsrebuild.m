@@ -34,12 +34,10 @@
 
 int main(int argc, char** argv) {
 	@autoreleasepool {
-		LSApplicationWorkspace* workspace =
-			[LSApplicationWorkspace defaultWorkspace];
+		LSApplicationWorkspace* workspace = [LSApplicationWorkspace defaultWorkspace];
 		if (![workspace
 				respondsToSelector:@selector
-				(_LSPrivateRebuildApplicationDatabasesForSystemApps:
-														   internal:user:)]) {
+				(_LSPrivateRebuildApplicationDatabasesForSystemApps:internal:user:)]) {
 			fputs("Not supported\n", stderr);
 			return -1;
 		}

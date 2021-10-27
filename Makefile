@@ -79,8 +79,8 @@ install: sign $(ALL)
 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/man/zh_TW/man1/
 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/man/zh_CN/man1/
 	$(INSTALL) -m644 $(patsubst %,man/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/man1/
-	$(INSTALL) -m644 $(patsubst %,man/zh_TW/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/zh_TW/man1/
-	$(INSTALL) -m644 $(patsubst %,man/zh_CN/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/zh_CN/man1/
+	-$(INSTALL) -m644 $(patsubst %,man/zh_TW/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/zh_TW/man1/
+	-$(INSTALL) -m644 $(patsubst %,man/zh_CN/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/zh_CN/man1/
 
 clean:
 	rm -rf $(ALL) *.dSYM

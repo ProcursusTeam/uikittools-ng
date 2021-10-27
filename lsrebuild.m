@@ -1,4 +1,5 @@
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <Foundation/Foundation.h>
 
 @interface LSResourceProxy : NSObject
 @property(assign) NSString* localizedName;

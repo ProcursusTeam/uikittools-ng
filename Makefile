@@ -6,22 +6,30 @@ STRIP   ?= strip
 LDID    ?= ldid
 INSTALL ?= install
 
-ALL := gssc ldrestart sbdidlaunch sbreload uicache uiopen deviceinfo uialert uishoot uinotify uisave
-MAN := gssc.1 ldrestart.1 sbdidlaunch.1 sbreload.1 uicache.1 uiopen.1 deviceinfo.1 uialert.1 uishoot.1 uinotify.1 uisave.1
-ALLMAC := gssc deviceinfo uialert
-MANMAC := gssc.1 deviceinfo.1 uialert.1
+ifneq (,$(findstring bridgeos,$(CC) $(CFLAGS)))
+ALL := gssc ldrestart
+else ifneq (,$(findstring iphoneos,$(CC) $(CFLAGS)))
+ALL := gssc ldrestart sbdidlaunch sbreload uicache uiopen deviceinfo uialert uishoot uinotify uisave lsrebuild
+else ifneq (,$(findstring appletvos,$(CC) $(CFLAGS)))
+ALL := gssc ldrestart sbreload uicache uiopen deviceinfo uialert uishoot lsrebuild
+else ifneq (,$(findstring macosx,$(CC) $(CFLAGS)))
+ALL := gssc deviceinfo uialert
+endif
+MAN := $(patsubst %,%.1,$(ALL))
+
 APP_PATH ?= $(MEMO_PREFIX)/Applications
 
 sign: $(ALL)
 	$(STRIP) $(ALL)
-	$(LDID) -Sent.plist ldrestart sbdidlaunch deviceinfo
-	$(LDID) -Sgssc.plist gssc
-	$(LDID) -Ssbreload.plist sbreload
-	$(LDID) -Suicache.plist uicache
-	$(LDID) -Suiopen.plist uiopen
-	$(LDID) -Suishoot.plist uishoot
-	$(LDID) -Suinotify.plist uinotify
-	$(LDID) -Suisave.plist uisave
+ifneq (,$(findstring macosx,$(CC) $(CFLAGS)))
+	for tool in $(ALL); do \
+		if [ -f $$tool.plist ]; then \
+			$(LDID) -S$${tool}.plist $$tool; \
+		else \
+			$(LDID) -Sent.plist $$tool; \
+		fi; \
+	done
+endif
 
 all: sign
 
@@ -55,12 +63,15 @@ uinotify: uinotify.m strtonum.c uinotify.plist
 uisave: uisave.m uisave.plist
 	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -framework Photos -framework UIKit
 
+lsrebuild: lsrebuild.m lsrebuild.plist
+	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -framework MobileCoreServices
+
 deviceinfo: deviceinfo.c ecidecid.m uiduid.m serial.m locale.m cfversion.c
 	$(CC) -fobjc-arc -O3 $(CFLAGS) $^ -o $@ $(LDFLAGS) -framework CoreFoundation -lMobileGestalt
 
 install: sign $(ALL)
 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/bin/
-	$(INSTALL) -s -m755 $(ALL) $(DESTDIR)$(PREFIX)/bin/
+	$(INSTALL) -m755 $(ALL) $(DESTDIR)$(PREFIX)/bin/
 	ln -sf deviceinfo $(DESTDIR)$(PREFIX)/bin/cfversion
 	ln -sf deviceinfo $(DESTDIR)$(PREFIX)/bin/uiduid
 	ln -sf deviceinfo $(DESTDIR)$(PREFIX)/bin/ecidecid
@@ -68,23 +79,13 @@ install: sign $(ALL)
 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/man/zh_TW/man1/
 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/man/zh_CN/man1/
 	$(INSTALL) -m644 $(patsubst %,man/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/man1/
-	$(INSTALL) -m644 $(patsubst %,man/zh_TW/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/zh_TW/man1/
-	$(INSTALL) -m644 $(patsubst %,man/zh_CN/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/zh_CN/man1/
-
-install-macosx: $(ALLMAC)
-	$(INSTALL) -d $(DESTDIR)$(PREFIX)/bin/
-	$(INSTALL) -s -m755 $(ALLMAC) $(DESTDIR)$(PREFIX)/bin/
-	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/man/man1/
-	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/man/zh_TW/man1/
-	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/man/zh_CN/man1/
-	$(INSTALL) -m644 $(patsubst %,man/%,$(MANMAC)) $(DESTDIR)$(PREFIX)/share/man/man1/
-	$(INSTALL) -m644 $(patsubst %,man/zh_TW/%,$(MANMAC)) $(DESTDIR)$(PREFIX)/share/man/zh_TW/man1/
-	$(INSTALL) -m644 $(patsubst %,man/zh_CN/%,$(MANMAC)) $(DESTDIR)$(PREFIX)/share/man/zh_CN/man1/
+	-$(INSTALL) -m644 $(patsubst %,man/zh_TW/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/zh_TW/man1/
+	-$(INSTALL) -m644 $(patsubst %,man/zh_CN/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/zh_CN/man1/
 
 clean:
-	rm -rf $(ALL) $(ALLMAC) *.dSYM
+	rm -rf $(ALL) *.dSYM
 
 format:
 	find . -type f -name '*.[cm]' -exec clang-format -i {} \;
 
-.PHONY: all clean install install-macosx sign format
+.PHONY: all clean install sign format

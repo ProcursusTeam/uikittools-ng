@@ -1,5 +1,6 @@
 // Huge thanks to Morpheus for this
 
+#include <TargetConditionals.h>
 #include <xpc/xpc.h>
 
 extern int xpc_pipe_routine(xpc_object_t *xpc_pipe, xpc_object_t *inDict,
@@ -106,7 +107,11 @@ int updatePIDs() {
 				svcs, ^bool(const char *label, xpc_object_t svc) {
 				  int64_t pid = xpc_dictionary_get_int64(svc, "pid");
 				  if (pid != 0) {
+#if TARGET_OS_TV
+					  if (strcmp(label, "com.apple.PineBoard") == 0) {
+#else
 					  if (strcmp(label, "com.apple.SpringBoard") == 0) {
+#endif
 						  springboardPID = pid;
 					  }
 					  if (strcmp(label, "com.apple.backboardd") == 0) {

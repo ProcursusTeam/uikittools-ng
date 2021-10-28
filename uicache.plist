@@ -18,5 +18,9 @@
 	<true/>
 	<key>com.apple.frontboard.shutdown</key>
 	<true/>
+	<key>com.apple.appletv.pbs.allow-relaunch-backboardd</key>
+	<true/>
+	<key>com.apple.appletv.pbs.allow-relaunch</key>
+	<true/>
 </dict>
 </plist>

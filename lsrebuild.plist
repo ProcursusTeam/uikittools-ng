@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>com.apple.private.skip-library-validation</key>
+	<true/>
+	<key>platform-application</key>
+	<true/>
+	<key>com.apple.lsapplicationworkspace.rebuildappdatabases</key>
+	<true/>
+	<key>com.apple.private.MobileContainerManager.lookup</key>
+	<dict>
+		<key>systemData</key>
+		<array>
+			<string>com.apple.lsd</string>
+		</array>
+	</dict>
+	<key>com.apple.private.coreservices.canforcedatabasegc</key>
+	<true/>
+	<key>com.apple.private.coreservices.canmapbundleidtouuid</key>
+	<true/>
+	<key>com.apple.private.coreservices.canmaplsdatabase</key>
+	<true/>
+	<key>com.apple.private.coreservices.canresetserverstore</key>
+	<true/>
+</dict>
+</plist>

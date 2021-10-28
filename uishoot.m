@@ -79,6 +79,8 @@ int main(int argc, char** argv) {
 		return 2;
 	}
 
+	// tvOS doesn't have a clipboard, make this a no-op
+#if !TARGET_OS_TV
 	if (copyToClipboard) {
 		FILE* old_stderr = stderr;
 		stderr = fopen("/dev/null", "w");
@@ -88,6 +90,7 @@ int main(int argc, char** argv) {
 		fclose(stderr);
 		stderr = old_stderr;
 	}
+#endif
 
 	if (filePath) {
 		NSError* error;

@@ -1,6 +1,7 @@
 #import <UserNotifications/UserNotifications.h>
 #include <err.h>
 #include <getopt.h>
+
 @interface UNUserNotificationCenter (Private)
 - (id)initWithBundleIdentifier:(id)arg1;
 @end

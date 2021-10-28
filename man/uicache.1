@@ -10,7 +10,7 @@
 .Nd Update registered applications
 .Sh SYNOPSIS
 .Nm
-.Op Fl afhlr
+.Op Fl afhlrv
 .Op Fl i Ar id
 .Op Fl p Ar path
 .Op Fl u Ar path
@@ -37,21 +37,24 @@ or
 .Nm
 will operate on apps installed from the App Store.
 .It Fl h , -help
-Prints a help text
-.It Fl r , -respring
-Restarts SpringBoard and backboard after all other actions
-.It Fl l , -list
-Lists the bundle ID and path for each registered application
+Prints help text.
 .It Fl i , -info Ar bundleid
-Shows information about the application with the specified bundle ID
-.It Fl u , -unregister Ar path
-Unregisters an application bundle, using the specified
-.Ar path
-, from the cache
+Shows information about the application with the specified bundle ID.
+.It Fl l , -list
+Lists the bundle ID and path for each registered application.
 .It Fl p , -path Ar path
 Registers or updates an application bundle, at the specified
 .Ar path
-, to the cache
+, to the cache.
+.It Fl r , -respring
+Restarts SpringBoard and backboard after all other actions.
+.It Fl u , -unregister Ar path
+Unregisters an application bundle, using the specified
+.Ar path
+, from the cache.
+.It Fl v , -verbose
+Print out which apps are registered and unregistered when used with
+.Fl a .
 .El
 .Sh EXAMPLES
 To refresh all applications

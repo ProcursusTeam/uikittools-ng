@@ -85,6 +85,7 @@ typedef NS_OPTIONS(NSUInteger, SBSRelaunchActionOptions) {
 @end
 
 int force = 0;
+int verbose = 0;
 
 // clang-format off
 void help() {
@@ -357,9 +358,16 @@ void registerAll() {
 			[toUnregister addObject:app];
 		}
 	}
-	for (NSString *app in toRegister) registerPath((char *)[app UTF8String], 0);
-	for (NSString *app in toUnregister)
+	for (NSString *app in toRegister) {
+		if (verbose)
+			printf("registering %s\n", app.UTF8String);
+		registerPath((char *)[app UTF8String], 0);
+	}
+	for (NSString *app in toUnregister) {
+		if (verbose)
+			printf("unregistering %s\n", app.UTF8String);
 		registerPath((char *)[app UTF8String], 1);
+	}
 }
 
 int main(int argc, char *argv[]) {
@@ -431,6 +439,9 @@ int main(int argc, char *argv[]) {
 				case 'f':
 					force = 1;
 					break;
+				case 'v':
+					verbose = 1;
+					break;
 			}
 		}
 
@@ -453,22 +464,8 @@ int main(int argc, char *argv[]) {
 			registerPath((char *)[path UTF8String], 1);
 		}
 
-		if (argc == 1) {
-			if (!(getenv("SILEO") || isatty(STDOUT_FILENO) ||
-				  isatty(STDIN_FILENO) || isatty(STDERR_FILENO))) {
-				printf("\n");
-				fprintf(stderr, "Warning uicache: No arguments detected.\n");
-			}
-		}
-
-		if (all) {
-			if (getenv("SILEO"))
-				fprintf(stderr,
-						"Error: -a may not be used while "
-						"installing/uninstalling in Sileo. Ignoring.\n");
-			else
-				registerAll();
-		}
+		if (all)
+			registerAll();
 
 		if (respring) {
 			dlopen("/System/Library/PrivateFrameworks/FrontBoardServices.framework/FrontBoardServices", RTLD_NOW);

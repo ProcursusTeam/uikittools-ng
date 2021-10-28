@@ -1,6 +1,6 @@
 .\"-
-.\"Copyright (c) 2020-2021 ProcursusTeam
-.\"SPDX-License-Identifier: BSD-4-Clause
+.\" Copyright (c) 2020-2021 ProcursusTeam
+.\" SPDX-License-Identifier: BSD-4-Clause
 .\"
 .Dd August 19, 2021
 .Dt UICACHE 1
@@ -42,9 +42,9 @@
 在完成所有操作之后，重新启动主画面和backboard。
 .It Fl l , -list
 列出每一个应用程式的路径和封装识别码。
-.It Fl i , -info Ar bundleid
+.It Fl i , -info Ar 封装识别码
 显示指定封装识别码的应用程式资讯。
-.It Fl u , -unregister Ar path
+.It Fl u , -unregister Ar 路径
 从快取中移除位于
 .Ar 路径
 , 的应用程式。
@@ -52,6 +52,10 @@
 把位于指定
 .Ar 路径
 , 中的应用程式加入到快取中， 或更新快取。
+.It Fl v , -verbose
+当和
+.Fl a
+一起使用时，印出被注册或被取消注册的应用程式。
 .El
 .Sh 例子
 要重新整理所有应用程式，

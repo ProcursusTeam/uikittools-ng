@@ -42,9 +42,9 @@
 在完成所有操作之後，重新啟動主畫面和backboard。
 .It Fl l , -list
 列出每一個應用程式的路徑和封裝識別碼。
-.It Fl i , -info Ar bundleid
+.It Fl i , -info Ar 封裝識別碼
 顯示指定封裝識別碼的應用程式資訊。
-.It Fl u , -unregister Ar path
+.It Fl u , -unregister Ar 路徑
 從快取中移除位於
 .Ar 路徑
 , 的應用程式。
@@ -52,6 +52,10 @@
 把位於指定
 .Ar 路徑
 , 中的應用程式加入到快取中， 或更新快取。
+.It Fl v , -verbose
+當和
+.Fl a
+一起使用時，印出被註冊或被取消註冊的應用程式。
 .El
 .Sh 例子
 要重新整理所有應用程式，

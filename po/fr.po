@@ -5,54 +5,54 @@ msgstr ""
 "POT-Creation-Date: 2021-10-29 19:44-0400\n"
 "PO-Revision-Date: 2021-10-29 23:45\n"
 "Last-Translator: \n"
-"Language-Team: Chinese Traditional\n"
-"Language: zh_TW\n"
+"Language-Team: French\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Crowdin-Project: uikittools-ng\n"
 "X-Crowdin-Project-ID: 482777\n"
-"X-Crowdin-Language: zh-TW\n"
+"X-Crowdin-Language: fr\n"
 "X-Crowdin-File: uikittools-ng.pot\n"
 "X-Crowdin-File-ID: 3\n"
 
 #: ../deviceinfo.c:43 ../deviceinfo.c:88
 #, c-format
 msgid "Usage: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"
-msgstr "用法：%s [cfversion | ecid | locale | serial | uniqueid] [選項 ...]\n"
+msgstr "Utilisation: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"
 
 #: ../ldrestart.c:78 ../sbreload-launchd.c:78
 #, c-format
 msgid "Error stopping service:  %d - %s\n"
-msgstr "停止服務時發生錯誤： %d - %s\n"
+msgstr "Erreur lors de l'arrêt du service:  %d - %s\n"
 
 #: ../ldrestart.c:112 ../sbreload-launchd.c:106
 #, c-format
 msgid "Error: no services returned for list\n"
-msgstr "錯誤：列表中沒有回傳任何服務\n"
+msgstr "Erreur: aucun service n'a été trouvé dans la liste\n"
 
 #: ../ldrestart.c:120 ../sbreload-launchd.c:114
 #, c-format
 msgid "Error: services returned for list aren't a dictionary!\n"
-msgstr "錯誤：這個列表回傳的服務不是一個字典！\n"
+msgstr "Erreur: les services trouvés pour la liste ne sont pas des dictionnaires!\n"
 
 #: ../ldrestart.c:138 ../sbreload-launchd.c:136
 #, c-format
 msgid "Error:  %d - %s\n"
-msgstr "錯誤：%d - %s\n"
+msgstr "Erreur:  %d - %s\n"
 
 #: ../ldrestart.c:141 ../sbreload-launchd.c:139
 #, c-format
 msgid "Unable to get launchd: %d\n"
-msgstr "無法取得launchd: %d\n"
+msgstr "Échec de l'obtention du launchd: %d\n"
 
 #: ../locale.m:16
 #, c-format
 msgid "Usage: deviceinfo locale [-ilcvh]\n"
 "Print the current locale\n\n"
-msgstr "用法: deviceinfo locale [-ilcvh]\n"
-"印出目前的地區設定\n\n"
+msgstr "Usage: deviceinfo locale [-ilcvh]\n"
+"Affiche la locale actuelle\n\n"
 
 #: ../locale.m:19
 #, c-format
@@ -66,20 +66,20 @@ msgstr ""
 
 #: ../lsrebuild.m:60
 msgid "missing necessary method"
-msgstr "缺少必須的方法"
+msgstr "il manque des fonctions nécéssaires"
 
 #: ../lsrebuild.m:66
 msgid "RebuildApplicationDatabases failed"
-msgstr "RebuildApplicationDatabases 失敗"
+msgstr "RebuildApplicationDatabases a échoué"
 
 #: ../uialert.m:22
 #, c-format
 msgid "Usage: %s [-b body] [-p primary] [--priority 0-3] [-s second] [-t third] [--timeout number] title\n"
 "Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
 "Display an alert\n\n"
-msgstr "用法：%s [-b 正文] [-p 主要] [--priority 0-3] [-s 第二] [-t 第三] [--timeout 數字] 標題\n"
-"版權所有 (C) 2021，ProcursusTeam。 保留所有權利。\n\n"
-"顯示一個提示。\n\n"
+msgstr "Usage: %s [-b corps] [-p primaire] [--priority 0-3] [-s deuxième] [-t troisième] [--timeout nombre] titre\n"
+"Copyright (C) 2021, Procursus Team. Tous droits réservés.\n\n"
+"Afficher une alerte\n\n"
 
 #: ../uialert.m:26
 #, c-format
@@ -90,7 +90,13 @@ msgid "  -b, --body <text>        Text for alert body\n"
 "  -s, --secondary <text>   Second button text\n"
 "  -t, --tertiary <text>    Third button text\n"
 "      --timeout <num>      Number of seconds to wait before exiting\n\n"
-msgstr ""
+msgstr "  -b, --body <text>        Texte pour le corps de l'alerte\n"
+"  -p, --primary <text>     Texte du bouton par défaut au lieu de \"OK\"\n"
+"      --priority 0-3 Priorité de l'alerte\n"
+"                           Ceci change l'icône sur macOS\n"
+"  -s, --second <text>   Texte du deuxième bouton\n"
+"  -t, --tertiary <text>    Texte du troisième bouton\n"
+"      --timeout <num>      Nombre de secondes à attendre avant que ce programme s'arrête\n\n"
 
 #: ../uialert.m:34
 #, c-format
@@ -100,28 +106,34 @@ msgid "Output:\n"
 "  2 - tertiary button\n"
 "  3 - timeout/cancel\n\n"
 "Contact the Procursus Team for support.\n"
-msgstr ""
+msgstr "Sortie :\n"
+"  0 - bouton primaire\n"
+"  1 - bouton secondaire\n"
+"  2 - bouton tertiaire\n"
+"  3 - délai/annulation\n\n"
+"Contactez l'équipe Procursus pour obtenir de l'aide.\n"
 
 #: ../uialert.m:95
 #, c-format
 msgid "the priority is %s: %s"
-msgstr ""
+msgstr "la priorité est de %s: %s"
 
 #: ../uialert.m:112
 #, c-format
 msgid "the timeout is %s: %s"
-msgstr ""
+msgstr "le délai est de %s: %s"
 
 #: ../uicache.m:104
 #, c-format
 msgid "Usage: %s [-afhlr] [-i id] [-p path] [-u path]\n"
 "Modified work Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
-msgstr ""
+msgstr "Usage: %s [-afhlr] [-i identifiant] [-p emplacement] [-u emplacement]\n"
+"Modified work Copyright (C) 2021, Équipe Procursus. Tous droits réservés.\n\n"
 
 #: ../uicache.m:106
 #, c-format
 msgid "Update iOS registered applications and optionally restart SpringBoard\n\n"
-msgstr ""
+msgstr "Mettre à jour les applications enregistrées par iOS et redémarrer SpringBoard en option\n\n"
 
 #: ../uicache.m:108
 #, c-format
@@ -132,7 +144,8 @@ msgstr ""
 #, c-format
 msgid "  -f, --force              Force -a to reregister all Applications\n"
 "                              and modify App Store apps\n"
-msgstr ""
+msgstr "  -f, --force Force -a à réenregistrer toutes les applications\n"
+"                              et modifier les applications App Store\n"
 
 #: ../uicache.m:111
 #, c-format
@@ -287,23 +300,24 @@ msgstr ""
 #, c-format
 msgid "Usage: %s file ...\n"
 "Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
-msgstr ""
+msgstr "Utilisation: %s fichier ...\n"
+"Copyright (C) 2021, Procursus Team. Tous droits réservés.\n\n"
 
 #: ../uisave.m:22
 #, c-format
 msgid "Save images and videos to the camera roll\n\n"
-msgstr ""
+msgstr "Sauvergarder les images et les vidéos dans la bibliothèque\n\n"
 
 #: ../uisave.m:24
 #, c-format
 msgid "Image and video formats that can be saved to the camera roll\n"
 "vary between iOS versions\n\n"
-msgstr ""
+msgstr "Les formats d'image et de vidéo qui peuvent être sauvegardés dans la bibliothèque varient selon les versions d'iOS\n\n"
 
 #: ../uisave.m:57
 #, c-format
 msgid "No file at path: %s\n"
-msgstr ""
+msgstr "Aucun fichier n'est à l'emplacement %s\n"
 
 #: ../uisave.m:73
 #, c-format

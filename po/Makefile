@@ -14,4 +14,7 @@ install: all
 		install -m644 $$lang.mo $(DESTDIR)$(LOCALEDIR)/$$lang/LC_MESSAGES/uikittools-ng.mo || true; \
 	done
 
+uikittools-ng.pot: $(wildcard ../*.[cm])
+	xgettext --keyword=_ --copyright-holder=ProcursusTeam --package-version=2.1.0 --package-name=uikittools-ng --output $@ $^
+
 .PHONY: all clean install

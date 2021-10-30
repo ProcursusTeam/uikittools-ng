@@ -8,7 +8,7 @@ LDID    ?= ldid
 ifneq (,$(findstring bridgeos,$(CC) $(CFLAGS)))
 ALL := gssc ldrestart
 else ifneq (,$(findstring iphoneos,$(CC) $(CFLAGS)))
-ALL := gssc ldrestart sbdidlaunch sbreload uicache uiopen deviceinfo uialert uishoot uinotify uisave lsrebuild
+ALL := gssc ldrestart sbdidlaunch sbreload uicache uiopen deviceinfo uialert uishoot uinotify uisave lsrebuild uidisplay
 else ifneq (,$(findstring appletvos,$(CC) $(CFLAGS)))
 ALL := gssc ldrestart sbreload uicache uiopen deviceinfo uialert uishoot lsrebuild
 else
@@ -77,6 +77,9 @@ uisave: uisave.m uisave.plist
 
 lsrebuild: lsrebuild.m lsrebuild.plist
 	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -framework MobileCoreServices
+
+uidisplay: uidisplay.m strtonum.c uidisplay.plist
+	$(CC) -fobjc-arc -O3 $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework Foundation -lAccessibility
 
 deviceinfo: deviceinfo.c ecidecid.m uiduid.m serial.m locale.m cfversion.c
 	$(CC) -fobjc-arc -O3 $(CFLAGS) $^ -o $@ $(LDFLAGS) -framework CoreFoundation -lMobileGestalt

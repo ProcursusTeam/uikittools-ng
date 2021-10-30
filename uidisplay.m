@@ -135,7 +135,7 @@ void setDarkMode(state newState) {
 
 		dlclose(uiKitServices);
 	} else {
-		errx(2, "Night Mode is only supported on iOS 13 and higher.\n");
+		errx(2, "Dark Mode is only supported on iOS 13 and higher.\n");
 	}
 }
 

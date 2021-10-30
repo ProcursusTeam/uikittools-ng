@@ -246,6 +246,9 @@ void setBrightness(char *value) {
 	int number;
 	const char *errstr;
 
+	if (value[length - 1] == '%')
+		value[length - 1] = '\0';
+
 	if (increase || decrease) {
 		if (length < 2) {
 			errx(1, _("Invalid brightness value: %s\n"), value);

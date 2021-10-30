@@ -24,10 +24,15 @@ will print or set the brightness of your device, as well as other options such a
 .Bl -tag -width indent
 .It Fl a , -autobrightness Ar state
 Set the Auto Brightness setting to
-.Ar state .
+.Ar state ,
+which can be one of on, 1, off, or 0.
 .It Fl b , -brightness Oo Ar + Ns | Ns Ar - Oc Ns Ar num
 Set the brightness to
-.Ar num .
+.Ar num ,
+it must be between 0 and 100.
+A trailing
+.Dq %
+is valid.
 If
 .Ar +
 is used the brightness will be incremented by
@@ -38,7 +43,8 @@ is used the brightness will be decremented by
 .Ar num .
 .It Fl d , -darkmode Ar state
 Override the Dark Mode value to
-.Ar state .
+.Ar state ,
+which can be one of on, 1, off, or 0.
 .It Fl h
 Prints a help text.
 .It Fl i , -info Ar key
@@ -56,11 +62,25 @@ only print the value of
 .Ar key .
 .It Fl n , -nightshift Ar state
 Set the Night Shift setting to
-.Ar state .
+.Ar state ,
+which can be one of on, 1, off, or 0.
 .It Fl t , -truetone Ar state
 Set the True Tone setting to
-.Ar state .
+.Ar state ,
+which can be one of on, 1, off, or 0.
 .El
+.Sh EXIT STATUS
+The
+.Nm
+utility exits with one of the following values:
+.Pp
+.Bl -tag -width Ds -compact
+.It 0
+Everything worked as expected.
+.It 1
+Something went wrong, an error message will also be printed.
+.It 2
+The requested action is not supported.
 .Sh EXAMPLES
 Increase the brightness by 10 percent:
 .Dl "uidisplay -b +10"

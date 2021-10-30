@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2021 ProcursusTeam
+# Copyright (C) YEAR ProcursusTeam
 # This file is distributed under the same license as the uikittools-ng package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uikittools-ng 2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-29 19:44-0400\n"
+"POT-Creation-Date: 2021-10-29 23:56-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -252,6 +252,92 @@ msgstr ""
 #: ../uicache.m:378
 #, c-format
 msgid "unregistering %s\n"
+msgstr ""
+
+#: ../uidisplay.m:75
+#, c-format
+msgid ""
+"Usage: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-n state] [-t "
+"state]\n"
+msgstr ""
+
+#: ../uidisplay.m:86
+#, c-format
+msgid "Invalid %s value: '%s', permitted values: 0, off, 1, on\n"
+msgstr ""
+
+#: ../uidisplay.m:94
+msgid "on"
+msgstr ""
+
+#: ../uidisplay.m:96
+msgid "off"
+msgstr ""
+
+#: ../uidisplay.m:98
+msgid "not supported"
+msgstr ""
+
+#: ../uidisplay.m:144
+msgid "Dark Mode is only supported on iOS 13 and higher.\n"
+msgstr ""
+
+#: ../uidisplay.m:177
+msgid "Night Shift is not supported on this device.\n"
+msgstr ""
+
+#: ../uidisplay.m:213
+msgid "True Tone is not supported on this device.\n"
+msgstr ""
+
+#: ../uidisplay.m:251
+#, c-format
+msgid "Invalid brightness value: %s\n"
+msgstr ""
+
+#: ../uidisplay.m:265
+#, c-format
+msgid "Invalid brightness value: %s, %s\n"
+msgstr ""
+
+#: ../uidisplay.m:288
+#, c-format
+msgid "Unable to increase the brightness by %d, %.6g.\n"
+msgstr ""
+
+#: ../uidisplay.m:300
+#, c-format
+msgid "Unable to decrease the brightness by %d, %.6g.\n"
+msgstr ""
+
+#: ../uidisplay.m:382
+#, c-format
+msgid "Unknown information type: %s\n"
+msgstr ""
+
+#: ../uidisplay.m:385
+#, c-format
+msgid "Brightness: %.6g\n"
+msgstr ""
+
+#: ../uidisplay.m:386
+#, c-format
+msgid "Auto-Brightness: %s\n"
+msgstr ""
+
+#: ../uidisplay.m:387
+#, c-format
+msgid "Dark Mode: %s\n"
+msgstr ""
+
+#: ../uidisplay.m:388
+#, c-format
+msgid "Night Shift: %s\n"
+msgstr ""
+
+#: ../uidisplay.m:389
+#, c-format
+msgid "True Tone: %s\n"
 msgstr ""
 
 #: ../uinotify.m:23

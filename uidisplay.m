@@ -66,13 +66,15 @@ typedef struct {
 @end
 
 BOOL _AXSAutoBrightnessEnabled();
+void _AXSSetReduceWhitePointEnabled(BOOL enabled);
+BOOL _AXSReduceWhitePointEnabled();
 
 
 typedef enum { sOn, sOff, sUnspecified } state;
 
 // clang-format off
 void usage() {
-	printf(_("Usage: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-n state] [-t state]\n"), getprogname());
+	printf(_("Usage: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-n state] [-t state] [-w state]\n"), getprogname());
 }
 // clang-format on
 
@@ -356,6 +358,7 @@ int main(int argc, char *argv[]) {
 		{"darkmode", required_argument, 0, 'd'},
 		{"nightshift", required_argument, 0, 'n'},
 		{"truetone", required_argument, 0, 't'},
+		{"reducewhitepoint", required_argument, 0, 'w'},
 		{NULL, 0, NULL, 0}};
 	// clang-format on
 
@@ -363,7 +366,7 @@ int main(int argc, char *argv[]) {
 
 	int code = 0;
 
-	while ((code = getopt_long(argc, argv, "hi::a:b:d:n:t:", longOptions,
+	while ((code = getopt_long(argc, argv, "hi::a:b:d:n:t:w:", longOptions,
 							   NULL)) != -1) {
 		switch (code) {
 			case 'h':
@@ -381,15 +384,18 @@ int main(int argc, char *argv[]) {
 						printf("%s", stateAsString(getNightShift()));
 					} else if (strcmp(optarg, "truetone") == 0) {
 						printf("%s\n", stateAsString(getTrueTone()));
+					} else if (strcmp(optarg, "reducewhitepoint") == 0 || strcmp(optarg, "whitepoint") == 0) {
+						printf("%s\n", stateAsString(_AXSReduceWhitePointEnabled() ? sOn : sOff));
 					} else {
 						errx(1, _("Unknown information type: %s\n"), optarg);
 					}
 				} else {
 					printf(_("Brightness: %.6g\n"), getBrightness());
-					printf(_("Auto-Brightness: %s\n"), stateAsString(getAutoBrightness()));;
-					printf(_("Dark Mode: %s\n"), stateAsString(getDarkMode()));;
-					printf(_("Night Shift: %s\n"), stateAsString(getNightShift()));;
-					printf(_("True Tone: %s\n"), stateAsString(getTrueTone()));;
+					printf(_("Auto-Brightness: %s\n"), stateAsString(getAutoBrightness()));
+					printf(_("Dark Mode: %s\n"), stateAsString(getDarkMode()));
+					printf(_("Night Shift: %s\n"), stateAsString(getNightShift()));
+					printf(_("True Tone: %s\n"), stateAsString(getTrueTone()));
+					printf(_("Reduce White Point: %s\n"), stateAsString(_AXSReduceWhitePointEnabled() ? sOn : sOff));
 				}
 				break;
 			}
@@ -414,6 +420,11 @@ int main(int argc, char *argv[]) {
 			case 't': {
 				state newState = stateFromString(strdup(optarg), "True Tone");
 				setTrueTone(newState);
+				break;
+			}
+			case 'w': {
+				state newState = stateFromString(strdup(optarg), "Reduce White Point");
+				_AXSSetReduceWhitePointEnabled(newState == sOn);
 				break;
 			}
 			case '*':

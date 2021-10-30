@@ -17,9 +17,10 @@
 .Op Fl i Op Ar key
 .Op Fl n Ar state
 .Op Fl t Ar state
+.Op Fl w Ar state
 .Sh DESCRIPTION
 .Nm
-will print or set the brightness of your device, as well as other options such as Auto Brightness, Dark Mode, Night Shift, and True Tone.
+will print or set the brightness of your device, as well as other options such as Auto Brightness, Dark Mode, Night Shift, True Tone and Reduce White Point.
 .Sh OPTIONS
 .Bl -tag -width indent
 .It Fl a , -autobrightness Ar state
@@ -48,7 +49,7 @@ which can be one of on, 1, off, or 0.
 .It Fl h
 Prints a help text.
 .It Fl i , -info Ar key
-Print the brightness and the current setting of Auto Brightness, Dark Mode, Night Shift, and True Tone.
+Print the brightness and the current setting of Auto Brightness, Dark Mode, Night Shift, True Tone and Reduce White Point.
 If
 .Ar key
 is one of
@@ -56,16 +57,21 @@ is one of
 .Ar brightness ,
 .Ar darkmode ,
 .Ar nightmode ,
-or
 .Ar truetone ,
+or
+.Ar reducewhitepoint ,
 only print the value of
 .Ar key .
 .It Fl n , -nightshift Ar state
-Set the Night Shift setting to
+Override the Night Shift value to
 .Ar state ,
 which can be one of on, 1, off, or 0.
 .It Fl t , -truetone Ar state
 Set the True Tone setting to
+.Ar state ,
+which can be one of on, 1, off, or 0.
+.It Fl w , -reducewhitepoint Ar state
+Set the Reduce White Point setting to
 .Ar state ,
 which can be one of on, 1, off, or 0.
 .El

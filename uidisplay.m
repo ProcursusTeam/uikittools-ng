@@ -4,6 +4,18 @@
 #import <getopt.h>
 #import <objc/runtime.h>
 
+#ifndef NO_NLS
+#	include <libintl.h>
+#	define _(a) gettext(a)
+#	define PACKAGE "uikittools-ng"
+#else
+#	define _(a) a
+#endif
+
+#ifndef LOCALEDIR
+#	define LOCALEDIR "/usr/share/locale"
+#endif
+
 #define OPTIONAL_ARGUMENT_IS_PRESENT                             \
 	((optarg == NULL && optind < argc && argv[optind][0] != '-') \
 		 ? (bool)(optarg = argv[optind++])                       \
@@ -60,13 +72,7 @@ typedef enum { sOn, sOff, sUnspecified } state;
 
 // clang-format off
 void usage() {
-	printf(
-		"Usage: %s [brightness]\n"
-		"Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
-
-		"Gets or sets the brightness of the display\n\n"
-
-		"Contact the Procursus Team for support.\n", getprogname());
+	printf(_("Usage: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-n state] [-t state]\n"), getprogname());
 }
 // clang-format on
 
@@ -77,7 +83,7 @@ state stateFromString(char *stringState, char *argName) {
 			   strcmp("on", stringState) == 0) {
 		return sOn;
 	} else {
-		errx(1, "Invalid %s value: '%s', permitted values: 0, off, 1, on\n",
+		errx(1, _("Invalid %s value: '%s', permitted values: 0, off, 1, on\n"),
 			 argName, stringState);
 	}
 }
@@ -85,11 +91,11 @@ state stateFromString(char *stringState, char *argName) {
 char *stateAsString(state theState) {
 	switch (theState) {
 		case sOn:
-			return "on";
+			return _("on");
 		case sOff:
-			return "off";
+			return _("off");
 		case sUnspecified:
-			return "not supported";
+			return _("not supported");
 	}
 }
 
@@ -113,17 +119,17 @@ state getAutoBrightness() {
 }
 
 void setDarkMode(state newState) {
-	if (@available(iOS 13, *)) {
-		void *uiKitServices = dlopen(
-			"/System/Library/PrivateFrameworks/UIKitServices.framework/"
-			"UIKitServices",
-			RTLD_NOW);
+	void *UIKitServices = dlopen(
+		"/System/Library/PrivateFrameworks/UIKitServices.framework/"
+		"UIKitServices",
+		RTLD_NOW);
+	if (objc_lookUpClass("UISUserInterfaceStyleMode") != nil) {
 		UISUserInterfaceStyleMode *styleMode =
 			[objc_getClass("UISUserInterfaceStyleMode") new];
 
 		BOOL(*UISUserInterfaceStyleModeValueIsAutomatic)
 		(NSInteger) =
-			dlsym(uiKitServices, "UISUserInterfaceStyleModeValueIsAutomatic");
+			dlsym(UIKitServices, "UISUserInterfaceStyleModeValueIsAutomatic");
 
 		if (UISUserInterfaceStyleModeValueIsAutomatic(styleMode.modeValue)) {
 			DarkModeOverride override = {.style = (newState == sOn) ? 2 : 1,
@@ -133,23 +139,23 @@ void setDarkMode(state newState) {
 			styleMode.modeValue = (newState == sOn) ? 2 : 1;
 		}
 
-		dlclose(uiKitServices);
+		dlclose(UIKitServices);
 	} else {
-		errx(2, "Dark Mode is only supported on iOS 13 and higher.\n");
+		errx(2, _("Dark Mode is only supported on iOS 13 and higher.\n"));
 	}
 }
 
 state getDarkMode() {
-	if (@available(iOS 13, *)) {
-		void *uiKitServices = dlopen(
-			"/System/Library/PrivateFrameworks/UIKitServices.framework/"
-			"UIKitServices",
-			RTLD_NOW);
+	void *UIKitServices = dlopen(
+		"/System/Library/PrivateFrameworks/UIKitServices.framework/"
+		"UIKitServices",
+		RTLD_NOW);
 
+	if (objc_lookUpClass("UISUserInterfaceStyleMode") != nil) {
 		UISUserInterfaceStyleMode *styleMode =
 			[objc_getClass("UISUserInterfaceStyleMode") new];
 
-		dlclose(uiKitServices);
+		dlclose(UIKitServices);
 
 		return styleMode.modeValue != 1 ? sOn : sOff;
 	} else {
@@ -168,7 +174,7 @@ void setNightShift(state newState) {
 		[[classCBBlueLightClient new] setEnabled:(newState == sOn)];
 	} else {
 		dlclose(coreBrightness);
-		errx(2, "Night Shift is not supported on this device.\n");
+		errx(2, _("Night Shift is not supported on this device.\n"));
 	}
 	dlclose(coreBrightness);
 }
@@ -204,7 +210,7 @@ void setTrueTone(state newState) {
 		[[classCBAdaptationClient new] setEnabled:(newState == sOn)];
 	} else {
 		dlclose(coreBrightness);
-		errx(2, "True Tone is not supported on this device.\n");
+		errx(2, _("True Tone is not supported on this device.\n"));
 	}
 	dlclose(coreBrightness);
 }
@@ -242,7 +248,7 @@ void setBrightness(char *value) {
 
 	if (increase || decrease) {
 		if (length < 2) {
-			errx(1, "Invalid brightness value: %s\n", value);
+			errx(1, _("Invalid brightness value: %s\n"), value);
 		}
 
 		char *onlyValue = malloc(length - 1);
@@ -256,7 +262,7 @@ void setBrightness(char *value) {
 	}
 
 	if (errstr != NULL) {
-		errx(1, "Invalid brightness value: %s, %s\n", value, errstr);
+		errx(1, _("Invalid brightness value: %s, %s\n"), value, errstr);
 	}
 
 	if (number == 0 && (increase || decrease)) return;
@@ -279,7 +285,7 @@ void setBrightness(char *value) {
 
 		if (brightness > 1.0) {
 			dlclose(backBoardServices);
-			errx(1, "Unable to increase the brightness by %d, %.6g.\n", number,
+			errx(1, _("Unable to increase the brightness by %d, %.6g.\n"), number,
 				 brightness * 100);
 		}
 
@@ -291,7 +297,7 @@ void setBrightness(char *value) {
 
 		if (brightness < 0.0) {
 			dlclose(backBoardServices);
-			errx(1, "Unable to decrease the brightness by %d, %.6g.\n", number,
+			errx(1, _("Unable to decrease the brightness by %d, %.6g.\n"), number,
 				 brightness * 100);
 		}
 	}
@@ -327,6 +333,17 @@ float getBrightness() {
 }
 
 int main(int argc, char *argv[]) {
+#ifndef NO_NLS
+	setlocale(LC_ALL, "");
+	bindtextdomain(PACKAGE, LOCALEDIR);
+	textdomain(PACKAGE);
+#endif
+
+	if (argc == 1) {
+		usage();
+		return 0;
+	}
+
 	// clang-format off
 	static struct option longOptions[] = {
 		{"help", no_argument, 0, 'h'},
@@ -351,7 +368,7 @@ int main(int argc, char *argv[]) {
 				return 0;
 			case 'i': {
 				if (OPTIONAL_ARGUMENT_IS_PRESENT) {
-					if (strcmp(optarg, "autobrightness") == 0) {
+					if (strcmp(optarg, "autobrightness") == 0 || strcmp(optarg, "auto-brightness") == 0) {
 						printf("%s\n", stateAsString(getAutoBrightness()));
 					} else if (strcmp(optarg, "brightness") == 0) {
 						printf("%.6g\n", getBrightness());
@@ -362,25 +379,19 @@ int main(int argc, char *argv[]) {
 					} else if (strcmp(optarg, "truetone") == 0) {
 						printf("%s\n", stateAsString(getTrueTone()));
 					} else {
-						errx(1, "Unknown information type: %s\n", optarg);
+						errx(1, _("Unknown information type: %s\n"), optarg);
 					}
 				} else {
-					printf(
-						"Brightness: %.6g\n"
-						"Auto-Brightness: %s\n"
-						"Dark Mode: %s\n"
-						"Night Shift: %s\n"
-						"True Tone: %s\n",
-						getBrightness(), stateAsString(getAutoBrightness()),
-						stateAsString(getDarkMode()),
-						stateAsString(getNightShift()),
-						stateAsString(getTrueTone()));
+					printf(_("Brightness: %.6g\n"), getBrightness());
+					printf(_("Auto-Brightness: %s\n"), stateAsString(getAutoBrightness()));;
+					printf(_("Dark Mode: %s\n"), stateAsString(getDarkMode()));;
+					printf(_("Night Shift: %s\n"), stateAsString(getNightShift()));;
+					printf(_("True Tone: %s\n"), stateAsString(getTrueTone()));;
 				}
 				break;
 			}
 			case 'a': {
-				state newState =
-					stateFromString(strdup(optarg), "Auto-Brightness");
+				state newState = stateFromString(strdup(optarg), "Auto-Brightness");
 				setAutoBrightness(newState);
 				break;
 			}

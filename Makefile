@@ -4,24 +4,36 @@ LDFLAGS ?=
 
 STRIP   ?= strip
 LDID    ?= ldid
-INSTALL ?= install
 
 ifneq (,$(findstring bridgeos,$(CC) $(CFLAGS)))
 ALL := gssc ldrestart
 else ifneq (,$(findstring iphoneos,$(CC) $(CFLAGS)))
-ALL := gssc ldrestart sbdidlaunch sbreload uicache uiopen deviceinfo uialert uishoot uinotify uisave lsrebuild
+ALL := gssc ldrestart sbdidlaunch sbreload uicache uiopen deviceinfo uialert uishoot uinotify uisave lsrebuild uidisplay
 else ifneq (,$(findstring appletvos,$(CC) $(CFLAGS)))
 ALL := gssc ldrestart sbreload uicache uiopen deviceinfo uialert uishoot lsrebuild
-else ifneq (,$(findstring macosx,$(CC) $(CFLAGS)))
+else
 ALL := gssc deviceinfo uialert
 endif
 MAN := $(patsubst %,%.1,$(ALL))
+
+MANLANGS := zh_CN zh_TW
+
+ifeq ($(NLS),1)
+ifneq ($(LOCALEDIR),)
+CFLAGS  += -DLOCALEDIR=\"$(LOCALEDIR)\"
+endif
+LDFLAGS += -lintl
+else
+CFLAGS  += -DNO_NLS
+endif
+
+CFLAGS  += -Wno-unguarded-availability-new
 
 APP_PATH ?= $(MEMO_PREFIX)/Applications
 
 sign: $(ALL)
 	$(STRIP) $(ALL)
-ifneq (,$(findstring macosx,$(CC) $(CFLAGS)))
+ifeq (,$(findstring macosx,$(CC) $(CFLAGS)))
 	for tool in $(ALL); do \
 		if [ -f $$tool.plist ]; then \
 			$(LDID) -S$${tool}.plist $$tool; \
@@ -31,7 +43,7 @@ ifneq (,$(findstring macosx,$(CC) $(CFLAGS)))
 	done
 endif
 
-all: sign
+all: sign po
 
 gssc: gssc.m gssc.plist
 	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -lMobileGestalt
@@ -66,26 +78,40 @@ uisave: uisave.m uisave.plist
 lsrebuild: lsrebuild.m lsrebuild.plist
 	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -framework MobileCoreServices
 
+uidisplay: uidisplay.m strtonum.c uidisplay.plist
+	$(CC) -fobjc-arc -O3 $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework Foundation -lAccessibility
+
 deviceinfo: deviceinfo.c ecidecid.m uiduid.m serial.m locale.m cfversion.c
 	$(CC) -fobjc-arc -O3 $(CFLAGS) $^ -o $@ $(LDFLAGS) -framework CoreFoundation -lMobileGestalt
 
-install: sign $(ALL)
-	$(INSTALL) -d $(DESTDIR)$(PREFIX)/bin/
-	$(INSTALL) -m755 $(ALL) $(DESTDIR)$(PREFIX)/bin/
+install: $(ALL) sign install-po
+	install -d $(DESTDIR)$(PREFIX)/bin/
+	install -m755 $(ALL) $(DESTDIR)$(PREFIX)/bin/
 	ln -sf deviceinfo $(DESTDIR)$(PREFIX)/bin/cfversion
 	ln -sf deviceinfo $(DESTDIR)$(PREFIX)/bin/uiduid
 	ln -sf deviceinfo $(DESTDIR)$(PREFIX)/bin/ecidecid
-	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/man/man1/
-	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/man/zh_TW/man1/
-	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/man/zh_CN/man1/
-	$(INSTALL) -m644 $(patsubst %,man/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/man1/
-	-$(INSTALL) -m644 $(patsubst %,man/zh_TW/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/zh_TW/man1/
-	-$(INSTALL) -m644 $(patsubst %,man/zh_CN/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/zh_CN/man1/
+	install -d $(DESTDIR)$(PREFIX)/share/man/man1/
+	install -m644 $(patsubst %,man/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/man1/
+	for lang in $(MANLANGS); do \
+		install -d $(DESTDIR)$(PREFIX)/share/man/$$lang/man1/; \
+		install -m644 $(patsubst %,man/$$lang/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/$$lang/man1/ || true; \
+	done
+
+po:
+ifeq ($(NLS),1)
+	$(MAKE) -C po
+endif
+
+install-po: po
+ifeq ($(NLS),1)
+	$(MAKE) -C po install LOCALEDIR="$(LOCALEDIR)"
+endif
 
 clean:
 	rm -rf $(ALL) *.dSYM
+	$(MAKE) -C po clean
 
 format:
 	find . -type f -name '*.[cm]' -exec clang-format -i {} \;
 
-.PHONY: all clean install sign format
+.PHONY: all clean install sign format po install-po

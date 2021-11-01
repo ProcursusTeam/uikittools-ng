@@ -1,11 +1,23 @@
-#include "deviceinfo.h"
-
+#include <err.h>
 #include <libgen.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-#define KNOWN_COMMANDS "cfversion, ecid, locale, serial, uniqueid"
+#ifndef NO_NLS
+#	include <libintl.h>
+#	define _(a) gettext(a)
+#	define PACKAGE "uikittools-ng"
+#else
+#	define _(a) a
+#endif
+
+#ifndef LOCALEDIR
+#	define LOCALEDIR "/usr/share/locale"
+#endif
+
+#include "deviceinfo.h"
 
 static int handle_backwards_compat(const char* progname, int argc,
 								   const char** args);
@@ -16,14 +28,19 @@ static bool STRINGS_ARE_EQUAL(const char* a, const char* b) {
 }
 
 int main(int argc, const char** argv) {
+#ifndef NO_NLS
+	setlocale(LC_ALL, "");
+	bindtextdomain(PACKAGE, LOCALEDIR);
+	textdomain(PACKAGE);
+#endif
+
 	int rc = handle_backwards_compat(basename((char*)argv[0]), argc, argv);
 	if (rc != -1) {
 		return rc;
 	}
 
 	if (argc < 2) {
-		fprintf(stderr, "Not enough arguments. Known commands are %s\n",
-				KNOWN_COMMANDS);
+		fprintf(stderr, _("Usage: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"), getprogname());
 		return 1;
 	}
 
@@ -68,7 +85,6 @@ static int handle_command(const char* cmd, int argcount, const char** args) {
 		return handle_uniqueid();
 	}
 
-	fprintf(stderr, "Unknown command %s. Known commands are %s\n", cmd,
-			KNOWN_COMMANDS);
+	fprintf(stderr, _("Usage: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"), getprogname());
 	return 1;
 }

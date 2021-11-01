@@ -3,6 +3,18 @@
 #import <getopt.h>
 #import <stdio.h>
 
+#ifndef NO_NLS
+#	include <libintl.h>
+#	define _(a) gettext(a)
+#	define PACKAGE "uikittools-ng"
+#else
+#	define _(a) a
+#endif
+
+#ifndef LOCALEDIR
+#	define LOCALEDIR "/usr/share/locale"
+#endif
+
 @interface LSBundleProxy : NSObject
 @property(nonatomic, assign, readonly) NSURL *bundleURL;
 @property(nonatomic, assign, readonly) NSString *canonicalExecutablePath;
@@ -22,21 +34,26 @@
 
 // clang-format off
 void help() {
-	printf(
-		"Usage: %s [OPTION...]\n"
-		"Open URLs and open iOS applications by bundle ID\n\n"
+	printf(_("Usage: %s [OPTION...]\n\
+Open URLs and open iOS applications by bundle ID\n\n"), getprogname());
 
-		"  --url <URL>     Open the specified URL\n"
-		"  --bundleid <id> Open application with the\n"
-		"                     specified bundle id.\n"
-		"  --app <app>     Open application with the\n"
-		"                     specified name.\n"
-		"  --path <path>   Open application at the specified path\n"
-		"  --help          Give this help list.\n", getprogname());
+	printf(_("  --url <URL>     Open the specified URL\n\
+  --bundleid <id> Open application with the\n\
+                     specified bundle id.\n\
+  --app <app>     Open application with the\n\
+                     specified name.\n\
+  --path <path>   Open application at the specified path\n\
+  --help          Give this help list.\n"));
 }
 // clang-format on
 
 int main(int argc, char *argv[]) {
+#ifndef NO_NLS
+	setlocale(LC_ALL, "");
+	bindtextdomain(PACKAGE, LOCALEDIR);
+	textdomain(PACKAGE);
+#endif
+
 	char *url = NULL;
 	char *bundleId = NULL;
 	char *app = NULL;
@@ -129,7 +146,7 @@ int main(int argc, char *argv[]) {
 			}
 		}
 		if (!found) {
-			fprintf(stderr, "No application called: %s\n", app);
+			fprintf(stderr, _("No application called: %s\n"), app);
 			return 1;
 		}
 	} else if (path) {
@@ -158,11 +175,11 @@ int main(int argc, char *argv[]) {
 				}
 			}
 			if (!found) {
-				fprintf(stderr, "No application at path: %s\n", path);
+				fprintf(stderr, _("No application at path: %s\n"), path);
 				return 1;
 			}
 		} else {
-			fprintf(stderr, "Invalid path: %s\n", path);
+			fprintf(stderr, _("Invalid path: %s\n"), path);
 			return 1;
 		}
 	}

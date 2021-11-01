@@ -1,0 +1,102 @@
+.\"-
+.\" Copyright (c) 2020-2021 ProcursusTeam
+.\" SPDX-License-Identifier: BSD-4-Clause
+.\"
+.Dd October 29, 2021
+.Dt UIDISPLAY 1
+.Os
+.Sh NAME
+.Nm uidisplay
+.Nd get and set options related to the display
+.Sh SYNOPSIS
+.Nm
+.Op Fl a Ar state
+.Op Fl b Oo Ar + Ns | Ns Ar - Oc Ns Ar num
+.Op Fl d Ar state
+.Op Fl h
+.Op Fl i Op Ar key
+.Op Fl n Ar state
+.Op Fl t Ar state
+.Op Fl w Ar state
+.Sh DESCRIPTION
+.Nm
+will print or set the brightness of your device, as well as other options such as Auto Brightness, Dark Mode, Night Shift, True Tone and Reduce White Point.
+.Sh OPTIONS
+.Bl -tag -width indent
+.It Fl a , -autobrightness Ar state
+Set the Auto Brightness setting to
+.Ar state ,
+which can be one of on, 1, off, or 0.
+.It Fl b , -brightness Oo Ar + Ns | Ns Ar - Oc Ns Ar num
+Set the brightness to
+.Ar num ,
+it must be between 0 and 100.
+A trailing
+.Dq %
+is valid.
+If
+.Ar +
+is used the brightness will be incremented by
+.Ar num .
+If
+.Ar -
+is used the brightness will be decremented by
+.Ar num .
+.It Fl d , -darkmode Ar state
+Override the Dark Mode value to
+.Ar state ,
+which can be one of on, 1, off, or 0.
+.It Fl h
+Prints a help text.
+.It Fl i , -info Ar key
+Print the brightness and the current setting of Auto Brightness, Dark Mode, Night Shift, True Tone and Reduce White Point.
+If
+.Ar key
+is one of
+.Ar autobrightness ,
+.Ar brightness ,
+.Ar darkmode ,
+.Ar nightmode ,
+.Ar truetone ,
+or
+.Ar reducewhitepoint ,
+only print the value of
+.Ar key .
+.It Fl n , -nightshift Ar state
+Override the Night Shift value to
+.Ar state ,
+which can be one of on, 1, off, or 0.
+.It Fl t , -truetone Ar state
+Set the True Tone setting to
+.Ar state ,
+which can be one of on, 1, off, or 0.
+.It Fl w , -reducewhitepoint Ar state
+Set the Reduce White Point setting to
+.Ar state ,
+which can be one of on, 1, off, or 0.
+.El
+.Sh EXIT STATUS
+The
+.Nm
+utility exits with one of the following values:
+.Pp
+.Bl -tag -width Ds -compact
+.It 0
+Everything worked as expected.
+.It 1
+Something went wrong, an error message will also be printed.
+.It 2
+The requested action is not supported.
+.Sh EXAMPLES
+Increase the brightness by 10 percent:
+.Dl "uidisplay -b +10"
+.Pp
+Print the current brightness:
+.Dl "uidisplay -i brightness"
+.Sh SEE ALSO
+.Xr uiopen 1
+.Sh HISTORY
+The
+.Nm
+utility first appeared in uikittools-ng on October 29, 2021, written by
+.An absidue .

@@ -7,7 +7,19 @@
 #import <stdio.h>
 
 #ifndef APP_PATH
-#define APP_PATH @"/private/preboot/procursus/Applications
+#define APP_PATH @"/private/preboot/procursus/Applications"
+#endif
+
+#ifndef NO_NLS
+#	include <libintl.h>
+#	define _(a) gettext(a)
+#	define PACKAGE "uikittools-ng"
+#else
+#	define _(a) a
+#endif
+
+#ifndef LOCALEDIR
+#	define LOCALEDIR "/usr/share/locale"
 #endif
 
 @interface _LSApplicationState : NSObject
@@ -89,23 +101,22 @@ int verbose = 0;
 
 // clang-format off
 void help() {
-	printf(
-		"Usage: %s [-afhlr] [-i id] [-p path] [-u path]\n"
-		"Modified work Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
-		"Update iOS registered applications and optionally restart SpringBoard\n\n"
+	printf(_("Usage: %s [-afhlr] [-i id] [-p path] [-u path]\n\
+Modified work Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"), getprogname());
+	printf(_("Update iOS registered applications and optionally restart SpringBoard\n\n"));
 
-		"  -a, --all                Update all system and internal applications\n"
-		"  -f, --force              Force -a to reregister all Applications\n"
-		"                              and modify App Store apps\n"
-		"  -p, --path <path>        Update application bundle at the specified path\n"
-		"  -u, --unregister <path>  Unregister application bundle at the specified path\n"
-		"  -r, --respring           Restart SpringBoard and backboardd after\n"
-		"                              updating applications\n"
-		"  -l, --list               List the bundle ids of installed apps\n"
-		"  -i, --info <bundleid>    Give information about given bundle id\n"
-		"  -h, --help               Give this help list.\n\n"
+	printf(_("  -a, --all                Update all system and internal applications\n"));
+	printf(_("  -f, --force              Force -a to reregister all Applications\n\
+                              and modify App Store apps\n"));
+	printf(_("  -p, --path <path>        Update application bundle at the specified path\n"));
+	printf(_("  -u, --unregister <path>  Unregister application bundle at the specified path\n"));
+	printf(_("  -r, --respring           Restart SpringBoard and backboardd after\n\
+                              updating applications\n"));
+	printf(_("  -l, --list               List the bundle ids of installed apps\n"));
+	printf(_("  -i, --info <bundleid>    Give information about given bundle id\n"));
+	printf(_("  -h, --help               Give this help list.\n\n"));
 
-		"Contact the Procursus Team for support.\n", getprogname());
+	printf(_("Contact the Procursus Team for support.\n"));
 }
 // clang-format on
 
@@ -127,9 +138,9 @@ void registerPath(char *path, int unregister) {
 			hasPrefix:@"/private/var/containers/Bundle/Application"] ||
 		[[NSString stringWithUTF8String:path]
 			hasPrefix:@"/var/containers/Bundle/Application"]) {
-		printf("uicache does not support App Store apps.\n");
+		printf(_("uicache does not support App Store apps.\n"));
 		if (force)
-			printf("Continuing anyway...\n");
+			printf(_("Continuing anyway...\n"));
 		else
 			return;
 	}
@@ -199,11 +210,11 @@ void registerPath(char *path, int unregister) {
 		}
 		[plist setObject:bundlePlugins forKey:@"_LSBundlePlugins"];
 		if (![workspace registerApplicationDictionary:plist]) {
-			fprintf(stderr, "Error: Unable to register %s\n", path);
+			fprintf(stderr, _("Error: Unable to register %s\n"), path);
 		}
 	} else {
 		if (![workspace unregisterApplication:url]) {
-			fprintf(stderr, "Error: Unable to unregister %s\n", path);
+			fprintf(stderr, _("Error: Unable to unregister %s\n"), path);
 		}
 	}
 }
@@ -223,16 +234,15 @@ void infoForBundleID(NSString *bundleID) {
 	LSApplicationProxy *app =
 		[LSApplicationProxy applicationProxyForIdentifier:bundleID];
 	if ([[app appState] isValid]) {
-		printf(
-			"Name: %s\n"
-			"BundleID: %s\n"
-			"ExecutableName: %s\n"
-			"Path: %s\n"
-			"Container Path: %s\n"
-			"VendorName: %s\n"
-			"TeamID: %s\n"
-			"Type: %s\n"
-			"Removeable: %s\n",
+		printf(_("Name: %s\n\
+BundleID: %s\n\
+ExecutableName: %s\n\
+Path: %s\n\
+Container Path: %s\n\
+VendorName: %s\n\
+TeamID: %s\n\
+Type: %s\n\
+Removeable: %s\n"),
 			[[app localizedNameForContext:nil] UTF8String],
 			[[app bundleIdentifier] UTF8String],
 			[[app bundleExecutable] UTF8String],
@@ -240,10 +250,10 @@ void infoForBundleID(NSString *bundleID) {
 			[[app containerURL] fileSystemRepresentation],
 			[[app vendorName] UTF8String], [[app teamID] UTF8String],
 			[[app applicationType] UTF8String],
-			[app isDeletable] ? "true" : "false");
+			[app isDeletable] ? _("true") : _("false"));
 		if ([app respondsToSelector:@selector(claimedURLSchemes)]) {
 			for (NSString *scheme in [app claimedURLSchemes]) {
-				printf("URLScheme: %s\n", [scheme UTF8String]);
+				printf(_("URLScheme: %s\n"), [scheme UTF8String]);
 			}
 		} else {
 			NSArray<NSDictionary *> *appURLS =
@@ -251,12 +261,12 @@ void infoForBundleID(NSString *bundleID) {
 					objectForInfoDictionaryKey:@"CFBundleURLTypes"];
 			for (NSDictionary *urlInfo in appURLS) {
 				for (NSString *urlScheme in urlInfo[@"CFBundleURLSchemes"]) {
-					printf("URLScheme: %s\n", [urlScheme UTF8String]);
+					printf(_("URLScheme: %s\n"), [urlScheme UTF8String]);
 				}
 			}
 		}
 	} else {
-		printf("%s is an invalid bundle id\n",
+		printf(_("%s is an invalid bundle id\n"),
 			   [[app bundleIdentifier] UTF8String]);
 	}
 }
@@ -360,17 +370,23 @@ void registerAll() {
 	}
 	for (NSString *app in toRegister) {
 		if (verbose)
-			printf("registering %s\n", app.UTF8String);
+			printf(_("registering %s\n"), app.UTF8String);
 		registerPath((char *)[app UTF8String], 0);
 	}
 	for (NSString *app in toUnregister) {
 		if (verbose)
-			printf("unregistering %s\n", app.UTF8String);
+			printf(_("unregistering %s\n"), app.UTF8String);
 		registerPath((char *)[app UTF8String], 1);
 	}
 }
 
 int main(int argc, char *argv[]) {
+#ifndef NO_NLS
+	setlocale(LC_ALL, "");
+	bindtextdomain(PACKAGE, LOCALEDIR);
+	textdomain(PACKAGE);
+#endif
+
 	@autoreleasepool {
 		int all = 0;
 		int respring = 0;
@@ -399,7 +415,6 @@ int main(int argc, char *argv[]) {
 
 		while ((code = getopt_long(argc, argv, "ap:u:rl::i:hfv", longOptions, &index)) != -1) {
 			switch (code) {
-				printf("Code: %c\n", code);
 				case 'a':
 					all = 1;
 					break;

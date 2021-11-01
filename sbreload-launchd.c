@@ -3,6 +3,18 @@
 #include <TargetConditionals.h>
 #include <xpc/xpc.h>
 
+#ifndef NO_NLS
+#	include <libintl.h>
+#	define _(a) gettext(a)
+#	define PACKAGE "uikittools-ng"
+#else
+#	define _(a) a
+#endif
+
+#ifndef LOCALEDIR
+#	define LOCALEDIR "/usr/share/locale"
+#endif
+
 extern int xpc_pipe_routine(xpc_object_t *xpc_pipe, xpc_object_t *inDict,
 							xpc_object_t **out);
 extern char *xpc_strerror(int);
@@ -63,7 +75,7 @@ int stopService(const char *ServiceName) {
 	if (rc == 0) {
 		rc = xpc_dictionary_get_int64(outDict, "error");
 		if (rc) {
-			fprintf(stderr, "Error stopping service:  %d - %s\n", rc,
+			fprintf(stderr, _("Error stopping service:  %d - %s\n"), rc,
 					xpc_strerror(rc));
 			return (rc);
 		}
@@ -91,7 +103,7 @@ int updatePIDs() {
 			// We actually got a reply!
 			xpc_object_t svcs = xpc_dictionary_get_value(outDict, "services");
 			if (!svcs) {
-				fprintf(stderr, "Error: no services returned for list\n");
+				fprintf(stderr, _("Error: no services returned for list\n"));
 				return 1;
 			}
 
@@ -99,7 +111,7 @@ int updatePIDs() {
 			if (svcsType != XPC_TYPE_DICTIONARY) {
 				fprintf(
 					stderr,
-					"Error: services returned for list aren't a dictionary!\n");
+					_("Error: services returned for list aren't a dictionary!\n"));
 				return 2;
 			}
 
@@ -121,10 +133,10 @@ int updatePIDs() {
 				  return 1;
 				});
 		} else {
-			fprintf(stderr, "Error:  %d - %s\n", err, xpc_strerror(err));
+			fprintf(stderr, _("Error:  %d - %s\n"), err, xpc_strerror(err));
 		}
 	} else {
-		fprintf(stderr, "Unable to get launchd: %d\n", rc);
+		fprintf(stderr, _("Unable to get launchd: %d\n"), rc);
 	}
 	return rc;
 }

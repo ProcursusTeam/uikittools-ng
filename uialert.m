@@ -5,27 +5,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifndef NO_NLS
+#	include <libintl.h>
+#	define _(a) gettext(a)
+#	define PACKAGE "uikittools-ng"
+#else
+#	define _(a) a
+#endif
+
+#ifndef LOCALEDIR
+#	define LOCALEDIR "/usr/share/locale"
+#endif
+
 // clang-format off
 void usage() {
-	printf(
-		"Usage: %s [-b body] [-p primary] [--priority 0-3] [-s second] [-t third] [--timeout number] title\n"
-		"Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
-		"Display an alert\n\n"
+	printf(_("Usage: %s [-b body] [-p primary] [--priority 0-3] [-s second] [-t third] [--timeout number] title\n\
+Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n\
+Display an alert\n\n"), getprogname());
 
-		"  -b, --body <text>        Text for alert body\n"
-		"  -p, --primary <text>     Default button text instead of \"OK\"\n"
-		"      --priority 0-3       Alert priority\n"
-		"                           This will change the icon on macOS\n"
-		"  -s, --secondary <text>   Second button text\n"
-		"  -t, --tertiary <text>    Third button text\n"
-		"      --timeout <num>      Number of seconds to wait before exiting\n\n"
+	printf(_("  -b, --body <text>        Text for alert body\n\
+  -p, --primary <text>     Default button text instead of \"OK\"\n\
+      --priority 0-3       Alert priority\n\
+                           This will change the icon on macOS\n\
+  -s, --secondary <text>   Second button text\n\
+  -t, --tertiary <text>    Third button text\n\
+      --timeout <num>      Number of seconds to wait before exiting\n\n"));
 
-		"Output:\n"
-		"  0 - primary button\n"
-		"  1 - secondary button\n"
-		"  2 - tertiary button\n"
-		"  3 - timeout/cancel\n\n"
-		"Contact the Procursus Team for support.\n", getprogname());
+	printf(_("Output:\n\
+  0 - primary button\n\
+  1 - secondary button\n\
+  2 - tertiary button\n\
+  3 - timeout/cancel\n\n\
+Contact the Procursus Team for support.\n"));
 	exit(1);
 }
 // clang-format on
@@ -36,6 +47,12 @@ enum {
 };
 
 int main(int argc, char **argv) {
+#ifndef NO_NLS
+	setlocale(LC_ALL, "");
+	bindtextdomain(PACKAGE, LOCALEDIR);
+	textdomain(PACKAGE);
+#endif
+
 	CFOptionFlags cfRes;
 	double timeout = 0;
 	int priority = kCFUserNotificationNoteAlertLevel;
@@ -75,7 +92,7 @@ int main(int argc, char **argv) {
 				switch (strtonum(optarg, 0, 3, &errstr)) {
 					case 0:
 						if (errstr != NULL)
-							errx(1, "the priority is %s: %s", errstr, optarg);
+							errx(1, _("the priority is %s: %s"), errstr, optarg);
 						priority = kCFUserNotificationPlainAlertLevel;
 						break;
 					case 1:
@@ -92,7 +109,7 @@ int main(int argc, char **argv) {
 			case OPT_TIMEOUT:
 				timeout = strtonum(optarg, 0, INT_MAX, &errstr);
 				if (errstr != NULL)
-					errx(1, "the timeout is %s: %s", errstr, optarg);
+					errx(1, _("the timeout is %s: %s"), errstr, optarg);
 				break;
 			default:
 				usage();

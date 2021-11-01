@@ -1,0 +1,479 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: uikittools-ng\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-30 17:33+0200\n"
+"PO-Revision-Date: 2021-11-01 02:48\n"
+"Last-Translator: \n"
+"Language-Team: French\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Crowdin-Project: uikittools-ng\n"
+"X-Crowdin-Project-ID: 482777\n"
+"X-Crowdin-Language: fr\n"
+"X-Crowdin-File: uikittools-ng.pot\n"
+"X-Crowdin-File-ID: 3\n"
+
+#: ../deviceinfo.c:43 ../deviceinfo.c:88
+#, c-format
+msgid "Usage: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"
+msgstr "Utilisation: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"
+
+#: ../ldrestart.c:78 ../sbreload-launchd.c:78
+#, c-format
+msgid "Error stopping service:  %d - %s\n"
+msgstr "Erreur lors de l'arrêt du service:  %d - %s\n"
+
+#: ../ldrestart.c:112 ../sbreload-launchd.c:106
+#, c-format
+msgid "Error: no services returned for list\n"
+msgstr "Erreur: aucun service n'a été trouvé dans la liste\n"
+
+#: ../ldrestart.c:120 ../sbreload-launchd.c:114
+#, c-format
+msgid "Error: services returned for list aren't a dictionary!\n"
+msgstr "Erreur: les services trouvés pour la liste ne sont pas des dictionnaires!\n"
+
+#: ../ldrestart.c:138 ../sbreload-launchd.c:136
+#, c-format
+msgid "Error:  %d - %s\n"
+msgstr "Erreur:  %d - %s\n"
+
+#: ../ldrestart.c:141 ../sbreload-launchd.c:139
+#, c-format
+msgid "Unable to get launchd: %d\n"
+msgstr "Échec de l'obtention de l’identifiant de launchd: %d\n"
+
+#: ../locale.m:16
+#, c-format
+msgid "Usage: deviceinfo locale [-ilcvh]\n"
+"Print the current locale\n\n"
+msgstr "Usage: deviceinfo locale [-ilcvh]\n"
+"Affiche la locale actuelle\n\n"
+
+#: ../locale.m:19
+#, c-format
+msgid "-h --help      Give this help list.\n"
+" -i --identifier Print the locale identifier (default)\n"
+" -l --language   Print the language code\n"
+" -c --country    Print the country code\n"
+" -v --variant    Print the variant code\n\n"
+"If multiple output formats are specified the last will be used\n"
+msgstr "-h --help Afficher cette liste d’aide\n"
+"-i --identifier Afficher identifiant de locale (par défaut)\n"
+"-l --language Afficher le code de la langue\n"
+"-c --country Afficher le code du pays\n"
+"-v --variant Afficher le code du variant\n\n"
+"Si plusieurs formats de sortie sont utilisés, seulement le dernier format sera utilisé\n"
+
+#: ../lsrebuild.m:60
+msgid "missing necessary method"
+msgstr "il manque des fonctions nécéssaires"
+
+#: ../lsrebuild.m:66
+msgid "RebuildApplicationDatabases failed"
+msgstr "RebuildApplicationDatabases a échoué"
+
+#: ../uialert.m:22
+#, c-format
+msgid "Usage: %s [-b body] [-p primary] [--priority 0-3] [-s second] [-t third] [--timeout number] title\n"
+"Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
+"Display an alert\n\n"
+msgstr "Usage: %s [-b corps] [-p bouton primaire] [--priority 0-3] [-s bouton secondaire] [-t bouton tertiaire] [--timeout nombre] titre\n"
+"Copyright (C) 2021, Procursus Team. Tous droits réservés.\n\n"
+"Afficher une alerte\n\n"
+
+#: ../uialert.m:26
+#, c-format
+msgid "  -b, --body <text>        Text for alert body\n"
+"  -p, --primary <text>     Default button text instead of \"OK\"\n"
+"      --priority 0-3       Alert priority\n"
+"                           This will change the icon on macOS\n"
+"  -s, --secondary <text>   Second button text\n"
+"  -t, --tertiary <text>    Third button text\n"
+"      --timeout <num>      Number of seconds to wait before exiting\n\n"
+msgstr "  -b, --body <text>        Texte pour le corps de l'alerte\n"
+"  -p, --primary <text>     Texte du bouton par défaut au lieu de \"OK\"\n"
+"      --priority 0-3 Priorité de l'alerte\n"
+"                           Ceci change l'icône sur macOS\n"
+"  -s, --second <text>   Texte du deuxième bouton\n"
+"  -t, --tertiary <text>    Texte du troisième bouton\n"
+"      --timeout <num>      Nombre de secondes à attendre avant que ce programme s'arrête\n\n"
+
+#: ../uialert.m:34
+#, c-format
+msgid "Output:\n"
+"  0 - primary button\n"
+"  1 - secondary button\n"
+"  2 - tertiary button\n"
+"  3 - timeout/cancel\n\n"
+"Contact the Procursus Team for support.\n"
+msgstr "Sortie :\n"
+"  0 - bouton primaire\n"
+"  1 - bouton secondaire\n"
+"  2 - bouton tertiaire\n"
+"  3 - délai/annulation\n\n"
+"Contactez l'équipe Procursus pour obtenir de l'aide.\n"
+
+#: ../uialert.m:95
+#, c-format
+msgid "the priority is %s: %s"
+msgstr "la priorité est de %s: %s"
+
+#: ../uialert.m:112
+#, c-format
+msgid "the timeout is %s: %s"
+msgstr "le délai est de %s: %s"
+
+#: ../uicache.m:104
+#, c-format
+msgid "Usage: %s [-afhlr] [-i id] [-p path] [-u path]\n"
+"Modified work Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
+msgstr "Usage: %s [-afhlr] [-i identifiant] [-p emplacement] [-u emplacement]\n"
+"Modified work Copyright (C) 2021, Équipe Procursus. Tous droits réservés.\n\n"
+
+#: ../uicache.m:106
+#, c-format
+msgid "Update iOS registered applications and optionally restart SpringBoard\n\n"
+msgstr "Mettre à jour les applications enregistrées par iOS et redémarrer SpringBoard en option\n\n"
+
+#: ../uicache.m:108
+#, c-format
+msgid "  -a, --all                Update all system and internal applications\n"
+msgstr "  -a, --all Mettre à jour tous les systèmes et applications internes\n"
+
+#: ../uicache.m:109
+#, c-format
+msgid "  -f, --force              Force -a to reregister all Applications\n"
+"                              and modify App Store apps\n"
+msgstr "  -f, --force Force -a à réenregistrer toutes les applications\n"
+"                              et modifier les applications App Store\n"
+
+#: ../uicache.m:111
+#, c-format
+msgid "  -p, --path <path>        Update application bundle at the specified path\n"
+msgstr "  -p, --path <path> Mettre à jour le bundle d’application sur le chemin spécifié\n"
+
+#: ../uicache.m:112
+#, c-format
+msgid "  -u, --unregister <path>  Unregister application bundle at the specified path\n"
+msgstr "  -u, --unregister <path> Enlever l’enregistrement du bundle d’application du chemin spécifié\n"
+" \n"
+
+#: ../uicache.m:113
+#, c-format
+msgid "  -r, --respring           Restart SpringBoard and backboardd after\n"
+"                              updating applications\n"
+msgstr "  -r, --respring Redémarrer le SpringBoard et backboardd après avoir mis à jour les applications\n"
+
+#: ../uicache.m:115
+#, c-format
+msgid "  -l, --list               List the bundle ids of installed apps\n"
+msgstr "  -l, --list Lister les identifiants de bundle des applications installés\n"
+
+#: ../uicache.m:116
+#, c-format
+msgid "  -i, --info <bundleid>    Give information about given bundle id\n"
+msgstr "  -i, --info <bundleid> Afficher l’information sur le bundleid spécifié\n"
+
+#: ../uicache.m:117
+#, c-format
+msgid "  -h, --help               Give this help list.\n\n"
+msgstr "  -h, --help Afficher cette liste d’aide.\n\n"
+
+#: ../uicache.m:119 ../uisave.m:27
+#, c-format
+msgid "Contact the Procursus Team for support.\n"
+msgstr "Contactez la Procursus Team pour obtenir de l’aide.\n"
+
+#: ../uicache.m:141
+#, c-format
+msgid "uicache does not support App Store apps.\n"
+msgstr "uicache ne supporte pas les applications du App Store.\n"
+
+#: ../uicache.m:143
+#, c-format
+msgid "Continuing anyway...\n"
+msgstr "Poursuivre quand même...\n"
+
+#: ../uicache.m:213
+#, c-format
+msgid "Error: Unable to register %s\n"
+msgstr "Erreur: Impossible d’enregistrer %s\n"
+
+#: ../uicache.m:217
+#, c-format
+msgid "Error: Unable to unregister %s\n"
+msgstr "Erreur: Impossible d’enlever l’enregistrement de %s\n"
+
+#: ../uicache.m:237
+#, c-format
+msgid "Name: %s\n"
+"BundleID: %s\n"
+"ExecutableName: %s\n"
+"Path: %s\n"
+"Container Path: %s\n"
+"VendorName: %s\n"
+"TeamID: %s\n"
+"Type: %s\n"
+"Removeable: %s\n"
+msgstr "Nom: %s\n"
+"BundleID: %s\n"
+"NomExecutable: %s\n"
+"Chemin: %s\n"
+"Chemin Conteneur: %s\n"
+"NomVendeur: %s\n"
+"TeamID: %s\n"
+"Type: %s\n"
+"Supprimable: %s\n"
+
+#: ../uicache.m:253
+msgid "true"
+msgstr "vrai"
+
+#: ../uicache.m:253
+msgid "false"
+msgstr "faux"
+
+#: ../uicache.m:256 ../uicache.m:264
+#, c-format
+msgid "URLScheme: %s\n"
+msgstr "SchémaURL: %s\n"
+
+#: ../uicache.m:269
+#, c-format
+msgid "%s is an invalid bundle id\n"
+msgstr "%s n’est pas un bundleid valide\n"
+
+#: ../uicache.m:373
+#, c-format
+msgid "registering %s\n"
+msgstr "enregistrement de %s\n"
+
+#: ../uicache.m:378
+#, c-format
+msgid "unregistering %s\n"
+msgstr "suppression de l’enregistrement %s\n"
+
+#: ../uidisplay.m:77
+#, c-format
+msgid "Usage: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-n state] [-t state] [-w state]\n"
+msgstr "Utilisation: %s [-a état] [-b [+|-]numéro] [-d état] [-h] [-i[key]] [-n état] [-t état] [-w état]\n"
+
+#: ../uidisplay.m:88
+#, c-format
+msgid "Invalid %s value: '%s', permitted values: 0, off, 1, on\n"
+msgstr "Valeur %s invalide: '%s', valeurs permises: 0, off, 1, on\n"
+
+#: ../uidisplay.m:96
+msgid "on"
+msgstr "allumé"
+
+#: ../uidisplay.m:98
+msgid "off"
+msgstr "fermé"
+
+#: ../uidisplay.m:100
+msgid "not supported"
+msgstr "pas supporté"
+
+#: ../uidisplay.m:146
+msgid "Dark Mode is only supported on iOS 13 and higher.\n"
+msgstr "Le Mode Sombre est seulement supporté sur iOS 13 et ultérieur.\n"
+
+#: ../uidisplay.m:179
+msgid "Night Shift is not supported on this device.\n"
+msgstr "Le Mode Nuit n’est pas supporté sur cet appareil.\n"
+
+#: ../uidisplay.m:215
+msgid "True Tone is not supported on this device.\n"
+msgstr "True Tone n’est pas supporté sur cet appareil.\n"
+
+#: ../uidisplay.m:256
+#, c-format
+msgid "Invalid brightness value: %s\n"
+msgstr "Valeur de luminosité invalide: %s\n"
+
+#: ../uidisplay.m:270
+#, c-format
+msgid "Invalid brightness value: %s, %s\n"
+msgstr "Valeur de luminosité invalide: %s, %s\n"
+
+#: ../uidisplay.m:293
+#, c-format
+msgid "Unable to increase the brightness by %d, %.6g.\n"
+msgstr "Impossible d’augmenter la luminosité de %d, %.6g.\n"
+
+#: ../uidisplay.m:305
+#, c-format
+msgid "Unable to decrease the brightness by %d, %.6g.\n"
+msgstr "Impossible de diminuer la luminosité de %d, %.6g.\n"
+
+#: ../uidisplay.m:390
+#, c-format
+msgid "Unknown information type: %s\n"
+msgstr "Information de type inconnue: %s\n"
+
+#: ../uidisplay.m:393
+#, c-format
+msgid "Brightness: %.6g\n"
+msgstr "Luminosité: %.6g\n"
+
+#: ../uidisplay.m:394
+#, c-format
+msgid "Auto-Brightness: %s\n"
+msgstr "Luminosité automatique: %s\n"
+
+#: ../uidisplay.m:395
+#, c-format
+msgid "Dark Mode: %s\n"
+msgstr "Mode Sombre: %s\n"
+
+#: ../uidisplay.m:396
+#, c-format
+msgid "Night Shift: %s\n"
+msgstr "Mode Nuit: %s\n"
+
+#: ../uidisplay.m:397
+#, c-format
+msgid "True Tone: %s\n"
+msgstr "True Tone: %s\n"
+
+#: ../uidisplay.m:398
+#, c-format
+msgid "Reduce White Point: %s\n"
+msgstr "Réduire le Point Blanc: %s\n"
+
+#: ../uinotify.m:23
+#, c-format
+msgid "Usage: %s [-b body] [-d number] [-i bundleid] [-s subtitle] title\n"
+msgstr "Utilisation: %s [-b corps] [-d numéro] [-i bundleid] [-s sous-titre] titre\n"
+
+#: ../uinotify.m:34
+#, c-format
+msgid "Authorization request failed: %s\n"
+msgstr "Requête d’autorisation échoué: %s\n"
+
+#: ../uinotify.m:49
+#, c-format
+msgid "Failed to add notification: %s\n"
+msgstr "Échec d’ajout de notification: %s\n"
+
+#: ../uinotify.m:93
+#, c-format
+msgid "the delay is %s: %s"
+msgstr "le délai es de %s: %s"
+
+#: ../uiopen.m:37
+#, c-format
+msgid "Usage: %s [OPTION...]\n"
+"Open URLs and open iOS applications by bundle ID\n\n"
+msgstr "Utilisation: %s [OPTION...]\n"
+"Ouvre les URLs et les applications iOS avec le bundleid\n\n"
+
+#: ../uiopen.m:40
+#, c-format
+msgid "  --url <URL>     Open the specified URL\n"
+"  --bundleid <id> Open application with the\n"
+"                     specified bundle id.\n"
+"  --app <app>     Open application with the\n"
+"                     specified name.\n"
+"  --path <path>   Open application at the specified path\n"
+"  --help          Give this help list.\n"
+msgstr "  --url <URL> Ouvre l’URL spécifié\n"
+"--bundleid <id> Ouvre l’application avec le bundleid spécifié\n"
+"--app <app> Ouvre l’application avec le nom spécifié\n"
+"--path <path> Ouvre l’application au chemin spécifié\n"
+"--help Affiche cette liste d’aide.\n"
+
+#: ../uiopen.m:149
+#, c-format
+msgid "No application called: %s\n"
+msgstr "Pas d’application nommé: %s\n"
+
+#: ../uiopen.m:178
+#, c-format
+msgid "No application at path: %s\n"
+msgstr "Pas d’application sur le chemin: %s\n"
+
+#: ../uiopen.m:182 ../uisave.m:62
+#, c-format
+msgid "Invalid path: %s\n"
+msgstr "Chemin invalide: %s\n"
+
+#: ../uisave.m:19
+#, c-format
+msgid "Usage: %s file ...\n"
+"Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
+msgstr "Utilisation: %s fichier ...\n"
+"Copyright (C) 2021, Procursus Team. Tous droits réservés.\n\n"
+
+#: ../uisave.m:22
+#, c-format
+msgid "Save images and videos to the camera roll\n\n"
+msgstr "Sauvergarder les images et les vidéos dans la bibliothèque\n\n"
+
+#: ../uisave.m:24
+#, c-format
+msgid "Image and video formats that can be saved to the camera roll\n"
+"vary between iOS versions\n\n"
+msgstr "Les formats d'image et de vidéo qui peuvent être sauvegardés dans la bibliothèque varient selon les versions d'iOS\n\n"
+
+#: ../uisave.m:57
+#, c-format
+msgid "No file at path: %s\n"
+msgstr "Aucun fichier n'est à l'emplacement %s\n"
+
+#: ../uisave.m:73
+#, c-format
+msgid "No supported image or video format at: %s\n"
+msgstr "Pas d’image ou de format vidéo sur: %s\n"
+
+#: ../uisave.m:91
+#, c-format
+msgid "Failed to save image at %s with error: %s\n"
+msgstr "Impossible d’enregistrer l’image sur %s avec l’erreur: %s\n"
+
+#: ../uisave.m:108
+#, c-format
+msgid "Failed to save video at %s with error: %s\n"
+msgstr "Impossible d’enregistrer la vidéo sur %s avec l’erreur: %s\n"
+
+#: ../uishoot.m:25
+#, c-format
+msgid "Usage: %s [-cp] [-d number] [-f [png | jpeg | heic]] [-o file]\n"
+msgstr "Utilisation: %s [-cp] [-d numéro] [-f [png | jpeg | heic]] [-o fichier]\n"
+
+#: ../uishoot.m:70
+#, c-format
+msgid "the timout is %s: %s"
+msgstr "le temps d’attente est de %s: %s"
+
+#: ../uishoot.m:77
+#, c-format
+msgid "Invalid image format '%s'\n"
+msgstr "Format d’image invalide '%s'\n"
+
+#: ../uishoot.m:96
+#, c-format
+msgid "Could not capture screenshot!\n"
+msgstr "Échec de faire une capture d’écran!\n"
+
+#: ../uishoot.m:123
+#, c-format
+msgid "Could not get image data to write to file!\n"
+msgstr "Échecs d’obtenir les données d’image pour écrire au fichier!\n"
+
+#: ../uishoot.m:132
+#, c-format
+msgid "Could not write image to %s: %s\n"
+msgstr "Impossible d’écrire l’image sur %s: %s\n"
+
+#: ../uishoot.m:148
+#, c-format
+msgid "Could not save screenshot to Photos: %s\n"
+msgstr "Échec d’enregistrer la capture d’écran dans Photos: %s\n"
+

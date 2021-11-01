@@ -3,18 +3,25 @@
 #import <getopt.h>
 #import <stdio.h>
 
+#ifndef NO_NLS
+#	include <libintl.h>
+#	define _(a) gettext(a)
+#	define PACKAGE "uikittools-ng"
+#else
+#	define _(a) a
+#endif
+
 // clang-format off
 void help() {
-	printf(
-		"Usage: deviceinfo locale [OPTION...]\n"
-		"Print the current locale\n\n"
+	printf(_("Usage: deviceinfo locale [-ilcvh]\n\
+Print the current locale\n\n"));
 
-		" -h --help      Give this help list.\n"
-		" -i --identifer Print the locale identifer (default)\n"
-		" -l --language  Print the language code\n"
-		" -c --country   Print the country code\n"
-		" -v --variant   Print the variant code\n\n"
-		"If multiple output formats are specified the last will be used\n");
+	printf(_("-h --help      Give this help list.\n\
+ -i --identifier Print the locale identifier (default)\n\
+ -l --language   Print the language code\n\
+ -c --country    Print the country code\n\
+ -v --variant    Print the variant code\n\n\
+If multiple output formats are specified the last will be used\n"));
 }
 // clang-format on
 

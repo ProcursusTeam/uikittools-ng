@@ -3,6 +3,18 @@
 #import <objc/runtime.h>
 #include <TargetConditionals.h>
 
+#ifndef NO_NLS
+#	include <libintl.h>
+#	define _(a) gettext(a)
+#	define PACKAGE "uikittools-ng"
+#else
+#	define _(a) a
+#endif
+
+#ifndef LOCALEDIR
+#	define LOCALEDIR "/usr/share/locale"
+#endif
+
 typedef NS_OPTIONS(NSUInteger, SBSRelaunchActionOptions) {
 	SBSRelaunchActionOptionsNone,
 	SBSRelaunchActionOptionsRestartRenderServer = 1 << 0,
@@ -33,6 +45,12 @@ int stopService(const char *ServiceName);
 int updatePIDs(void);
 
 int main() {
+#ifndef NO_NLS
+	setlocale(LC_ALL, "");
+	bindtextdomain(PACKAGE, LOCALEDIR);
+	textdomain(PACKAGE);
+#endif
+
 	@autoreleasepool {
 		springboardPID = 0;
 		backboarddPID = 0;

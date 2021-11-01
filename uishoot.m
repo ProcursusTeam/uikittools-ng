@@ -6,16 +6,34 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+#ifndef NO_NLS
+#	include <libintl.h>
+#	define _(a) gettext(a)
+#	define PACKAGE "uikittools-ng"
+#else
+#	define _(a) a
+#endif
+
+#ifndef LOCALEDIR
+#	define LOCALEDIR "/usr/share/locale"
+#endif
+
 OBJC_EXTERN UIImage* _UICreateScreenUIImage(void);
 
 // clang-format off
 void usage(uint8_t ret) {
-	fprintf(stderr, "Usage: %s [-cp] [-d number] [-f [png | jpeg | heic]] [-o file]\n", getprogname());
+	fprintf(stderr, _("Usage: %s [-cp] [-d number] [-f [png | jpeg | heic]] [-o file]\n"), getprogname());
 	exit(ret);
 }
 // clang-format on
 
 int main(int argc, char** argv) {
+#ifndef NO_NLS
+	setlocale(LC_ALL, "");
+	bindtextdomain(PACKAGE, LOCALEDIR);
+	textdomain(PACKAGE);
+#endif
+
 	bool copyToClipboard = false;
 	bool saveToPhotos = false;
 	long long int delay = 0;
@@ -49,14 +67,14 @@ int main(int argc, char** argv) {
 			case 'd':
 				delay = strtonum(optarg, 0, INT_MAX, &errstr);
 				if (errstr != NULL)
-					errx(1, "the timout is %s: %s", errstr, optarg);
+					errx(1, _("the timout is %s: %s"), errstr, optarg);
 				break;
 			case 'f':
 				imageFormat = [NSString stringWithUTF8String:optarg];
 				if (imageFormat && ![imageFormat isEqualToString:@"png"] &&
 					![imageFormat isEqualToString:@"jpeg"] &&
 					![imageFormat isEqualToString:@"heic"]) {
-					fprintf(stderr, "Invalid image format '%s'\n",
+					fprintf(stderr, _("Invalid image format '%s'\n"),
 							imageFormat.UTF8String);
 					usage(2);
 				}
@@ -75,7 +93,7 @@ int main(int argc, char** argv) {
 
 	UIImage* screenShot = _UICreateScreenUIImage();
 	if (!screenShot) {
-		fprintf(stderr, "Could not capture screenshot!\n");
+		fprintf(stderr, _("Could not capture screenshot!\n"));
 		return 2;
 	}
 
@@ -102,7 +120,7 @@ int main(int argc, char** argv) {
 			(CFMutableDataRef)imageData, (CFStringRef)imageUTI, 1, NULL);
 		CGImageDestinationAddImage(destinationRef, screenShot.CGImage, NULL);
 		if (!CGImageDestinationFinalize(destinationRef)) {
-			fprintf(stderr, "Could not get image data to write to file!\n");
+			fprintf(stderr, _("Could not get image data to write to file!\n"));
 			ret = 3;
 		}
 
@@ -111,7 +129,7 @@ int main(int argc, char** argv) {
 		if (ret != 3 && ![imageData writeToFile:filePath
 										options:NSDataWritingAtomic
 										  error:&error]) {
-			fprintf(stderr, "Could not write image to %s: %s\n",
+			fprintf(stderr, _("Could not write image to %s: %s\n"),
 					filePath.UTF8String, error.localizedDescription.UTF8String);
 			ret = 3;
 		}
@@ -127,7 +145,7 @@ int main(int argc, char** argv) {
 			}
 			completionHandler:^(BOOL success, NSError* error) {
 			  if (!success) {
-				  fprintf(stderr, "Could not save screenshot to Photos: %s\n",
+				  fprintf(stderr, _("Could not save screenshot to Photos: %s\n"),
 						  error.localizedDescription.UTF8String);
 				  ret = 3;
 			  }

@@ -2,13 +2,25 @@
 #include <err.h>
 #include <getopt.h>
 
+#ifndef NO_NLS
+#	include <libintl.h>
+#	define _(a) gettext(a)
+#	define PACKAGE "uikittools-ng"
+#else
+#	define _(a) a
+#endif
+
+#ifndef LOCALEDIR
+#	define LOCALEDIR "/usr/share/locale"
+#endif
+
 @interface UNUserNotificationCenter (Private)
 - (id)initWithBundleIdentifier:(id)arg1;
 @end
 
 // clang-format off
 void usage() {
-	fprintf(stderr, "Usage: %s [-b body] [-d number] [-i bundleid] [-s subtitle] title\n", getprogname());
+	fprintf(stderr, _("Usage: %s [-b body] [-d number] [-i bundleid] [-s subtitle] title\n"), getprogname());
 	exit(1);
 }
 // clang-format on
@@ -19,7 +31,7 @@ void authorize(UNUserNotificationCenter *center) {
 						  completionHandler:^(BOOL success, NSError *error) {
 							if (error) {
 								fprintf(stderr,
-										"Authorization request failed: %s\n",
+										_("Authorization request failed: %s\n"),
 										error.localizedDescription.UTF8String);
 								exit(1);
 							}
@@ -34,7 +46,7 @@ void sendNotification(UNUserNotificationCenter *center,
 	[center addNotificationRequest:request
 			 withCompletionHandler:^(NSError *error) {
 			   if (error) {
-				   fprintf(stderr, "Failed to add notification: %s\n",
+				   fprintf(stderr, _("Failed to add notification: %s\n"),
 						   error.localizedDescription.UTF8String);
 				   exit(1);
 			   }
@@ -44,6 +56,12 @@ void sendNotification(UNUserNotificationCenter *center,
 }
 
 int main(int argc, char *argv[]) {
+#ifndef NO_NLS
+	setlocale(LC_ALL, "");
+	bindtextdomain(PACKAGE, LOCALEDIR);
+	textdomain(PACKAGE);
+#endif
+
 	char *subtitle, *body, *bundleid;
 	long long delay = 0;
 	int ch, actionIndex = 0;
@@ -72,7 +90,7 @@ int main(int argc, char *argv[]) {
 			case 'd':
 				delay = strtonum(optarg, 0, INT_MAX, &errstr);
 				if (errstr != NULL)
-					errx(1, "the delay is %s: %s", errstr, optarg);
+					errx(1, _("the delay is %s: %s"), errstr, optarg);
 				break;
 			default:
 				usage();

@@ -1,0 +1,105 @@
+.\"-
+.\" Copyright (c) 2020-2021 ProcursusTeam
+.\" SPDX-License-Identifier: BSD-4-Clause
+.\"
+.Dd October 29, 2021
+.Dt UIDISPLAY 1
+.Os
+.Sh 名稱
+.Nm uidisplay
+.Nd 取得或設定關於顯示的資訊
+.Sh 語法
+.Nm
+.Op Fl a Ar 狀態
+.Op Fl b Oo Ar + Ns | Ns Ar - Oc Ns Ar 數字
+.Op Fl d Ar 狀態
+.Op Fl h
+.Op Fl i Op Ar 鍵值
+.Op Fl n Ar 狀態
+.Op Fl t Ar 狀態
+.Op Fl w Ar 狀態
+.Sh 描述
+.Nm
+會印出或設定您的裝置的亮度，和其他選項例如自動亮度、暗黑模式、夜間模式、原色調和減少白點。
+.Sh 選項
+.Bl -tag -width indent
+.It Fl a , -autobrightness Ar 狀態
+.Ar 狀態
+，可以是 on, 1, off, 或 0.
+.It Fl b , -brightness Oo Ar + Ns | Ns Ar - Oc Ns Ar 數字
+把亮度設定為
+.Ar 數字 ,
+其必須要是在0到100之間。
+結尾
+.Dq %
+是有效的。
+如果使用了
+.Ar +
+號，那麼亮度將會被增加
+.Ar 數字
+。如果使用了
+.Ar -
+號，那麼亮度將會被減少
+.Ar 數字
+。
+.It Fl d , -darkmode Ar 狀態
+把暗黑模式的值淩駕到
+.Ar 狀態 ,
+這可以是on, 1, off, 或 0 。
+.It Fl h
+印出幫助文本
+.It Fl i , -info Ar 鍵值
+印出亮度和目前自動亮度、暗黑模式、夜間模式、原色調和減少白度的設定 。
+如果
+.Ar 鍵值
+是
+.Ar autobrightness ,
+.Ar brightness ,
+.Ar darkmode ,
+.Ar nightmode ,
+.Ar truetone ,
+或
+.Ar reducewhitepoint
+其中之一，
+就只會印出
+.Ar 鍵
+的數值。
+.It Fl n , -nightshift Ar 狀態
+把夜間模式的數值凌駕為
+.Ar 狀態 ,
+這可以是on, 1, off, 或 0 。
+.It Fl t , -truetone Ar 狀態
+把原色調的設定設定為
+.Ar 狀態 ,
+這可以是on, 1, off, 或 0。
+.It Fl w , -reducewhitepoint Ar 狀態
+把減少白度設定設定為
+.Ar 狀態 ,
+這可以是 1, off, 或 0。
+.El
+.Sh 退出狀態
+這個
+.Nm
+工具程式會以以下其中一個狀態推出：
+.Pp
+.Bl -tag -width Ds -compact
+.It 0
+一切像預期般工作。
+.It 1
+有些事情出錯了，會印出一則錯誤訊息。
+.It 2
+要求的動作不被支援。
+.Sh 例子
+把亮度增加百分之10：
+.Dl "uidisplay -b +10"
+.Pp
+印出現在的亮度：
+.Dl "uidisplay -i brightness"
+.Sh 另見
+.Xr uiopen 1
+.Sh 歷史
+這個
+.Nm
+工具程式首先在2021年10月29日在uikittools-ng中出現，由
+.An absidue
+編寫。

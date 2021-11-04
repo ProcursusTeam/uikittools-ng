@@ -1,0 +1,33 @@
+.\"-
+.\" Copyright (c) 2020-2021 ProcursusTeam
+.\" SPDX-License-Identifier: BSD-4-Clause
+.\"
+.Dd November 4, 2021
+.Dt MGASK 1
+.Os
+.Sh NAME
+.Nm mgask
+.Nd ask MobileGestalt questions
+.Sh SYNOPSIS
+.Nm
+.Op Fl jp
+.Ar questions ...
+.Sh DESCRIPTION
+The
+.Nm
+utility will query MobileGestalt for the answer to the specified questions.
+Any arrays or dictionarys will be printed in JSON.
+.Sh OPTIONS
+.Bl -tag -width indent
+.It Fl j , -json
+Print all keys in JSON.
+.It Fl p , -pretty
+Pretty-print the JSON output.
+This will apply to just array and dictionaries or the whole output if
+.Fl j
+is specified.
+.Sh HISTORY
+The
+.Nm
+utility first appeared in uikittools on November 4, 2021, written by
+.An Cameron Katri .

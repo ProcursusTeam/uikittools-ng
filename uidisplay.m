@@ -578,42 +578,42 @@ int main(int argc, char *argv[]) {
 		else {
 			switch (info) {
 				case iAutoBrightness:
-					printf(_("Auto-Brightness: %s\n"), stateAsString(getAutoBrightness()));
+					printf("%s: %s\n", _("Auto-Brightness") stateAsString(getAutoBrightness()));
 					break;
 				case iBrightness:
-					printf(_("Brightness: %.6g\n"), getBrightness());
+					printf("%s: %.6g\n", _("Brightness"), getBrightness());
 					break;
 				case iDarkMode:
-					printf(_("Dark Mode: %s\n"), stateAsString(getDarkMode()));
+					printf("%s: %s\n", _("Dark Mode"), stateAsString(getDarkMode()));
 					break;
 				case iNightShift:
-					printf(_("Night Shift: %s\n"), stateAsString(getNightShift()));
+					printf("%s: %s\n", _("Night Shift"), stateAsString(getNightShift()));
 					break;
 				case iTrueTone:
-					printf(_("True Tone: %s\n"), stateAsString(getTrueTone()));
+					printf("%s: %s\n", _("True Tone"), stateAsString(getTrueTone()));
 					break;
 				case iReduceWhitePoint:
-					printf(_("Reduce White Point: %s\n"), stateAsString(_AXSReduceWhitePointEnabled() ? sOn : sOff));
+					printf("%s: %s\n", _("Reduce White Point") stateAsString(_AXSReduceWhitePointEnabled() ? sOn : sOff));
 					break;
 				case iHeight:
-					printf(_("Height: %f\n"), CGRectGetHeight([screen bounds]));
+					printf("%s: %f\n", _("Height"), CGRectGetHeight([screen bounds]));
 					break;
 				case iWidth:
-					printf(_("Width: %f\n"), CGRectGetWidth([screen bounds]));
+					printf("%s: %f\n", _("Width"), CGRectGetWidth([screen bounds]));
 					break;
 				case iScale:
-					printf(_("Scale: %f\n"), [screen scale]);
+					printf("%s: %f\n", _("Scale"), [screen scale]);
 					break;
 				default:
-					printf(_("Brightness: %.6g\n"), getBrightness());
-					printf(_("Auto-Brightness: %s\n"), stateAsString(getAutoBrightness()));
-					printf(_("Dark Mode: %s\n"), stateAsString(getDarkMode()));
-					printf(_("Night Shift: %s\n"), stateAsString(getNightShift()));
-					printf(_("True Tone: %s\n"), stateAsString(getTrueTone()));
-					printf(_("Reduce White Point: %s\n"), stateAsString(_AXSReduceWhitePointEnabled() ? sOn : sOff));
-					printf(_("Height: %f\n"), CGRectGetHeight([screen bounds]));
-					printf(_("Width: %f\n"), CGRectGetWidth([screen bounds]));
-					printf(_("Scale: %f\n"), [screen scale]);
+					printf("%s: %.6g\n", _("Brightness"), getBrightness());
+					printf("%s: %s\n", _("Auto-Brightness") stateAsString(getAutoBrightness()));
+					printf("%s: %s\n", _("Dark Mode"), stateAsString(getDarkMode()));
+					printf("%s: %s\n", _("Night Shift"), stateAsString(getNightShift()));
+					printf("%s: %s\n", _("True Tone"), stateAsString(getTrueTone()));
+					printf("%s: %s\n" _("Reduce White Point") stateAsString(_AXSReduceWhitePointEnabled() ? sOn : sOff));
+					printf("%s: %f\n", _("Height"), CGRectGetHeight([screen bounds]));
+					printf("%s: %f\n", _("Width"), CGRectGetWidth([screen bounds]));
+					printf("%s: %f\n", _("Scale"), [screen scale]);
 					break;
 			}
 		}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uikittools-ng 2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-04 23:39+0100\n"
+"POT-Creation-Date: 2021-11-05 00:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -330,85 +330,41 @@ msgstr ""
 msgid "Unknown information type: %s\n"
 msgstr ""
 
-#: ../uidisplay.m:485 ../uidisplay.m:540
+#: ../uidisplay.m:485 ../uidisplay.m:540 ../uidisplay.m:581 ../uidisplay.m:609
 msgid "Auto-Brightness"
 msgstr ""
 
-#: ../uidisplay.m:491 ../uidisplay.m:544
+#: ../uidisplay.m:491 ../uidisplay.m:544 ../uidisplay.m:584 ../uidisplay.m:608
 msgid "Brightness"
 msgstr ""
 
-#: ../uidisplay.m:497 ../uidisplay.m:548
+#: ../uidisplay.m:497 ../uidisplay.m:548 ../uidisplay.m:587 ../uidisplay.m:610
 msgid "Dark Mode"
 msgstr ""
 
-#: ../uidisplay.m:503 ../uidisplay.m:552
+#: ../uidisplay.m:503 ../uidisplay.m:552 ../uidisplay.m:590 ../uidisplay.m:611
 msgid "Night Shift"
 msgstr ""
 
-#: ../uidisplay.m:509 ../uidisplay.m:556
+#: ../uidisplay.m:509 ../uidisplay.m:556 ../uidisplay.m:593 ../uidisplay.m:612
 msgid "True Tone"
 msgstr ""
 
-#: ../uidisplay.m:515 ../uidisplay.m:560
+#: ../uidisplay.m:515 ../uidisplay.m:560 ../uidisplay.m:596 ../uidisplay.m:613
+#, c-format
 msgid "Reduce White Point"
 msgstr ""
 
-#: ../uidisplay.m:521 ../uidisplay.m:564
+#: ../uidisplay.m:521 ../uidisplay.m:564 ../uidisplay.m:599 ../uidisplay.m:614
 msgid "Height"
 msgstr ""
 
-#: ../uidisplay.m:527 ../uidisplay.m:568
+#: ../uidisplay.m:527 ../uidisplay.m:568 ../uidisplay.m:602 ../uidisplay.m:615
 msgid "Width"
 msgstr ""
 
-#: ../uidisplay.m:533 ../uidisplay.m:572
+#: ../uidisplay.m:533 ../uidisplay.m:572 ../uidisplay.m:605 ../uidisplay.m:616
 msgid "Scale"
-msgstr ""
-
-#: ../uidisplay.m:581 ../uidisplay.m:609
-#, c-format
-msgid "Auto-Brightness: %s\n"
-msgstr ""
-
-#: ../uidisplay.m:584 ../uidisplay.m:608
-#, c-format
-msgid "Brightness: %.6g\n"
-msgstr ""
-
-#: ../uidisplay.m:587 ../uidisplay.m:610
-#, c-format
-msgid "Dark Mode: %s\n"
-msgstr ""
-
-#: ../uidisplay.m:590 ../uidisplay.m:611
-#, c-format
-msgid "Night Shift: %s\n"
-msgstr ""
-
-#: ../uidisplay.m:593 ../uidisplay.m:612
-#, c-format
-msgid "True Tone: %s\n"
-msgstr ""
-
-#: ../uidisplay.m:596 ../uidisplay.m:613
-#, c-format
-msgid "Reduce White Point: %s\n"
-msgstr ""
-
-#: ../uidisplay.m:599 ../uidisplay.m:614
-#, c-format
-msgid "Height: %f\n"
-msgstr ""
-
-#: ../uidisplay.m:602 ../uidisplay.m:615
-#, c-format
-msgid "Width: %f\n"
-msgstr ""
-
-#: ../uidisplay.m:605 ../uidisplay.m:616
-#, c-format
-msgid "Scale: %f\n"
 msgstr ""
 
 #: ../uidisplay.m:621

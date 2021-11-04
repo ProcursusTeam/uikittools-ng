@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
 	argc -= optind;
 
 	if (argc == 0) {
-		fprintf(stderr, _("Usage: %s [-jp] questions ...\n"), getprogname());
+		fprintf(stderr, _("Usage: %s [-jp] question ...\n"), getprogname());
 		return 1;
 	}
 

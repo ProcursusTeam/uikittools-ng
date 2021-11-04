@@ -44,20 +44,25 @@ int main(int argc, char **argv) {
 
 	bool json = false;
 	bool prettyprint = false;
+	bool quiet = false;
 	int ch, index;
 
 	struct option longopts[] = {
-		{"pretty", no_argument, 0, 'p'},
 		{"json", no_argument, 0, 'j'},
+		{"pretty", no_argument, 0, 'p'},
+		{"quiet", no_argument, 0, 'q'},
 		{NULL, 0, NULL, 0}};
 
-	while ((ch = getopt_long(argc, argv, "pj", longopts, &index)) != -1) {
+	while ((ch = getopt_long(argc, argv, "jpq", longopts, &index)) != -1) {
 		switch (ch) {
+			case 'j':
+				json = true;
+				break;
 			case 'p':
 				prettyprint = true;
 				break;
-			case 'j':
-				json = true;
+			case 'q':
+				quiet = true;
 				break;
 		}
 	}
@@ -79,7 +84,8 @@ int main(int argc, char **argv) {
 			(__bridge CFStringRef)[NSString stringWithUTF8String:argv[i]]);
 
 		if (mganswer == NULL) {
-			fprintf(stderr, _("Cannot find key %s\n"), argv[i]);
+			if (!quiet)
+				fprintf(stderr, _("Cannot find key %s\n"), argv[i]);
 			goto skipprint;
 		}
 
@@ -127,7 +133,8 @@ int main(int argc, char **argv) {
 						(__bridge_transfer NSArray *)mganswer
 				}];
 		} else {
-			fprintf(stderr, "%s has an unknown answer type\n", argv[i]);
+			if (!quiet)
+				fprintf(stderr, "%s has an unknown answer type\n", argv[i]);
 			goto skipprint;
 		}
 

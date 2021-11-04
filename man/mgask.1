@@ -10,7 +10,7 @@
 .Nd ask MobileGestalt questions
 .Sh SYNOPSIS
 .Nm
-.Op Fl jp
+.Op Fl jpq
 .Ar question ...
 .Sh DESCRIPTION
 The
@@ -26,6 +26,8 @@ Pretty-print the JSON output.
 This will apply to just array and dictionaries or the whole output if
 .Fl j
 is specified.
+.It Fl q , -quiet
+Don't print errors when a key is not found.
 .El
 .Sh HISTORY
 The

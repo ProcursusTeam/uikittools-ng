@@ -4,6 +4,7 @@ NSObject *MGCopyAnswer(NSString *query);
 
 int main() {
 	@autoreleasepool {
+		fprintf(stderr, "The gssc utility is deprecated.\n");
 		NSArray *gestaltKeys = @[
 			@"3GProximityCapability",
 			@"3Gvenice",

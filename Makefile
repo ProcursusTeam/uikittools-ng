@@ -117,4 +117,7 @@ clean:
 format:
 	find . -type f -name '*.[cm]' -exec clang-format -i {} \;
 
-.PHONY: all clean install sign format po install-po
+man-lint:
+	find man -type f -name '*.[1-9]' -exec mandoc -Tlint {} \;
+
+.PHONY: all clean install sign format po install-po man-lint

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uikittools-ng 2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-01 11:43-0400\n"
+"POT-Creation-Date: 2021-11-04 08:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,6 +74,29 @@ msgstr ""
 
 #: ../lsrebuild.m:66
 msgid "RebuildApplicationDatabases failed"
+msgstr ""
+
+#: ../mgask.m:30
+#, c-format
+msgid "JSON formating failed: %s"
+msgstr ""
+
+#: ../mgask.m:67
+#, c-format
+msgid "Usage: %s [-jp] [questions ...]\n"
+msgstr ""
+
+#: ../mgask.m:81
+#, c-format
+msgid "Cannot find key %s\n"
+msgstr ""
+
+#: ../mgask.m:94 ../uicache.m:253
+msgid "true"
+msgstr ""
+
+#: ../mgask.m:94 ../uicache.m:253
+msgid "false"
 msgstr ""
 
 #: ../uialert.m:22
@@ -224,14 +247,6 @@ msgid ""
 "TeamID: %s\n"
 "Type: %s\n"
 "Removeable: %s\n"
-msgstr ""
-
-#: ../uicache.m:253
-msgid "true"
-msgstr ""
-
-#: ../uicache.m:253
-msgid "false"
 msgstr ""
 
 #: ../uicache.m:256 ../uicache.m:264

@@ -22,9 +22,10 @@ const char *toJson(NSObject *object, bool prettyprint) {
 	NSError *error;
 	NSData *json;
 
-	json = [NSJSONSerialization dataWithJSONObject:object
-										   options:prettyprint ? NSJSONWritingPrettyPrinted : 0
-											 error:&error];
+	json = [NSJSONSerialization
+		dataWithJSONObject:object
+				   options:prettyprint ? NSJSONWritingPrettyPrinted : 0
+					 error:&error];
 
 	if (error)
 		errx(1, _("JSON formating failed: %s"),
@@ -88,27 +89,43 @@ int main(int argc, char **argv) {
 			if (!json)
 				answer = [(__bridge_transfer NSString *)mganswer UTF8String];
 			else
-				[outDict addEntriesFromDictionary:@{ [NSString stringWithUTF8String:argv[i]] : (__bridge_transfer NSString *)mganswer}];
+				[outDict addEntriesFromDictionary:@{
+					[NSString stringWithUTF8String:argv[i]] :
+						(__bridge_transfer NSString *)mganswer
+				}];
 		} else if (typeid == CFBooleanGetTypeID()) {
 			if (!json)
 				answer = CFBooleanGetValue(mganswer) ? _("true") : _("false");
 			else
-				[outDict addEntriesFromDictionary:@{ [NSString stringWithUTF8String:argv[i]] : CFBooleanGetValue(mganswer) ? @YES : @NO}];
+				[outDict addEntriesFromDictionary:@{
+					[NSString stringWithUTF8String:argv[i]] :
+							CFBooleanGetValue(mganswer) ? @YES : @NO
+				}];
 		} else if (typeid == CFNumberGetTypeID()) {
 			if (!json)
-				answer = [(__bridge_transfer NSNumber *)mganswer stringValue].UTF8String;
+				answer = [(__bridge_transfer NSNumber *)mganswer stringValue]
+							 .UTF8String;
 			else
-				[outDict addEntriesFromDictionary:@{ [NSString stringWithUTF8String:argv[i]] : (__bridge_transfer NSNumber *)mganswer}];
+				[outDict addEntriesFromDictionary:@{
+					[NSString stringWithUTF8String:argv[i]] :
+						(__bridge_transfer NSNumber *)mganswer
+				}];
 		} else if (typeid == CFDictionaryGetTypeID()) {
 			if (!json)
 				answer = toJson((__bridge NSObject *)mganswer, prettyprint);
 			else
-				[outDict addEntriesFromDictionary:@{ [NSString stringWithUTF8String:argv[i]] : (__bridge_transfer NSDictionary *)mganswer}];
+				[outDict addEntriesFromDictionary:@{
+					[NSString stringWithUTF8String:argv[i]] :
+						(__bridge_transfer NSDictionary *)mganswer
+				}];
 		} else if (typeid == CFArrayGetTypeID()) {
 			if (!json)
 				answer = toJson((__bridge NSObject *)mganswer, prettyprint);
 			else
-				[outDict addEntriesFromDictionary:@{ [NSString stringWithUTF8String:argv[i]] : (__bridge_transfer NSArray *)mganswer}];
+				[outDict addEntriesFromDictionary:@{
+					[NSString stringWithUTF8String:argv[i]] :
+						(__bridge_transfer NSArray *)mganswer
+				}];
 		} else {
 			fprintf(stderr, "%s has an unknown answer type\n", argv[i]);
 			goto skipprint;

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uikittools-ng\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-30 17:33+0200\n"
-"PO-Revision-Date: 2021-11-01 02:48\n"
+"POT-Creation-Date: 2021-11-01 11:43-0400\n"
+"PO-Revision-Date: 2021-11-01 17:40\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: ../deviceinfo.c:43 ../deviceinfo.c:88
 #, c-format
 msgid "Usage: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"
-msgstr "用法：%s [cfversion | ecid | locale | serial | uniqueid] [選項 ...]\n"
+msgstr "用法：%s [cfversion | ecid | locale | serial | uniqueid] [引數 ...]\n"
 
 #: ../ldrestart.c:78 ../sbreload-launchd.c:78
 #, c-format
@@ -123,7 +123,7 @@ msgstr "輸出\n"
 msgid "the priority is %s: %s"
 msgstr "優先度為%s： %s"
 
-#: ../uialert.m:112
+#: ../uialert.m:112 ../uishoot.m:70
 #, c-format
 msgid "the timeout is %s: %s"
 msgstr "逾時時間為%s:%s"
@@ -255,122 +255,123 @@ msgstr "註冊%s中\n"
 #: ../uicache.m:378
 #, c-format
 msgid "unregistering %s\n"
-msgstr ""
+msgstr "正在取消註冊%s\n"
 
 #: ../uidisplay.m:77
 #, c-format
 msgid "Usage: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-n state] [-t state] [-w state]\n"
-msgstr ""
+msgstr "用法：%s [-a 狀態] [-b [+|-]數字] [-d 狀態] [-h] [-i [key]] [-n 狀態] [-t 狀態] [-w 狀態]\n"
 
 #: ../uidisplay.m:88
 #, c-format
 msgid "Invalid %s value: '%s', permitted values: 0, off, 1, on\n"
-msgstr ""
+msgstr "無效的%s數值：「%s」，允許的數值：0, off, 1, on\n"
 
 #: ../uidisplay.m:96
 msgid "on"
-msgstr ""
+msgstr "開啟"
 
 #: ../uidisplay.m:98
 msgid "off"
-msgstr ""
+msgstr "關閉"
 
 #: ../uidisplay.m:100
 msgid "not supported"
-msgstr ""
+msgstr "不支援"
 
 #: ../uidisplay.m:146
 msgid "Dark Mode is only supported on iOS 13 and higher.\n"
-msgstr ""
+msgstr "暗黑模式只在iOS 13或以上支持。\n"
 
 #: ../uidisplay.m:179
 msgid "Night Shift is not supported on this device.\n"
-msgstr ""
+msgstr "這裝置不支援夜間模式。\n"
 
 #: ../uidisplay.m:215
 msgid "True Tone is not supported on this device.\n"
-msgstr ""
+msgstr "這裝置不支援原色調。\n"
 
 #: ../uidisplay.m:256
 #, c-format
 msgid "Invalid brightness value: %s\n"
-msgstr ""
+msgstr "無效的亮度數值：%s\n"
 
 #: ../uidisplay.m:270
 #, c-format
 msgid "Invalid brightness value: %s, %s\n"
-msgstr ""
+msgstr "無效的亮度數值：%s，%s\n"
 
 #: ../uidisplay.m:293
 #, c-format
 msgid "Unable to increase the brightness by %d, %.6g.\n"
-msgstr ""
+msgstr "無法把亮度增加%d,%.6g。\n"
 
 #: ../uidisplay.m:305
 #, c-format
 msgid "Unable to decrease the brightness by %d, %.6g.\n"
-msgstr ""
+msgstr "無法把亮度減少%d,%.6g。\n"
 
 #: ../uidisplay.m:390
 #, c-format
 msgid "Unknown information type: %s\n"
-msgstr ""
+msgstr "未知的資訊類型：%s\n"
 
 #: ../uidisplay.m:393
 #, c-format
 msgid "Brightness: %.6g\n"
-msgstr ""
+msgstr "亮度：%.6g\n"
 
 #: ../uidisplay.m:394
 #, c-format
 msgid "Auto-Brightness: %s\n"
-msgstr ""
+msgstr "自動調節亮度：%s\n"
 
 #: ../uidisplay.m:395
 #, c-format
 msgid "Dark Mode: %s\n"
-msgstr ""
+msgstr "暗黑模式：%s\n"
 
 #: ../uidisplay.m:396
 #, c-format
 msgid "Night Shift: %s\n"
-msgstr ""
+msgstr "夜間模式：%s\n"
 
 #: ../uidisplay.m:397
 #, c-format
 msgid "True Tone: %s\n"
-msgstr ""
+msgstr "原色調：%s\n"
 
 #: ../uidisplay.m:398
 #, c-format
 msgid "Reduce White Point: %s\n"
-msgstr ""
+msgstr "減少白率：%s\n"
 
 #: ../uinotify.m:23
 #, c-format
 msgid "Usage: %s [-b body] [-d number] [-i bundleid] [-s subtitle] title\n"
-msgstr ""
+msgstr "用法：%s [-b 正文] [-d 數字] [-i 封裝識別碼] [-s 副標題] 標題\n"
 
 #: ../uinotify.m:34
 #, c-format
 msgid "Authorization request failed: %s\n"
-msgstr ""
+msgstr "授權請求失敗：%s\n"
 
 #: ../uinotify.m:49
 #, c-format
 msgid "Failed to add notification: %s\n"
-msgstr ""
+msgstr "加入通知失敗：%s\n"
 
 #: ../uinotify.m:93
 #, c-format
 msgid "the delay is %s: %s"
-msgstr ""
+msgstr "延遲為%s:%s"
 
 #: ../uiopen.m:37
 #, c-format
 msgid "Usage: %s [OPTION...]\n"
 "Open URLs and open iOS applications by bundle ID\n\n"
-msgstr ""
+msgstr "用法：%s [選項...]\n"
+"開啟網址和以封包識別碼開啟應用程式\n\n"
 
 #: ../uiopen.m:40
 #, c-format
@@ -381,92 +382,95 @@ msgid "  --url <URL>     Open the specified URL\n"
 "                     specified name.\n"
 "  --path <path>   Open application at the specified path\n"
 "  --help          Give this help list.\n"
-msgstr ""
+msgstr "  --url <網址>     開啟指定的網址\n"
+"  --bundleid <識別碼> 開啟\n"
+"                     指定封裝識別碼的應用程式\n"
+"  --app <應用程式>     開啟\n"
+"                     指定名稱的應用程式\n"
+"  --path <路徑>   開啟位於指定路徑的應用程式\n"
+"  --help          印出這個幫助。\n"
 
 #: ../uiopen.m:149
 #, c-format
 msgid "No application called: %s\n"
-msgstr ""
+msgstr "沒有名為%s的應用程式\n"
 
 #: ../uiopen.m:178
 #, c-format
 msgid "No application at path: %s\n"
-msgstr ""
+msgstr "沒有位於%s的應用程式\n"
 
 #: ../uiopen.m:182 ../uisave.m:62
 #, c-format
 msgid "Invalid path: %s\n"
-msgstr ""
+msgstr "無效路徑：%s\n"
 
 #: ../uisave.m:19
 #, c-format
 msgid "Usage: %s file ...\n"
 "Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
-msgstr ""
+msgstr "用法：%s 檔案...\n"
+"版權所有(C) 2021 Procursus Team，保留所有權利。\n\n"
 
 #: ../uisave.m:22
 #, c-format
 msgid "Save images and videos to the camera roll\n\n"
-msgstr ""
+msgstr "把影像和影片儲存到相機膠卷中\n\n"
 
 #: ../uisave.m:24
 #, c-format
 msgid "Image and video formats that can be saved to the camera roll\n"
 "vary between iOS versions\n\n"
-msgstr ""
+msgstr "能夠儲存到相機膠卷的影像和影片格式\n"
+"因iOS版本而異\n\n"
 
 #: ../uisave.m:57
 #, c-format
 msgid "No file at path: %s\n"
-msgstr ""
+msgstr "沒有檔案位於路徑：%s\n"
 
 #: ../uisave.m:73
 #, c-format
 msgid "No supported image or video format at: %s\n"
-msgstr ""
+msgstr "沒有支援的影像或影片位於：%s\n"
 
 #: ../uisave.m:91
 #, c-format
 msgid "Failed to save image at %s with error: %s\n"
-msgstr ""
+msgstr "儲存位於%s的影像失敗，錯誤為：%s\n"
 
 #: ../uisave.m:108
 #, c-format
 msgid "Failed to save video at %s with error: %s\n"
-msgstr ""
+msgstr "儲存位於%s的影 片失敗，錯誤為：%s\n"
 
 #: ../uishoot.m:25
 #, c-format
 msgid "Usage: %s [-cp] [-d number] [-f [png | jpeg | heic]] [-o file]\n"
-msgstr ""
-
-#: ../uishoot.m:70
-#, c-format
-msgid "the timout is %s: %s"
-msgstr ""
+msgstr "用法： %s [-cp] [-d 數字] [-f [png | jpeg | heic]] [-o 檔案]\n"
 
 #: ../uishoot.m:77
 #, c-format
 msgid "Invalid image format '%s'\n"
-msgstr ""
+msgstr "無效的影像格式 '%s'\n"
 
 #: ../uishoot.m:96
 #, c-format
 msgid "Could not capture screenshot!\n"
-msgstr ""
+msgstr "無法截取螢幕截圖！\n"
 
 #: ../uishoot.m:123
 #, c-format
 msgid "Could not get image data to write to file!\n"
-msgstr ""
+msgstr "無法取得影像數據來寫入檔案中！\n"
 
 #: ../uishoot.m:132
 #, c-format
 msgid "Could not write image to %s: %s\n"
-msgstr ""
+msgstr "無法寫入影像到：%s:%s\n"
 
 #: ../uishoot.m:148
 #, c-format
 msgid "Could not save screenshot to Photos: %s\n"
-msgstr ""
+msgstr "無法把螢幕截圖儲存到相片中：%s\n"
 

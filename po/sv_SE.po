@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uikittools-ng\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-30 17:33+0200\n"
-"PO-Revision-Date: 2021-11-01 02:48\n"
+"POT-Creation-Date: 2021-11-01 11:43-0400\n"
+"PO-Revision-Date: 2021-11-03 01:43\n"
 "Last-Translator: \n"
 "Language-Team: Swedish\n"
 "Language: sv_SE\n"
@@ -65,7 +65,7 @@ msgstr ""
 
 #: ../lsrebuild.m:60
 msgid "missing necessary method"
-msgstr ""
+msgstr "saknar nödvändig metod"
 
 #: ../lsrebuild.m:66
 msgid "RebuildApplicationDatabases failed"
@@ -104,7 +104,7 @@ msgstr ""
 msgid "the priority is %s: %s"
 msgstr "prioriteten är %s: %s"
 
-#: ../uialert.m:112
+#: ../uialert.m:112 ../uishoot.m:70
 #, c-format
 msgid "the timeout is %s: %s"
 msgstr ""
@@ -165,7 +165,7 @@ msgstr ""
 #: ../uicache.m:119 ../uisave.m:27
 #, c-format
 msgid "Contact the Procursus Team for support.\n"
-msgstr ""
+msgstr "Kontakta Procursus teamet för support.\n"
 
 #: ../uicache.m:141
 #, c-format
@@ -240,19 +240,19 @@ msgstr ""
 
 #: ../uidisplay.m:96
 msgid "on"
-msgstr ""
+msgstr "på"
 
 #: ../uidisplay.m:98
 msgid "off"
-msgstr ""
+msgstr "av"
 
 #: ../uidisplay.m:100
 msgid "not supported"
-msgstr ""
+msgstr "stöds ej"
 
 #: ../uidisplay.m:146
 msgid "Dark Mode is only supported on iOS 13 and higher.\n"
-msgstr ""
+msgstr "Mörkt läge stöds endast på iOS 13 och högre.\n"
 
 #: ../uidisplay.m:179
 msgid "Night Shift is not supported on this device.\n"
@@ -409,11 +409,6 @@ msgstr ""
 #: ../uishoot.m:25
 #, c-format
 msgid "Usage: %s [-cp] [-d number] [-f [png | jpeg | heic]] [-o file]\n"
-msgstr ""
-
-#: ../uishoot.m:70
-#, c-format
-msgid "the timout is %s: %s"
 msgstr ""
 
 #: ../uishoot.m:77

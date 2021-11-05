@@ -67,7 +67,7 @@ int main(int argc, char** argv) {
 			case 'd':
 				delay = strtonum(optarg, 0, INT_MAX, &errstr);
 				if (errstr != NULL)
-					errx(1, _("the timout is %s: %s"), errstr, optarg);
+					errx(1, _("the timeout is %s: %s"), errstr, optarg);
 				break;
 			case 'f':
 				imageFormat = [NSString stringWithUTF8String:optarg];

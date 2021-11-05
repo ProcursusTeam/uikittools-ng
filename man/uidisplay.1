@@ -15,6 +15,7 @@
 .Op Fl d Ar state
 .Op Fl h
 .Op Fl i Op Ar key
+.Op Fl j
 .Op Fl n Ar state
 .Op Fl t Ar state
 .Op Fl w Ar state
@@ -58,10 +59,15 @@ is one of
 .Ar darkmode ,
 .Ar nightmode ,
 .Ar truetone ,
-or
 .Ar reducewhitepoint ,
+.Ar scale ,
+.Ar width ,
+or
+.Ar height ,
 only print the value of
 .Ar key .
+.It Fl j , -json
+Change the output format for info to JSON.
 .It Fl n , -nightshift Ar state
 Override the Night Shift value to
 .Ar state ,
@@ -87,6 +93,7 @@ Everything worked as expected.
 Something went wrong, an error message will also be printed.
 .It 2
 The requested action is not supported.
+.El
 .Sh EXAMPLES
 Increase the brightness by 10 percent:
 .Dl "uidisplay -b +10"

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uikittools-ng\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-30 17:33+0200\n"
-"PO-Revision-Date: 2021-11-01 02:48\n"
+"POT-Creation-Date: 2021-11-01 11:43-0400\n"
+"PO-Revision-Date: 2021-11-01 15:44\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -104,7 +104,7 @@ msgstr ""
 msgid "the priority is %s: %s"
 msgstr ""
 
-#: ../uialert.m:112
+#: ../uialert.m:112 ../uishoot.m:70
 #, c-format
 msgid "the timeout is %s: %s"
 msgstr ""
@@ -409,11 +409,6 @@ msgstr ""
 #: ../uishoot.m:25
 #, c-format
 msgid "Usage: %s [-cp] [-d number] [-f [png | jpeg | heic]] [-o file]\n"
-msgstr ""
-
-#: ../uishoot.m:70
-#, c-format
-msgid "the timout is %s: %s"
 msgstr ""
 
 #: ../uishoot.m:77

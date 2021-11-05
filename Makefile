@@ -6,13 +6,13 @@ STRIP   ?= strip
 LDID    ?= ldid
 
 ifneq (,$(findstring bridgeos,$(CC) $(CFLAGS)))
-ALL := gssc ldrestart
+ALL := gssc ldrestart mgask
 else ifneq (,$(findstring iphoneos,$(CC) $(CFLAGS)))
-ALL := gssc ldrestart sbdidlaunch sbreload uicache uiopen deviceinfo uialert uishoot uinotify uisave lsrebuild uidisplay
+ALL := gssc ldrestart sbdidlaunch sbreload uicache uiopen deviceinfo uialert uishoot uinotify uisave lsrebuild uidisplay mgask
 else ifneq (,$(findstring appletvos,$(CC) $(CFLAGS)))
-ALL := gssc ldrestart sbreload uicache uiopen deviceinfo uialert uishoot lsrebuild
+ALL := gssc ldrestart sbreload uicache uiopen deviceinfo uialert uishoot lsrebuild mgask
 else
-ALL := gssc deviceinfo uialert
+ALL := deviceinfo uialert mgask
 endif
 MAN := $(patsubst %,%.1,$(ALL))
 
@@ -79,10 +79,13 @@ lsrebuild: lsrebuild.m lsrebuild.plist
 	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -framework MobileCoreServices
 
 uidisplay: uidisplay.m strtonum.c uidisplay.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework Foundation -lAccessibility
+	$(CC) -fobjc-arc -O3 $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework Foundation -lAccessibility -framework UIKit -framework CoreGraphics
 
 deviceinfo: deviceinfo.c ecidecid.m uiduid.m serial.m locale.m cfversion.c
 	$(CC) -fobjc-arc -O3 $(CFLAGS) $^ -o $@ $(LDFLAGS) -framework CoreFoundation -lMobileGestalt
+
+mgask: mgask.m mgask.plist
+	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework CoreFoundation -framework Foundation -lMobileGestalt
 
 install: $(ALL) sign install-po
 	install -d $(DESTDIR)$(PREFIX)/bin/
@@ -114,4 +117,7 @@ clean:
 format:
 	find . -type f -name '*.[cm]' -exec clang-format -i {} \;
 
-.PHONY: all clean install sign format po install-po
+man-lint:
+	find man -type f -name '*.[1-9]' -exec mandoc -Tlint {} \;
+
+.PHONY: all clean install sign format po install-po man-lint

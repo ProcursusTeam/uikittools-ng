@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import <dlfcn.h>
 #import <err.h>
 #import <getopt.h>
@@ -53,16 +54,15 @@ typedef struct {
 } Status;
 
 @interface CBBlueLightClient : NSObject
+- (void)setEnabled:(BOOL)arg1;
 + (BOOL)supportsBlueLightReduction;
-
-- (BOOL)setEnabled:(BOOL)arg1;
 - (BOOL)getBlueLightStatus:(Status *)arg1;
 @end
 
 @interface CBAdaptationClient : NSObject
-+ (BOOL)supportsAdaptation;
+- (void)setEnabled:(BOOL)arg1;
 - (BOOL)getEnabled;
-- (BOOL)setEnabled:(BOOL)arg1;
++ (BOOL)supportsAdaptation;
 @end
 
 BOOL _AXSAutoBrightnessEnabled();
@@ -72,9 +72,23 @@ BOOL _AXSReduceWhitePointEnabled();
 
 typedef enum { sOn, sOff, sUnspecified } state;
 
+typedef enum {
+	iNope,
+	iEverything,
+	iAutoBrightness,
+	iBrightness,
+	iDarkMode,
+	iNightShift,
+	iTrueTone,
+	iReduceWhitePoint,
+	iHeight,
+	iWidth,
+	iScale
+} infoType;
+
 // clang-format off
 void usage() {
-	printf(_("Usage: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-n state] [-t state] [-w state]\n"), getprogname());
+	printf(_("Usage: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-j] [-n state] [-t state] [-w state]\n"), getprogname());
 }
 // clang-format on
 
@@ -98,6 +112,17 @@ char *stateAsString(state theState) {
 			return _("off");
 		case sUnspecified:
 			return _("not supported");
+	}
+}
+
+id stateAsJSONType(state theState) {
+	switch (theState) {
+		case sOn:
+			return @YES;
+		case sOff:
+			return @NO;
+		case sUnspecified:
+			return nil;
 	}
 }
 
@@ -337,6 +362,18 @@ float getBrightness() {
 	return brightness;
 }
 
+void printJSON(id notJSON) {
+	NSError *error;
+	NSData *jsonData;
+
+	jsonData = [NSJSONSerialization dataWithJSONObject:notJSON options:0 error:&error];
+
+	if (error)
+		errx(1, _("JSON formating failed: %s"), error.localizedDescription.UTF8String);
+
+	printf("%s\n", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding].UTF8String);
+}
+
 int main(int argc, char *argv[]) {
 #ifndef NO_NLS
 	setlocale(LC_ALL, "");
@@ -353,6 +390,7 @@ int main(int argc, char *argv[]) {
 	static struct option longOptions[] = {
 		{"help", no_argument, 0, 'h'},
 		{"info", optional_argument, 0, 'i'},
+		{"json", no_argument, 0, 'j'},
 		{"autobrightness", required_argument, 0, 'a'},
 		{"brightness", required_argument, 0, 'b'},
 		{"darkmode", required_argument, 0, 'd'},
@@ -362,11 +400,11 @@ int main(int argc, char *argv[]) {
 		{NULL, 0, NULL, 0}};
 	// clang-format on
 
-	BOOL showhelp = NO;
+	BOOL json = NO;
+	infoType info = iNope;
 
 	int code = 0;
-
-	while ((code = getopt_long(argc, argv, "hi::a:b:d:n:t:w:", longOptions,
+	while ((code = getopt_long(argc, argv, "hi::ja:b:d:n:t:w:", longOptions,
 							   NULL)) != -1) {
 		switch (code) {
 			case 'h':
@@ -375,30 +413,33 @@ int main(int argc, char *argv[]) {
 			case 'i': {
 				if (OPTIONAL_ARGUMENT_IS_PRESENT) {
 					if (strcmp(optarg, "autobrightness") == 0 || strcmp(optarg, "auto-brightness") == 0) {
-						printf("%s\n", stateAsString(getAutoBrightness()));
+						info = iAutoBrightness;
 					} else if (strcmp(optarg, "brightness") == 0) {
-						printf("%.6g\n", getBrightness());
+						info = iBrightness;
 					} else if (strcmp(optarg, "darkmode") == 0) {
-						printf("%s\n", stateAsString(getDarkMode()));
+						info = iDarkMode;
 					} else if (strcmp(optarg, "nightshift") == 0) {
-						printf("%s", stateAsString(getNightShift()));
+						info = iNightShift;
 					} else if (strcmp(optarg, "truetone") == 0) {
-						printf("%s\n", stateAsString(getTrueTone()));
+						info = iTrueTone;
 					} else if (strcmp(optarg, "reducewhitepoint") == 0 || strcmp(optarg, "whitepoint") == 0) {
-						printf("%s\n", stateAsString(_AXSReduceWhitePointEnabled() ? sOn : sOff));
+						info = iReduceWhitePoint;
+					} else if (strcmp(optarg, "height") == 0) {
+						info = iHeight;
+					} else if (strcmp(optarg, "width") == 0) {
+						info = iWidth;
+					} else if (strcmp(optarg, "scale") == 0) {
+						info = iScale;
 					} else {
 						errx(1, _("Unknown information type: %s\n"), optarg);
 					}
-				} else {
-					printf(_("Brightness: %.6g\n"), getBrightness());
-					printf(_("Auto-Brightness: %s\n"), stateAsString(getAutoBrightness()));
-					printf(_("Dark Mode: %s\n"), stateAsString(getDarkMode()));
-					printf(_("Night Shift: %s\n"), stateAsString(getNightShift()));
-					printf(_("True Tone: %s\n"), stateAsString(getTrueTone()));
-					printf(_("Reduce White Point: %s\n"), stateAsString(_AXSReduceWhitePointEnabled() ? sOn : sOff));
-				}
+				} else
+					info = iEverything;
 				break;
 			}
+			case 'j':
+				json = YES;
+				break;
 			case 'a': {
 				state newState = stateFromString(strdup(optarg), "Auto-Brightness");
 				setAutoBrightness(newState);
@@ -431,6 +472,153 @@ int main(int argc, char *argv[]) {
 				usage();
 				return 1;
 		}
+	}
+
+	if (info != iNope) {
+		UIScreen *screen = [UIScreen mainScreen];
+
+		if (json) {
+			switch (info) {
+				case iAutoBrightness:
+					printJSON(@{
+						@"autoBrightness": stateAsJSONType(getAutoBrightness()),
+						@"displayName": [NSString stringWithUTF8String:_("Auto-Brightness")]
+					});
+					break;
+				case iBrightness:
+					printJSON(@{
+						@"brightness": @(getBrightness()),
+						@"displayName": [NSString stringWithUTF8String:_("Brightness")]
+					});
+					break;
+				case iDarkMode:
+					printJSON(@{
+						@"darkMode": stateAsJSONType(getDarkMode()),
+						@"displayName": [NSString stringWithUTF8String:_("Dark Mode")]
+					});
+					break;
+				case iNightShift:
+					printJSON(@{
+						@"nightShift": stateAsJSONType(getNightShift()),
+						@"displayName": [NSString stringWithUTF8String:_("Night Shift")]
+					});
+					break;
+				case iTrueTone:
+					printJSON(@{
+						@"trueTone": stateAsJSONType(getNightShift()),
+						@"displayName": [NSString stringWithUTF8String:_("True Tone")]
+					});
+					break;
+				case iReduceWhitePoint:
+					printJSON(@{
+						@"trueTone": @(_AXSReduceWhitePointEnabled()),
+						@"displayName": [NSString stringWithUTF8String:_("Reduce White Point")]
+					});
+					break;
+				case iHeight:
+					printJSON(@{
+						@"height": @(CGRectGetHeight([screen bounds])),
+						@"displayName": [NSString stringWithUTF8String:_("Height")]
+					});
+					break;
+				case iWidth:
+					printJSON(@{
+						@"width": @(_AXSReduceWhitePointEnabled()),
+						@"displayName": [NSString stringWithUTF8String:_("Width")]
+					});
+					break;
+				case iScale:
+					printJSON(@{
+						@"scale": @(_AXSReduceWhitePointEnabled()),
+						@"displayName": [NSString stringWithUTF8String:_("Scale")]
+					});
+					break;
+				default:
+					printJSON(@[
+						@{
+							@"autoBrightness": stateAsJSONType(getAutoBrightness()),
+							@"displayName": [NSString stringWithUTF8String:_("Auto-Brightness")]
+						},
+						@{
+							@"brightness": @(getBrightness()),
+							@"displayName": [NSString stringWithUTF8String:_("Brightness")]
+						},
+						@{
+							@"darkMode": stateAsJSONType(getDarkMode()),
+							@"displayName": [NSString stringWithUTF8String:_("Dark Mode")]
+						},
+						@{
+							@"nightShift": stateAsJSONType(getNightShift()),
+							@"displayName": [NSString stringWithUTF8String:_("Night Shift")]
+						},
+						@{
+							@"trueTone": stateAsJSONType(getNightShift()),
+							@"displayName": [NSString stringWithUTF8String:_("True Tone")]
+						},
+						@{
+							@"reduceWhitePoint": @(_AXSReduceWhitePointEnabled()),
+							@"displayName": [NSString stringWithUTF8String:_("Reduce White Point")]
+						},
+						@{
+							@"height": @(CGRectGetHeight([screen bounds])),
+							@"displayName": [NSString stringWithUTF8String:_("Height")]
+						},
+						@{
+							@"width": @(_AXSReduceWhitePointEnabled()),
+							@"displayName": [NSString stringWithUTF8String:_("Width")]
+						},
+						@{
+							@"scale": @(_AXSReduceWhitePointEnabled()),
+							@"displayName": [NSString stringWithUTF8String:_("Scale")]
+						}
+					]);
+					break;
+			}
+		}
+		else {
+			switch (info) {
+				case iAutoBrightness:
+					printf("%s: %s\n", _("Auto-Brightness") stateAsString(getAutoBrightness()));
+					break;
+				case iBrightness:
+					printf("%s: %.6g\n", _("Brightness"), getBrightness());
+					break;
+				case iDarkMode:
+					printf("%s: %s\n", _("Dark Mode"), stateAsString(getDarkMode()));
+					break;
+				case iNightShift:
+					printf("%s: %s\n", _("Night Shift"), stateAsString(getNightShift()));
+					break;
+				case iTrueTone:
+					printf("%s: %s\n", _("True Tone"), stateAsString(getTrueTone()));
+					break;
+				case iReduceWhitePoint:
+					printf("%s: %s\n", _("Reduce White Point") stateAsString(_AXSReduceWhitePointEnabled() ? sOn : sOff));
+					break;
+				case iHeight:
+					printf("%s: %f\n", _("Height"), CGRectGetHeight([screen bounds]));
+					break;
+				case iWidth:
+					printf("%s: %f\n", _("Width"), CGRectGetWidth([screen bounds]));
+					break;
+				case iScale:
+					printf("%s: %f\n", _("Scale"), [screen scale]);
+					break;
+				default:
+					printf("%s: %.6g\n", _("Brightness"), getBrightness());
+					printf("%s: %s\n", _("Auto-Brightness") stateAsString(getAutoBrightness()));
+					printf("%s: %s\n", _("Dark Mode"), stateAsString(getDarkMode()));
+					printf("%s: %s\n", _("Night Shift"), stateAsString(getNightShift()));
+					printf("%s: %s\n", _("True Tone"), stateAsString(getTrueTone()));
+					printf("%s: %s\n" _("Reduce White Point") stateAsString(_AXSReduceWhitePointEnabled() ? sOn : sOff));
+					printf("%s: %f\n", _("Height"), CGRectGetHeight([screen bounds]));
+					printf("%s: %f\n", _("Width"), CGRectGetWidth([screen bounds]));
+					printf("%s: %f\n", _("Scale"), [screen scale]);
+					break;
+			}
+		}
+	} else if (json) {
+		errx(1, _("-j/--json may only be used in combination with -i/--info"));
 	}
 
 	return 0;

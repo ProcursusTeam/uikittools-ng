@@ -1,0 +1,37 @@
+.\"-
+.\" 版权所有 (c) 2020-2021 ProcursusTeam
+.\" SPDX-License-Identifier: BSD-4-Clause
+.\"
+.Dd November 4, 2021
+.Dt MGASK 1
+.Os
+.Sh 名称
+.Nm mgask
+.Nd 向MobileGestalt问问题
+.Sh 语法
+.Nm
+.Op Fl jpq
+.Ar 问题…
+.Sh 描述
+这个
+.Nm
+工具程式会向MobileGestalt查询指定问题的答案。
+所有的阵列或字典会以JSON格式印出。
+.Sh 选项
+.Bl -tag -width indent
+.It Fl j , -json
+把所有键值以JSON格式印出
+.It Fl p , -pretty
+美丽地印出JSON。
+视乎是否有指定
+.Fl j
+这只会影响阵列和字典，或整个输出。
+.It Fl q , -quiet
+找不到键值时，不印出错误。
+.El
+.Sh 历史
+这个
+.Nm
+工具程式首先在2021年11月4日uikittools-ng在出现，由
+.An Cameron Katri
+编写。

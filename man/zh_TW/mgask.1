@@ -11,6 +11,8 @@
 .Sh 語法
 .Nm
 .Op Fl jpq
+.Op Fl -gssc
+.Op Fl -pretty
 .Ar 問題…
 .Sh 描述
 這個
@@ -19,9 +21,17 @@
 所有的陣列或字典會以JSON格式印出。
 .Sh 選項
 .Bl -tag -width indent
+.It Fl -gssc
+令
+.Nm
+的行為和舊式的
+.Nm gssc
+一樣。
 .It Fl j , -json
 把所有鍵值以JSON格式印出
-.It Fl p , -pretty
+.It Fl p , -plist
+以NeXTSTEP plist格式印出所有鍵值。
+.It Fl -pretty
 美麗地印出JSON。
 視乎是否有指定
 .Fl j

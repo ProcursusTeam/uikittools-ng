@@ -83,6 +83,8 @@ typedef enum {
 	iReduceWhitePoint,
 	iHeight,
 	iWidth,
+	iPhysicalHeight,
+	iPhysicalWidth,
 	iScale
 } infoType;
 
@@ -428,6 +430,10 @@ int main(int argc, char *argv[]) {
 						info = iHeight;
 					} else if (strcmp(optarg, "width") == 0) {
 						info = iWidth;
+					} else if (strcmp(optarg, "physicalHeight") == 0) {
+						info = iPhysicalHeight;
+					} else if (strcmp(optarg, "physicalWidth") == 0) {
+						info = iPhysicalWidth;
 					} else if (strcmp(optarg, "scale") == 0) {
 						info = iScale;
 					} else {
@@ -523,13 +529,25 @@ int main(int argc, char *argv[]) {
 					break;
 				case iWidth:
 					printJSON(@{
-						@"width": @(_AXSReduceWhitePointEnabled()),
+						@"width": @(CGRectGetWidth([screen bounds])),
 						@"displayName": [NSString stringWithUTF8String:_("Width")]
+					});
+					break;
+				case iPhysicalHeight:
+					printJSON(@{
+						@"physicalHeight": @(CGRectGetHeight([screen nativeBounds])),
+						@"displayName": [NSString stringWithUTF8String:_("Physical Height")]
+					});
+					break;
+				case iPhysicalWidth:
+					printJSON(@{
+						@"physicalWidth": @(CGRectGetWidth([screen nativeBounds])),
+						@"displayName": [NSString stringWithUTF8String:_("Physical Width")]
 					});
 					break;
 				case iScale:
 					printJSON(@{
-						@"scale": @(_AXSReduceWhitePointEnabled()),
+						@"scale": @([screen scale]),
 						@"displayName": [NSString stringWithUTF8String:_("Scale")]
 					});
 					break;
@@ -564,11 +582,19 @@ int main(int argc, char *argv[]) {
 							@"displayName": [NSString stringWithUTF8String:_("Height")]
 						},
 						@{
-							@"width": @(_AXSReduceWhitePointEnabled()),
+							@"width": @(CGRectGetWidth([screen bounds])),
 							@"displayName": [NSString stringWithUTF8String:_("Width")]
 						},
 						@{
-							@"scale": @(_AXSReduceWhitePointEnabled()),
+							@"physicalHeight": @(CGRectGetHeight([screen nativeBounds])),
+							@"displayName": [NSString stringWithUTF8String:_("Physical Height")]
+						},
+						@{
+							@"physicalWidth": @(CGRectGetWidth([screen nativeBounds])),
+							@"displayName": [NSString stringWithUTF8String:_("Physical Width")]
+						},
+						@{
+							@"scale": @([screen scale]),
 							@"displayName": [NSString stringWithUTF8String:_("Scale")]
 						}
 					]);
@@ -596,13 +622,19 @@ int main(int argc, char *argv[]) {
 					printf("%s: %s\n", _("Reduce White Point"), stateAsString(_AXSReduceWhitePointEnabled() ? sOn : sOff));
 					break;
 				case iHeight:
-					printf("%s: %f\n", _("Height"), CGRectGetHeight([screen bounds]));
+					printf("%s: %.6g\n", _("Height"), CGRectGetHeight([screen bounds]));
 					break;
 				case iWidth:
-					printf("%s: %f\n", _("Width"), CGRectGetWidth([screen bounds]));
+					printf("%s: %.6g\n", _("Width"), CGRectGetWidth([screen bounds]));
+					break;
+				case iPhysicalHeight:
+					printf("%s: %.6g\n", _("Physical Height"), CGRectGetHeight([screen nativeBounds]));
+					break;
+				case iPhysicalWidth:
+					printf("%s: %.6g\n", _("Physical Width"), CGRectGetWidth([screen nativeBounds]));
 					break;
 				case iScale:
-					printf("%s: %f\n", _("Scale"), [screen scale]);
+					printf("%s: %.2g\n", _("Scale"), [screen scale]);
 					break;
 				default:
 					printf("%s: %.6g\n", _("Brightness"), getBrightness());
@@ -611,9 +643,11 @@ int main(int argc, char *argv[]) {
 					printf("%s: %s\n", _("Night Shift"), stateAsString(getNightShift()));
 					printf("%s: %s\n", _("True Tone"), stateAsString(getTrueTone()));
 					printf("%s: %s\n", _("Reduce White Point"), stateAsString(_AXSReduceWhitePointEnabled() ? sOn : sOff));
-					printf("%s: %f\n", _("Height"), CGRectGetHeight([screen bounds]));
-					printf("%s: %f\n", _("Width"), CGRectGetWidth([screen bounds]));
-					printf("%s: %f\n", _("Scale"), [screen scale]);
+					printf("%s: %.6g\n", _("Height"), CGRectGetHeight([screen bounds]));
+					printf("%s: %.6g\n", _("Width"), CGRectGetWidth([screen bounds]));
+					printf("%s: %.6g\n", _("Physical Height"), CGRectGetHeight([screen nativeBounds]));
+					printf("%s: %.6g\n", _("Physical Width"), CGRectGetWidth([screen nativeBounds]));
+					printf("%s: %.2g\n", _("Scale"), [screen scale]);
 					break;
 			}
 		}

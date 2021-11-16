@@ -76,7 +76,7 @@ lsrebuild: lsrebuild.m lsrebuild.plist
 	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -framework MobileCoreServices
 
 uidisplay: uidisplay.m strtonum.c uidisplay.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework Foundation -lAccessibility -framework UIKit -framework CoreGraphics
+	$(CC) -fobjc-arc -O3 $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework Foundation -lAccessibility -framework UIKit -framework CoreGraphics -framework IOKit
 
 deviceinfo: info/deviceinfo.c info/ecid.m info/uid.m info/serial.m info/locale.m info/cfversion.c
 	$(CC) -fobjc-arc -O3 $(CFLAGS) $^ -o $@ $(LDFLAGS) -framework CoreFoundation -lMobileGestalt

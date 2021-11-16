@@ -69,6 +69,18 @@ BOOL _AXSAutoBrightnessEnabled();
 void _AXSSetReduceWhitePointEnabled(BOOL enabled);
 BOOL _AXSReduceWhitePointEnabled();
 
+uint16_t kHIDPage_Consumer = 0x0C;
+uint16_t kHIDUsage_Csmr_Power = 0x30;
+
+void *IOHIDEventSystemClientCreate(CFAllocatorRef allocator);
+void *IOHIDEventCreateKeyboardEvent(CFAllocatorRef allocator,
+									uint64_t timeStamp, uint16_t usagePage,
+									uint16_t usage, Boolean down,
+									uint32_t flags);
+void IOHIDEventSetSenderID(void *event, uint64_t senderID);
+void IOHIDEventSystemClientDispatchEvent(void *client, void *event);
+
+uint64_t mach_absolute_time();
 
 typedef enum { sOn, sOff, sUnspecified } state;
 
@@ -90,7 +102,7 @@ typedef enum {
 
 // clang-format off
 void usage() {
-	printf(_("Usage: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-j] [-n state] [-t state] [-w state]\n"), getprogname());
+	printf(_("Usage: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-j] [-l] [-n state] [-t state] [-w state]\n"), getprogname());
 }
 // clang-format on
 
@@ -140,11 +152,6 @@ void setAutoBrightness(state newState) {
 	BKSDisplayBrightnessSetAutoBrightnessEnabled(newState == sOn);
 
 	dlclose(backBoardServices);
-}
-
-
-state getAutoBrightness() {
-	return _AXSAutoBrightnessEnabled() ? sOn : sOff;
 }
 
 void setDarkMode(state newState) {
@@ -364,6 +371,28 @@ float getBrightness() {
 	return brightness;
 }
 
+void lock() {
+	void *client = IOHIDEventSystemClientCreate(kCFAllocatorDefault);
+
+	void *lockButtonDown = IOHIDEventCreateKeyboardEvent(
+		kCFAllocatorDefault, mach_absolute_time(), kHIDPage_Consumer,
+		kHIDUsage_Csmr_Power, 1, 0);
+
+	IOHIDEventSetSenderID(lockButtonDown, 0x8000000817319372);
+	IOHIDEventSystemClientDispatchEvent(client, lockButtonDown);
+	CFRelease(lockButtonDown);
+
+	void *lockButtonUp = IOHIDEventCreateKeyboardEvent(
+		kCFAllocatorDefault, mach_absolute_time(), kHIDPage_Consumer,
+		kHIDUsage_Csmr_Power, 0, 0);
+
+	IOHIDEventSetSenderID(lockButtonUp, 0x8000000817319372);
+	IOHIDEventSystemClientDispatchEvent(client, lockButtonUp);
+	CFRelease(lockButtonUp);
+
+	CFRelease(client);
+}
+
 void printJSON(id notJSON) {
 	NSError *error;
 	NSData *jsonData;
@@ -396,6 +425,7 @@ int main(int argc, char *argv[]) {
 		{"autobrightness", required_argument, 0, 'a'},
 		{"brightness", required_argument, 0, 'b'},
 		{"darkmode", required_argument, 0, 'd'},
+		{"lock", required_argument, 0, 'l'},
 		{"nightshift", required_argument, 0, 'n'},
 		{"truetone", required_argument, 0, 't'},
 		{"reducewhitepoint", required_argument, 0, 'w'},
@@ -406,7 +436,7 @@ int main(int argc, char *argv[]) {
 	infoType info = iNope;
 
 	int code = 0;
-	while ((code = getopt_long(argc, argv, "hi::ja:b:d:n:t:w:", longOptions,
+	while ((code = getopt_long(argc, argv, "hi::ja:b:d:ln:t:w:", longOptions,
 							   NULL)) != -1) {
 		switch (code) {
 			case 'h':
@@ -459,6 +489,9 @@ int main(int argc, char *argv[]) {
 				setDarkMode(newState);
 				break;
 			}
+			case 'l':
+				lock();
+				break;
 			case 'n': {
 				state newState = stateFromString(strdup(optarg), "Night Shift");
 				setNightShift(newState);
@@ -487,7 +520,7 @@ int main(int argc, char *argv[]) {
 			switch (info) {
 				case iAutoBrightness:
 					printJSON(@{
-						@"autoBrightness": stateAsJSONType(getAutoBrightness()),
+						@"autoBrightness": @(_AXSAutoBrightnessEnabled()),
 						@"displayName": [NSString stringWithUTF8String:_("Auto-Brightness")]
 					});
 					break;
@@ -554,7 +587,7 @@ int main(int argc, char *argv[]) {
 				default:
 					printJSON(@[
 						@{
-							@"autoBrightness": stateAsJSONType(getAutoBrightness()),
+							@"autoBrightness": @(_AXSAutoBrightnessEnabled()),
 							@"displayName": [NSString stringWithUTF8String:_("Auto-Brightness")]
 						},
 						@{
@@ -604,7 +637,7 @@ int main(int argc, char *argv[]) {
 		else {
 			switch (info) {
 				case iAutoBrightness:
-					printf("%s: %s\n", _("Auto-Brightness"), stateAsString(getAutoBrightness()));
+					printf("%s: %s\n", _("Auto-Brightness"), stateAsString(_AXSAutoBrightnessEnabled() ? sOn : sOff));
 					break;
 				case iBrightness:
 					printf("%s: %.6g\n", _("Brightness"), getBrightness());
@@ -638,7 +671,7 @@ int main(int argc, char *argv[]) {
 					break;
 				default:
 					printf("%s: %.6g\n", _("Brightness"), getBrightness());
-					printf("%s: %s\n", _("Auto-Brightness"), stateAsString(getAutoBrightness()));
+					printf("%s: %s\n", _("Auto-Brightness"), stateAsString(_AXSAutoBrightnessEnabled() ? sOn : sOff));
 					printf("%s: %s\n", _("Dark Mode"), stateAsString(getDarkMode()));
 					printf("%s: %s\n", _("Night Shift"), stateAsString(getNightShift()));
 					printf("%s: %s\n", _("True Tone"), stateAsString(getTrueTone()));

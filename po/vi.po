@@ -3,84 +3,82 @@ msgstr ""
 "Project-Id-Version: uikittools-ng\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-21 22:53-0500\n"
-"PO-Revision-Date: 2021-12-06 13:05\n"
+"PO-Revision-Date: 2021-11-22 03:56\n"
 "Last-Translator: \n"
-"Language-Team: Portuguese\n"
-"Language: pt_PT\n"
+"Language-Team: Vietnamese\n"
+"Language: vi_VN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Crowdin-Project: uikittools-ng\n"
 "X-Crowdin-Project-ID: 482777\n"
-"X-Crowdin-Language: pt-PT\n"
+"X-Crowdin-Language: vi\n"
 "X-Crowdin-File: uikittools-ng.pot\n"
 "X-Crowdin-File-ID: 3\n"
 
 #: ../ldrestart.c:78 ../sbreload-launchd.c:78
 #, c-format
 msgid "Error stopping service:  %d - %s\n"
-msgstr "Erro ao parar serviço: %d - %s\n"
+msgstr ""
 
 #: ../ldrestart.c:112 ../sbreload-launchd.c:106
 #, c-format
 msgid "Error: no services returned for list\n"
-msgstr "Erro: nenhum serviço retornado para lista\n"
+msgstr ""
 
 #: ../ldrestart.c:120 ../sbreload-launchd.c:114
 #, c-format
 msgid "Error: services returned for list aren't a dictionary!\n"
-msgstr "Erro: serviços retornados para lista não são um dicionário!\n"
+msgstr ""
 
 #: ../ldrestart.c:138 ../sbreload-launchd.c:136
 #, c-format
 msgid "Error:  %d - %s\n"
-msgstr "Erro: %d - %s\n"
+msgstr ""
 
 #: ../ldrestart.c:141 ../sbreload-launchd.c:139
 #, c-format
 msgid "Unable to get launchd: %d\n"
-msgstr "Não foi possível obter launchd: %d\n"
+msgstr ""
 
 #: ../lsrebuild.m:60
 msgid "missing necessary method"
-msgstr "método necessário em falta"
+msgstr ""
 
 #: ../lsrebuild.m:66
 msgid "RebuildApplicationDatabases failed"
-msgstr "RebuildApplicationDatabases falhou"
+msgstr ""
 
 #: ../mgask.m:33 ../uialert.m:200 ../uidisplay.m:403
 #, c-format
 msgid "JSON formating failed: %s"
-msgstr "Falha na formatação JSON: %s"
+msgstr ""
 
 #: ../mgask.m:98
 #, c-format
 msgid "Usage: %s [-jpq] [--gssc] [--pretty] question ...\n"
-msgstr "Uso: %s [-jpq] [--gssc] [--pretty] questão ...\n"
+msgstr ""
 
 #: ../mgask.m:122
 #, c-format
 msgid "Cannot find key %s\n"
-msgstr "Não foi possível encontrar a chave %s\n"
+msgstr ""
 
 #: ../mgask.m:136 ../uicache.m:253
 msgid "true"
-msgstr "verdadeiro"
+msgstr "đúng"
 
 #: ../mgask.m:136 ../uicache.m:253
 msgid "false"
-msgstr "falso"
+msgstr "sai"
 
 #: ../uialert.m:22
 #, c-format
 msgid "Usage: %s [-b body] [-i prompt] [-j] [-p primary] [--priority number] [-s second] [--secure prompt] [-t third] [--timeout number] title\n"
 "Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
 "Display an alert\n\n"
-msgstr "Uso: %s [-b body] [-i prompt] [-j] [-p primary] [--priority number] [-s second] [--secure prompt] [-t third] [--timeout number] título\n"
-"Copyright (C) 2021, Equipa. Todos os direitos reservados.\n\n"
-"Exibir um alerta\n\n"
+msgstr ""
 
 #: ../uialert.m:26
 #, c-format
@@ -94,16 +92,7 @@ msgid "  -b, --body <text>        Text for alert body\n"
 "  -j, --json               Print the output in JSON\n"
 "      --secure <text>      Show text field as secure\n"
 "      --timeout <num>      Number of seconds to wait before exiting\n\n"
-msgstr "  -b, --body <text>        Texto para alerta corpo\n"
-"  -p, --primary <text>    Botão de texto predefinido  do botão em vez de \"OK\"\n"
-"      --priority 0-3 Alerta\n"
-"                           Isto vai mudar o ícone no macOS\n"
-"  -s, --secondary <text>   Texto do Segundo Botão\n"
-"  -t, --tertiary <text>    Texto do Terceiro Botão\n"
-"  -i, --input <text>       Pergunta por entrada de texto\n"
-"  -j, --json Imprime a saída em JSON\n"
-"      --secure <text>      Mostra campo de texto seguro\n"
-"      --timeout <num> Número de segundos a esperar antes de sair\n\n"
+msgstr ""
 
 #: ../uialert.m:37
 #, c-format
@@ -113,93 +102,85 @@ msgid "Output:\n"
 "  2 - tertiary button\n"
 "  3 - timeout/cancel\n\n"
 "Contact the Procursus Team for support.\n"
-msgstr "Output:\n"
-"  0 - botão principal\n"
-"  1 - botão secundário\n"
-"  2 - botão terciário\n"
-"  3 - Intervalo/cancelar\n\n"
-"Contacte a Equipa Procursos para suporte.\n"
+msgstr ""
 
 #: ../uicache.m:104
 #, c-format
 msgid "Usage: %s [-afhlr] [-i id] [-p path] [-u path]\n"
 "Modified work Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
-msgstr "Uso: %s [-afhlr] [-i id] [-p path(pasta)] [-u path(pasta)]\n"
-"Trabalho modificado Copyright (C) 2021, Procursus Team. Todos os direitos reservados.\n\n"
+msgstr ""
 
 #: ../uicache.m:106
 #, c-format
 msgid "Update iOS registered applications and optionally restart SpringBoard\n\n"
-msgstr "Atualizar as aplicações registadas no iOS e opcionalmente reiniciar a SpringBoard\n\n"
+msgstr ""
 
 #: ../uicache.m:108
 #, c-format
 msgid "  -a, --all                Update all system and internal applications\n"
-msgstr "  -a, --all                Atualizar todas as aplicações de sistema e internas\n"
+msgstr ""
 
 #: ../uicache.m:109
 #, c-format
 msgid "  -f, --force              Force -a to reregister all Applications\n"
 "                              and modify App Store apps\n"
-msgstr "  -f, --force              Forçar -a a voltar a registar todas as Aplicações\n"
-"                              e modificar as aplicações da App Store\n"
+msgstr ""
 
 #: ../uicache.m:111
 #, c-format
 msgid "  -p, --path <path>        Update application bundle at the specified path\n"
-msgstr "  -p, --path <path>        Atualizar um pacote de aplicação numa localização específica\n"
+msgstr ""
 
 #: ../uicache.m:112
 #, c-format
 msgid "  -u, --unregister <path>  Unregister application bundle at the specified path\n"
-msgstr "  -u, --unregister <path>  Retirar o registo de uma aplicação numa localização específica\n"
+msgstr ""
 
 #: ../uicache.m:113
 #, c-format
 msgid "  -r, --respring           Restart SpringBoard and backboardd after\n"
 "                              updating applications\n"
-msgstr "  -r, --respring           Reiniciar SpringBoard e backboardd depois\n"
-"                              de atualizar aplicações\n"
+msgstr ""
 
 #: ../uicache.m:115
 #, c-format
 msgid "  -l, --list               List the bundle ids of installed apps\n"
-msgstr "  -l, --list               Listar os id's de pacote de aplicações instaladas\n"
+msgstr ""
 
 #: ../uicache.m:116
 #, c-format
 msgid "  -i, --info <bundleid>    Give information about given bundle id\n"
-msgstr "  -i, --info <bundleid>    Dar informação sobre um id de pacote\n"
+msgstr ""
 
 #: ../uicache.m:117
 #, c-format
 msgid "  -h, --help               Give this help list.\n\n"
-msgstr "  -h, --help               Imprimir esta lista de ajuda.\n\n"
+msgstr ""
 
 #: ../uicache.m:119 ../uisave.m:27
 #, c-format
 msgid "Contact the Procursus Team for support.\n"
-msgstr "Contacte a Procursus Team para suporte.\n"
+msgstr "Liên hệ Procursus Team để được hỗ trợ.\n"
 
 #: ../uicache.m:141
 #, c-format
 msgid "uicache does not support App Store apps.\n"
-msgstr "uicache não suporta aplicações da App Store.\n"
+msgstr "uicache không hỗ trợ ứng dụng từ App Store.\n"
 
 #: ../uicache.m:143
 #, c-format
 msgid "Continuing anyway...\n"
-msgstr "Continuando de qualquer maneira...\n"
+msgstr ""
 
 #: ../uicache.m:213
 #, c-format
 msgid "Error: Unable to register %s\n"
-msgstr "Erro: Não foi possível registar %s\n"
+msgstr ""
 
 #: ../uicache.m:217
 #, c-format
 msgid "Error: Unable to unregister %s\n"
-msgstr "Erro: Não foi possível remover o registo de %s\n"
+msgstr ""
 
 #: ../uicache.m:237
 #, c-format
@@ -212,101 +193,93 @@ msgid "Name: %s\n"
 "TeamID: %s\n"
 "Type: %s\n"
 "Removeable: %s\n"
-msgstr "Nome: %s\n"
-"ID de pacote: %s\n"
-"Nome do executável: %s\n"
-"Pasta: %s\n"
-"Localização do Container: %s\n"
-"Nome do Vendedor: %s\n"
-"ID da equipa: %s\n"
-"Tipo: %s\n"
-"Removível: %s\n"
+msgstr ""
 
 #: ../uicache.m:256 ../uicache.m:264
 #, c-format
 msgid "URLScheme: %s\n"
-msgstr "Esquema de URL: %s\n"
+msgstr ""
 
 #: ../uicache.m:269
 #, c-format
 msgid "%s is an invalid bundle id\n"
-msgstr "%s não é um ID de pacote válido\n"
+msgstr "%s là một bundle id không hợp lệ\n"
 
 #: ../uicache.m:373
 #, c-format
 msgid "registering %s\n"
-msgstr "a registar %s\n"
+msgstr ""
 
 #: ../uicache.m:378
 #, c-format
 msgid "unregistering %s\n"
-msgstr "removendo o registo de %s\n"
+msgstr ""
 
 #: ../uidisplay.m:106
 #, c-format
 msgid "Usage: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-j] [-l] [-n state] [-t state] [-w state]\n"
-msgstr "Uso: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-j] [-l] [-n state] [-t state] [-w state]\n"
+msgstr ""
 
 #: ../uidisplay.m:117
 #, c-format
 msgid "Invalid %s value: '%s', permitted values: 0, off, 1, on\n"
-msgstr "Valor inválido %s: '%s', valores permitidos: 0, desligado, 1, ligado\n"
+msgstr ""
 
 #: ../uidisplay.m:125
 msgid "on"
-msgstr "ligado"
+msgstr "bật"
 
 #: ../uidisplay.m:127
 msgid "off"
-msgstr "desligado"
+msgstr "tắt"
 
 #: ../uidisplay.m:129
 msgid "not supported"
-msgstr "não suportado"
+msgstr "không hỗ trợ"
 
 #: ../uidisplay.m:181
 msgid "Dark Mode is only supported on iOS 13 and higher.\n"
-msgstr "Modo Noturno só é suportado a partir do iOS 13.\n"
+msgstr "Chế độ tối chỉ được hỗ trợ trên iOS 13 hoặc mới hơn.\n"
 
 #: ../uidisplay.m:214
 msgid "Night Shift is not supported on this device.\n"
-msgstr "Night Shift não é suportado neste dispositivo.\n"
+msgstr "Night Shift không được hỗ trợ trên thiết bị này.\n"
 
 #: ../uidisplay.m:250
 msgid "True Tone is not supported on this device.\n"
-msgstr "True Tone não é suportado neste dispositivo.\n"
+msgstr "True Tone không được hỗ trợ trên thiết bị này.\n"
 
 #: ../uidisplay.m:291
 #, c-format
 msgid "Invalid brightness value: %s\n"
-msgstr "Valor de brilho inválido: %s\n"
+msgstr "Giá trị độ sáng không hợp lệ: %s\n"
 
 #: ../uidisplay.m:327
 #, c-format
 msgid "Unable to increase the brightness by %d, %.6g.\n"
-msgstr "Não foi possível aumentar o brilho em %d, %.6g.\n"
+msgstr "Không thể tăng độ sáng thêm %d, %.6g.\n"
 
 #: ../uidisplay.m:339
 #, c-format
 msgid "Unable to decrease the brightness by %d, %.6g.\n"
-msgstr "Não foi possível diminuir o brilho em %d, %.6g.\n"
+msgstr "Không thể giảm độ sáng xuống thêm %d, %.6g.\n"
 
 #: ../uidisplay.m:470
 #, c-format
 msgid "Unknown information type: %s\n"
-msgstr "Tipo de informação desconhecido: %s\n"
+msgstr "Thông tin không rõ loại: %s\n"
 
 #: ../uidisplay.m:524 ../uidisplay.m:591 ../uidisplay.m:640 ../uidisplay.m:674
 msgid "Auto-Brightness"
-msgstr "Brilho Automático"
+msgstr "Độ sáng tự động"
 
 #: ../uidisplay.m:530 ../uidisplay.m:595 ../uidisplay.m:643 ../uidisplay.m:673
 msgid "Brightness"
-msgstr "Brilho"
+msgstr "Độ sáng"
 
 #: ../uidisplay.m:536 ../uidisplay.m:599 ../uidisplay.m:646 ../uidisplay.m:675
 msgid "Dark Mode"
-msgstr "Modo Escuro"
+msgstr "Chế độ tối"
 
 #: ../uidisplay.m:542 ../uidisplay.m:603 ../uidisplay.m:649 ../uidisplay.m:676
 msgid "Night Shift"
@@ -318,53 +291,52 @@ msgstr "True Tone"
 
 #: ../uidisplay.m:554 ../uidisplay.m:611 ../uidisplay.m:655 ../uidisplay.m:678
 msgid "Reduce White Point"
-msgstr "Reduzir Ponto Branco"
+msgstr "Giảm điểm trắng"
 
 #: ../uidisplay.m:560 ../uidisplay.m:615 ../uidisplay.m:658 ../uidisplay.m:679
 msgid "Height"
-msgstr "Altura"
+msgstr "Độ dài"
 
 #: ../uidisplay.m:566 ../uidisplay.m:619 ../uidisplay.m:661 ../uidisplay.m:680
 msgid "Width"
-msgstr "Largura"
+msgstr "Độ rộng"
 
 #: ../uidisplay.m:572 ../uidisplay.m:623 ../uidisplay.m:664 ../uidisplay.m:681
 msgid "Physical Height"
-msgstr "Altura Física"
+msgstr ""
 
 #: ../uidisplay.m:578 ../uidisplay.m:627 ../uidisplay.m:667 ../uidisplay.m:682
 msgid "Physical Width"
-msgstr "Largura Física"
+msgstr ""
 
 #: ../uidisplay.m:584 ../uidisplay.m:631 ../uidisplay.m:670 ../uidisplay.m:683
 msgid "Scale"
-msgstr "Escala"
+msgstr "Tỷ lệ"
 
 #: ../uidisplay.m:688
 msgid "-j/--json may only be used in combination with -i/--info"
-msgstr "-j/--json só pode ser usado em combinação com -i/--info"
+msgstr ""
 
 #: ../uinotify.m:23
 #, c-format
 msgid "Usage: %s [-b body] [-d number] [-i bundleid] [-s subtitle] title\n"
-msgstr "Uso: %s [-b body] [-d número] [-i ID de pacote] [-s subtítulo] título\n"
+msgstr ""
 
 #: ../uinotify.m:34
 #, c-format
 msgid "Authorization request failed: %s\n"
-msgstr "Pedido de autorização falhou: %s\n"
+msgstr ""
 
 #: ../uinotify.m:49
 #, c-format
 msgid "Failed to add notification: %s\n"
-msgstr "Falha ao adicionar notificação: %s\n"
+msgstr ""
 
 #: ../uiopen.m:37
 #, c-format
 msgid "Usage: %s [OPTION...]\n"
 "Open URLs and open iOS applications by bundle ID\n\n"
-msgstr "Uso: %s [OPTION...]\n"
-"Abrir URLs e abrir aplicações iOS por ID de pacote\n\n"
+msgstr ""
 
 #: ../uiopen.m:40
 #, c-format
@@ -375,109 +347,101 @@ msgid "  --url <URL>     Open the specified URL\n"
 "                     specified name.\n"
 "  --path <path>   Open application at the specified path\n"
 "  --help          Give this help list.\n"
-msgstr "  --url <URL>     Abrir o URL especificado\n"
-"  --bundleid <id> Abrir a aplicação com o\n"
-"                     ID de pacote especificado.\n"
-"  --app <app>     Abrir a aplicação com o\n"
-"                     nome especificado.\n"
-"  --path <path>   Abrir aplicação em localização especificada\n"
-"  --help          Apresentar esta lista de ajuda.\n"
+msgstr ""
 
 #: ../uiopen.m:149
 #, c-format
 msgid "No application called: %s\n"
-msgstr "Nenhuma aplicação chamada: %s\n"
+msgstr ""
 
 #: ../uiopen.m:178
 #, c-format
 msgid "No application at path: %s\n"
-msgstr "Nenhuma aplicação na localização: %s\n"
+msgstr ""
 
 #: ../uiopen.m:182 ../uisave.m:62
 #, c-format
 msgid "Invalid path: %s\n"
-msgstr "Pasta inválida: %s\n"
+msgstr ""
 
 #: ../uisave.m:19
 #, c-format
 msgid "Usage: %s file ...\n"
 "Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
-msgstr "Uso: %s ficheiro ...\n"
-"Copyright (C) 2021, Procursus Team. Todos os direitos reservados.\n\n"
+msgstr ""
 
 #: ../uisave.m:22
 #, c-format
 msgid "Save images and videos to the camera roll\n\n"
-msgstr "Salvar imagens e vídeos no rolo da câmara\n\n"
+msgstr ""
 
 #: ../uisave.m:24
 #, c-format
 msgid "Image and video formats that can be saved to the camera roll\n"
 "vary between iOS versions\n\n"
-msgstr "Formatos de imagem e vídeo que podem ser salvos no rolo de câmara\n"
-"variam entre versões do iOS\n\n"
+msgstr ""
 
 #: ../uisave.m:57
 #, c-format
 msgid "No file at path: %s\n"
-msgstr "Nenhum ficheiro na localização: %s\n"
+msgstr ""
 
 #: ../uisave.m:73
 #, c-format
 msgid "No supported image or video format at: %s\n"
-msgstr "Nenhum formato de imagem ou vídeo suportado em: %s\n"
+msgstr ""
 
 #: ../uisave.m:91
 #, c-format
 msgid "Failed to save image at %s with error: %s\n"
-msgstr "Falha ao salvar imagem em %s com erro: %s\n"
+msgstr ""
 
 #: ../uisave.m:108
 #, c-format
 msgid "Failed to save video at %s with error: %s\n"
-msgstr "Falha ao salvar vídeo em %s com erro: %s\n"
+msgstr "Không thể lưu video vào %s với lỗi: %s\n"
 
 #: ../uishoot.m:25
 #, c-format
 msgid "Usage: %s [-cp] [-d number] [-f [png | jpeg | heic]] [-o file]\n"
-msgstr "Uso: %s [-cp] [-d número] [-f [png | jpeg | heic]] [-o ficheiro]\n"
+msgstr ""
 
 #: ../uishoot.m:77
 #, c-format
 msgid "Invalid image format '%s'\n"
-msgstr "Formato de imagem inválido '%s'\n"
+msgstr ""
 
 #: ../uishoot.m:96
 #, c-format
 msgid "Could not capture screenshot!\n"
-msgstr "Não foi possível efetuar captura de ecrã!\n"
+msgstr "Không thể chụp ảnh màn hình!\n"
 
 #: ../uishoot.m:123
 #, c-format
 msgid "Could not get image data to write to file!\n"
-msgstr "Não foi possível escrever a informação de imagem para ficheiro!\n"
+msgstr "Không thể lấy dữ liệu hình ảnh để viết vào tệp!\n"
 
 #: ../uishoot.m:132
 #, c-format
 msgid "Could not write image to %s: %s\n"
-msgstr "Não foi possível guardar imagem em %s: %s\n"
+msgstr ""
 
 #: ../uishoot.m:148
 #, c-format
 msgid "Could not save screenshot to Photos: %s\n"
-msgstr "Não foi possível salvar captura de ecrã nas Fotografias: %s\n"
+msgstr "Không thể lưu ảnh màn hình vào Thư viện Ảnh: %s\n"
 
 #: ../info/deviceinfo.c:39 ../info/deviceinfo.c:72
 #, c-format
 msgid "Usage: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"
-msgstr "Uso: %s [cfversion | ecid | locale | serial | uniqueid] [argumentos ...]\n"
+msgstr "Cách dùng: %s [cfversion | ecid | khu vực | số sêri | uniqueid] [tham số ...]\n"
 
 #: ../info/locale.m:16
 #, c-format
 msgid "Usage: deviceinfo locale [-ilcvh]\n"
 "Print the current locale\n\n"
-msgstr "Uso: deviceinfo localização [-ilcvh]\n"
-"Imprime a localização atual\n\n"
+msgstr "Cách dùng: deviceinfo locale [-ilcvh]\n"
+"In ra khu vực hiện tại\n\n"
 
 #: ../info/locale.m:19
 #, c-format
@@ -487,10 +451,5 @@ msgid "-h --help      Give this help list.\n"
 " -c --country    Print the country code\n"
 " -v --variant    Print the variant code\n\n"
 "If multiple output formats are specified the last will be used\n"
-msgstr "-h --help     Imprime esta lista de ajuda.\n"
-" -i --identifier Imprime o identificador da localização (padrão)\n"
-" -l --language   Imprime o código da linguagem\n"
-" -c --country     Imprime o código do país\n"
-" -v --variant      Imprime a variante do código\n\n"
-"Se múltiplos formatos de saída forem especificados, o último será utilizado\n"
+msgstr ""
 

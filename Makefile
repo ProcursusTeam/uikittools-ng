@@ -46,43 +46,43 @@ ifeq (,$(findstring macosx,$(CC) $(CFLAGS)))
 endif
 
 ldrestart: ldrestart.c ent.plist
-	$(CC) -O3 $(CFLAGS) $< -o $@ $(LDFLAGS)
+	$(CC) $(CFLAGS) $< -o $@ $(LDFLAGS)
 
 sbdidlaunch: sbdidlaunch.c ent.plist
-	$(CC) -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework CoreFoundation
+	$(CC) $(CFLAGS) $< -o $@ $(LDFLAGS) -framework CoreFoundation
 
 uialert: uialert.m strtonum.c ent.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework CoreFoundation
+	$(CC) -fobjc-arc $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework CoreFoundation
 
 sbreload: sbreload.m sbreload-launchd.c sbreload.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework Foundation
+	$(CC) -fobjc-arc $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework Foundation
 
 uicache: uicache.m uicache.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ -framework Foundation $(LDFLAGS) -framework MobileCoreServices -DAPP_PATH="@\"$(APP_PATH)\""
+	$(CC) -fobjc-arc $(CFLAGS) $< -o $@ -framework Foundation $(LDFLAGS) -framework MobileCoreServices -DAPP_PATH="@\"$(APP_PATH)\""
 
 uiopen: uiopen.m ent.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -framework MobileCoreServices
+	$(CC) -fobjc-arc $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -framework MobileCoreServices
 
 uishoot: uishoot.m strtonum.c uishoot.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework ImageIO -framework Photos -framework UIKit
+	$(CC) -fobjc-arc $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework ImageIO -framework Photos -framework UIKit
 
 uinotify: uinotify.m strtonum.c uinotify.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework UserNotifications
+	$(CC) -fobjc-arc $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework UserNotifications
 
 uisave: uisave.m uisave.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -framework Photos -framework UIKit
+	$(CC) -fobjc-arc $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -framework Photos -framework UIKit
 
 lsrebuild: lsrebuild.m lsrebuild.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -framework MobileCoreServices
+	$(CC) -fobjc-arc $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -framework MobileCoreServices
 
 uidisplay: uidisplay.m strtonum.c uidisplay.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework Foundation -lAccessibility -framework UIKit -framework CoreGraphics
+	$(CC) -fobjc-arc $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework Foundation -lAccessibility -framework UIKit -framework CoreGraphics -framework IOKit
 
-deviceinfo: deviceinfo.c ecidecid.m uiduid.m serial.m locale.m cfversion.c
-	$(CC) -fobjc-arc -O3 $(CFLAGS) $^ -o $@ $(LDFLAGS) -framework CoreFoundation -lMobileGestalt
+deviceinfo: info/deviceinfo.c info/ecid.m info/uid.m info/serial.m info/locale.m info/cfversion.c
+	$(CC) -fobjc-arc $(CFLAGS) $^ -o $@ $(LDFLAGS) -framework CoreFoundation -lMobileGestalt
 
 mgask: mgask.m mgask.plist
-	$(CC) -fobjc-arc -O3 $(CFLAGS) $< -o $@ $(LDFLAGS) -framework CoreFoundation -framework Foundation -lMobileGestalt
+	$(CC) -fobjc-arc $(CFLAGS) $< -o $@ $(LDFLAGS) -framework CoreFoundation -framework Foundation -lMobileGestalt
 
 install: $(ALL) sign install-po
 	install -d $(DESTDIR)$(PREFIX)/bin/

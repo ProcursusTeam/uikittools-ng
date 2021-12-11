@@ -19,7 +19,7 @@
 
 // clang-format off
 void usage() {
-	printf(_("Usage: %s [-b body] [-p primary] [--priority 0-3] [-s second] [-t third] [--timeout number] title\n\
+	printf(_("Usage: %s [-b body] [-i prompt] [-j] [-p primary] [--priority number] [-s second] [--secure prompt] [-t third] [--timeout number] title\n\
 Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n\
 Display an alert\n\n"), getprogname());
 
@@ -29,6 +29,9 @@ Display an alert\n\n"), getprogname());
                            This will change the icon on macOS\n\
   -s, --secondary <text>   Second button text\n\
   -t, --tertiary <text>    Third button text\n\
+  -i, --input <text>       Ask for text input\n\
+  -j, --json               Print the output in JSON\n\
+      --secure <text>      Show text field as secure\n\
       --timeout <num>      Number of seconds to wait before exiting\n\n"));
 
 	printf(_("Output:\n\
@@ -42,8 +45,9 @@ Contact the Procursus Team for support.\n"));
 // clang-format on
 
 enum {
-	OPT_PRIORITY,
-	OPT_TIMEOUT
+	OPT_PRIORITY = CHAR_MAX + 1,
+	OPT_TIMEOUT,
+	OPT_SECURE,
 };
 
 int main(int argc, char **argv) {
@@ -53,8 +57,8 @@ int main(int argc, char **argv) {
 	textdomain(PACKAGE);
 #endif
 
-	CFOptionFlags cfRes;
-	double timeout = 0;
+	CFOptionFlags flags;
+	double timeout = 0, index = 0;
 	int priority = kCFUserNotificationNoteAlertLevel;
 	char *message = NULL;
 	char *defaultButton = NULL;
@@ -62,8 +66,13 @@ int main(int argc, char **argv) {
 	char *otherButton = NULL;
 	int ch;
 	const char *errstr;
+	bool json = false;
+	NSError *error;
 
-// clang-format off
+	NSMutableDictionary *alert = [[NSMutableDictionary alloc] init];
+	NSMutableArray *inputs= [[NSMutableArray alloc] init];
+
+	// clang-format off
 	static struct option longopts[] = {
 		{"body", required_argument, NULL, 'b'},
 		{"primary", required_argument, NULL, 'p'},
@@ -71,28 +80,48 @@ int main(int argc, char **argv) {
 		{"secondary", required_argument, NULL, 's'},
 		{"tertiary", required_argument, NULL, 't'},
 		{"timeout", required_argument, NULL, OPT_TIMEOUT},
+		{"input", required_argument, NULL, 'i'},
+		{"json", no_argument, NULL, 'j'},
+		{"secure", required_argument, NULL, OPT_SECURE},
 		{NULL, 0, NULL, 0}};
-// clang-format on
+	// clang-format on
 
-	while ((ch = getopt_long(argc, argv, "b:p:s:t:", longopts, NULL)) != -1) {
+	while ((ch = getopt_long(argc, argv, "b:p:s:t:i:j", longopts, NULL)) != -1) {
 		switch (ch) {
 			case 'b':
-				message = optarg;
+				[alert addEntriesFromDictionary:@{
+					(__bridge NSString *)kCFUserNotificationAlertMessageKey:
+					[NSString stringWithUTF8String:optarg]}];
 				break;
 			case 'p':
-				defaultButton = optarg;
+				[alert addEntriesFromDictionary:@{
+					(__bridge NSString *)kCFUserNotificationDefaultButtonTitleKey:
+					[NSString stringWithUTF8String:optarg]}];
 				break;
 			case 's':
-				alternativeButton = optarg;
+				[alert addEntriesFromDictionary:@{
+					(__bridge NSString *)kCFUserNotificationAlternateButtonTitleKey:
+					[NSString stringWithUTF8String:optarg]}];
 				break;
 			case 't':
-				otherButton = optarg;
+				[alert addEntriesFromDictionary:@{
+					(__bridge NSString *)kCFUserNotificationOtherButtonTitleKey:
+					[NSString stringWithUTF8String:optarg]}];
+				break;
+			case OPT_SECURE:
+				flags |=
+					CFUserNotificationSecureTextField(inputs.count);
+			case 'i':
+				[inputs addObject:[NSString stringWithUTF8String:optarg]];
+				break;
+			case 'j':
+				json = true;
 				break;
 			case OPT_PRIORITY:
 				switch (strtonum(optarg, 0, 3, &errstr)) {
 					case 0:
 						if (errstr != NULL)
-							errx(1, _("the priority is %s: %s"), errstr, optarg);
+							err(1, "%s", optarg);
 						priority = kCFUserNotificationPlainAlertLevel;
 						break;
 					case 1:
@@ -109,7 +138,7 @@ int main(int argc, char **argv) {
 			case OPT_TIMEOUT:
 				timeout = strtonum(optarg, 0, INT_MAX, &errstr);
 				if (errstr != NULL)
-					errx(1, _("the timeout is %s: %s"), errstr, optarg);
+					err(1, "%s", optarg);
 				break;
 			default:
 				usage();
@@ -118,28 +147,67 @@ int main(int argc, char **argv) {
 	argc -= optind;
 	argv += optind;
 
+	flags |= priority;
+
 	if (argc != 1) usage();
 
 	if (argv[0] == NULL) usage();
 
-	CFUserNotificationDisplayAlert(
-		timeout, priority, NULL, NULL, NULL,
-		(__bridge CFStringRef)[NSString stringWithUTF8String:argv[0]],
-		message == NULL
-			? NULL
-			: (__bridge CFStringRef)[NSString stringWithUTF8String:message],
-		defaultButton == NULL
-			? NULL
-			: (__bridge CFStringRef)
-				  [NSString stringWithUTF8String:defaultButton],
-		alternativeButton == NULL
-			? NULL
-			: (__bridge CFStringRef)
-				  [NSString stringWithUTF8String:alternativeButton],
-		otherButton == NULL
-			? NULL
-			: (__bridge CFStringRef)[NSString stringWithUTF8String:otherButton],
-		&cfRes);
-	printf("%lu\n", cfRes);
+	[alert addEntriesFromDictionary:@{
+		(__bridge NSString *)kCFUserNotificationAlertHeaderKey:
+		[NSString stringWithUTF8String:argv[0]]}];
+
+	if (inputs.count > 0)
+		[alert addEntriesFromDictionary:@{
+			(__bridge NSString *)kCFUserNotificationTextFieldTitlesKey:
+			inputs}];
+
+	CFUserNotificationRef notif = CFUserNotificationCreate(
+		kCFAllocatorDefault, timeout, flags, NULL, (__bridge CFMutableDictionaryRef)alert);
+
+	CFOptionFlags cfRes;
+
+	CFUserNotificationReceiveResponse(notif, 0, &cfRes);
+
+	NSDictionary *response = (__bridge NSDictionary *)CFUserNotificationGetResponseDictionary(notif);
+
+	NSMutableDictionary *out = [[NSMutableDictionary alloc] init];
+
+	if (cfRes != kCFUserNotificationCancelResponse && inputs.count >= 1) {
+		NSObject *input = [response valueForKey:(__bridge NSString *)kCFUserNotificationTextFieldValuesKey];
+
+		if ([input isKindOfClass:NSString.class]) {
+			[out addEntriesFromDictionary:@{
+				@"inputs" : @[(NSString *)input]
+			}];
+		} else if ([input isKindOfClass:NSArray.class]) {
+			[out addEntriesFromDictionary:@{
+				@"inputs" : (NSArray *)input
+			}];
+		}
+	}
+
+	[out addEntriesFromDictionary:@{
+		@"button" : [NSNumber numberWithUnsignedLong:cfRes]
+	}];
+
+	if (json) {
+		NSData *jsonData;
+
+		jsonData = [NSJSONSerialization dataWithJSONObject:out options:0 error:&error];
+
+		if (error)
+			errx(1, _("JSON formating failed: %s"), error.localizedDescription.UTF8String);
+
+		printf("%s\n", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding].UTF8String);
+	} else {
+		for (NSString *item in [out valueForKey:@"inputs"])
+			printf("%s\n", item.UTF8String);
+
+		printf("%lu\n",
+			   [(NSNumber *)[out valueForKey:@"button"] unsignedLongValue]);
+	}
+
+	CFRelease(notif);
 	return 0;
 }

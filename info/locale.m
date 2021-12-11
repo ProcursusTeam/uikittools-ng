@@ -33,7 +33,7 @@ enum outformat {
 	VARIANT };
 // clang-format on
 
-int handle_locale(int argc, char *argv[]) {
+int locale(int argc, char *argv[]) {
 // clang-format off
 	struct option longOptions[] = {
 		{"identifier", no_argument, 0, 'i'},

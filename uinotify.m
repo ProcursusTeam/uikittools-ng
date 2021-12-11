@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
 			case 'd':
 				delay = strtonum(optarg, 0, INT_MAX, &errstr);
 				if (errstr != NULL)
-					errx(1, _("the delay is %s: %s"), errstr, optarg);
+					err(1, "%s", optarg);
 				break;
 			default:
 				usage();

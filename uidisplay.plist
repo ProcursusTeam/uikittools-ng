@@ -7,5 +7,7 @@
 	<true/>
 	<key>com.apple.backboard.displaybrightness</key>
 	<true/>
+	<key>com.apple.private.hid.client.event-dispatch</key>
+	<true/>
 </dict>
 </plist>

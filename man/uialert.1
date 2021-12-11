@@ -11,9 +11,12 @@
 .Sh SYNOPSIS
 .Nm
 .Op Fl b Ar body
+.Op Fl i Ar prompt
+.Op Fl j
 .Op Fl p Ar primary
 .Op Fl -priority Ar number
 .Op Fl s Ar second
+.Op Fl -secure Ar prompt
 .Op Fl t Ar third
 .Op Fl -timeout Ar number
 .Ar title
@@ -21,7 +24,7 @@
 Display a native alert in the GUI from the command line.
 The title will be set to
 .Ar title .
-It will return the index of the selected button to
+It will print the response to each input and the index of the selected button to
 .Ar stdout .
 .Ss OUTPUT
 .Bl -tag -width 4n -offset indent -compact
@@ -39,6 +42,12 @@ The alert timed out or was closed without a response.
 .It Fl b , -body Ar body
 Set the alert's body text to
 .Ar body .
+.It Fl i , -inpute Ar prompt
+Add a text box with a prompt of
+.Ar prompt .
+This can be specified multiple times to create more inputs.
+.It Fl j , -json
+Print the output in JSON.
 .It Fl p , -primary Ar primary
 Set the default button's text to be
 .Ar primary ,
@@ -56,6 +65,10 @@ This will only affect the appearence of the alert on
 Set the second button's text to be
 .Ar secondary ,
 if unset, this button will not show.
+.It Fl -secure Ar prompt
+This is identical to
+.Fl i ,
+except the inputed text will be treated as a password.
 .It Fl t , -tertiary Ar third
 Set the third button's text to be
 .Ar third ,

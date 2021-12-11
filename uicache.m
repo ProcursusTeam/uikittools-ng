@@ -128,7 +128,7 @@ void registerPath(char *path, int unregister) {
 
 	LSApplicationWorkspace *workspace =
 		[LSApplicationWorkspace defaultWorkspace];
-	if (unregister && ![[NSString stringWithUTF8String:path] hasPrefix:@"/"]) {
+	if (unregister && ![[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithUTF8String:path]]) {
 		LSApplicationProxy *app = [LSApplicationProxy
 			applicationProxyForIdentifier:[NSString stringWithUTF8String:path]];
 		path = (char *)[[app bundleURL] fileSystemRepresentation];

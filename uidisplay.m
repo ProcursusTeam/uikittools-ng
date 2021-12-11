@@ -69,6 +69,19 @@ BOOL _AXSAutoBrightnessEnabled();
 void _AXSSetReduceWhitePointEnabled(BOOL enabled);
 BOOL _AXSReduceWhitePointEnabled();
 
+uint16_t kHIDPage_Consumer = 0x0C;
+uint16_t kHIDUsage_Csmr_Power = 0x30;
+
+void *IOHIDEventSystemClientCreate(CFAllocatorRef allocator);
+void *IOHIDEventCreateKeyboardEvent(CFAllocatorRef allocator,
+									uint64_t timeStamp, uint16_t usagePage,
+									uint16_t usage, Boolean down,
+									uint32_t flags);
+void IOHIDEventSetSenderID(void *event, uint64_t senderID);
+void IOHIDEventSystemClientDispatchEvent(void *client, void *event);
+
+uint64_t mach_absolute_time();
+int IOObjectRelease(void *object);
 
 typedef enum { sOn, sOff, sUnspecified } state;
 
@@ -83,12 +96,14 @@ typedef enum {
 	iReduceWhitePoint,
 	iHeight,
 	iWidth,
+	iPhysicalHeight,
+	iPhysicalWidth,
 	iScale
 } infoType;
 
 // clang-format off
 void usage() {
-	printf(_("Usage: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-j] [-n state] [-t state] [-w state]\n"), getprogname());
+	printf(_("Usage: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-j] [-l] [-n state] [-t state] [-w state]\n"), getprogname());
 }
 // clang-format on
 
@@ -138,11 +153,6 @@ void setAutoBrightness(state newState) {
 	BKSDisplayBrightnessSetAutoBrightnessEnabled(newState == sOn);
 
 	dlclose(backBoardServices);
-}
-
-
-state getAutoBrightness() {
-	return _AXSAutoBrightnessEnabled() ? sOn : sOff;
 }
 
 void setDarkMode(state newState) {
@@ -291,9 +301,8 @@ void setBrightness(char *value) {
 		number = (int)strtonum(value, 0, 100, &errstr);
 	}
 
-	if (errstr != NULL) {
-		errx(1, _("Invalid brightness value: %s, %s\n"), value, errstr);
-	}
+	if (errstr != NULL)
+		err(1, "%s", value);
 
 	if (number == 0 && (increase || decrease)) return;
 
@@ -362,6 +371,28 @@ float getBrightness() {
 	return brightness;
 }
 
+void lock() {
+	void *client = IOHIDEventSystemClientCreate(kCFAllocatorDefault);
+
+	void *lockButtonDown = IOHIDEventCreateKeyboardEvent(
+		kCFAllocatorDefault, mach_absolute_time(), kHIDPage_Consumer,
+		kHIDUsage_Csmr_Power, 1, 0);
+
+	IOHIDEventSetSenderID(lockButtonDown, 0x8000000817319372);
+	IOHIDEventSystemClientDispatchEvent(client, lockButtonDown);
+	IOObjectRelease(lockButtonDown);
+
+	void *lockButtonUp = IOHIDEventCreateKeyboardEvent(
+		kCFAllocatorDefault, mach_absolute_time(), kHIDPage_Consumer,
+		kHIDUsage_Csmr_Power, 0, 0);
+
+	IOHIDEventSetSenderID(lockButtonUp, 0x8000000817319372);
+	IOHIDEventSystemClientDispatchEvent(client, lockButtonUp);
+	IOObjectRelease(lockButtonUp);
+
+	IOObjectRelease(client);
+}
+
 void printJSON(id notJSON) {
 	NSError *error;
 	NSData *jsonData;
@@ -394,6 +425,7 @@ int main(int argc, char *argv[]) {
 		{"autobrightness", required_argument, 0, 'a'},
 		{"brightness", required_argument, 0, 'b'},
 		{"darkmode", required_argument, 0, 'd'},
+		{"lock", required_argument, 0, 'l'},
 		{"nightshift", required_argument, 0, 'n'},
 		{"truetone", required_argument, 0, 't'},
 		{"reducewhitepoint", required_argument, 0, 'w'},
@@ -404,7 +436,7 @@ int main(int argc, char *argv[]) {
 	infoType info = iNope;
 
 	int code = 0;
-	while ((code = getopt_long(argc, argv, "hi::ja:b:d:n:t:w:", longOptions,
+	while ((code = getopt_long(argc, argv, "hi::ja:b:d:ln:t:w:", longOptions,
 							   NULL)) != -1) {
 		switch (code) {
 			case 'h':
@@ -428,6 +460,10 @@ int main(int argc, char *argv[]) {
 						info = iHeight;
 					} else if (strcmp(optarg, "width") == 0) {
 						info = iWidth;
+					} else if (strcmp(optarg, "physicalHeight") == 0) {
+						info = iPhysicalHeight;
+					} else if (strcmp(optarg, "physicalWidth") == 0) {
+						info = iPhysicalWidth;
 					} else if (strcmp(optarg, "scale") == 0) {
 						info = iScale;
 					} else {
@@ -453,6 +489,9 @@ int main(int argc, char *argv[]) {
 				setDarkMode(newState);
 				break;
 			}
+			case 'l':
+				lock();
+				break;
 			case 'n': {
 				state newState = stateFromString(strdup(optarg), "Night Shift");
 				setNightShift(newState);
@@ -481,7 +520,7 @@ int main(int argc, char *argv[]) {
 			switch (info) {
 				case iAutoBrightness:
 					printJSON(@{
-						@"autoBrightness": stateAsJSONType(getAutoBrightness()),
+						@"autoBrightness": @(_AXSAutoBrightnessEnabled()),
 						@"displayName": [NSString stringWithUTF8String:_("Auto-Brightness")]
 					});
 					break;
@@ -523,20 +562,32 @@ int main(int argc, char *argv[]) {
 					break;
 				case iWidth:
 					printJSON(@{
-						@"width": @(_AXSReduceWhitePointEnabled()),
+						@"width": @(CGRectGetWidth([screen bounds])),
 						@"displayName": [NSString stringWithUTF8String:_("Width")]
+					});
+					break;
+				case iPhysicalHeight:
+					printJSON(@{
+						@"physicalHeight": @(CGRectGetHeight([screen nativeBounds])),
+						@"displayName": [NSString stringWithUTF8String:_("Physical Height")]
+					});
+					break;
+				case iPhysicalWidth:
+					printJSON(@{
+						@"physicalWidth": @(CGRectGetWidth([screen nativeBounds])),
+						@"displayName": [NSString stringWithUTF8String:_("Physical Width")]
 					});
 					break;
 				case iScale:
 					printJSON(@{
-						@"scale": @(_AXSReduceWhitePointEnabled()),
+						@"scale": @([screen scale]),
 						@"displayName": [NSString stringWithUTF8String:_("Scale")]
 					});
 					break;
 				default:
 					printJSON(@[
 						@{
-							@"autoBrightness": stateAsJSONType(getAutoBrightness()),
+							@"autoBrightness": @(_AXSAutoBrightnessEnabled()),
 							@"displayName": [NSString stringWithUTF8String:_("Auto-Brightness")]
 						},
 						@{
@@ -564,11 +615,19 @@ int main(int argc, char *argv[]) {
 							@"displayName": [NSString stringWithUTF8String:_("Height")]
 						},
 						@{
-							@"width": @(_AXSReduceWhitePointEnabled()),
+							@"width": @(CGRectGetWidth([screen bounds])),
 							@"displayName": [NSString stringWithUTF8String:_("Width")]
 						},
 						@{
-							@"scale": @(_AXSReduceWhitePointEnabled()),
+							@"physicalHeight": @(CGRectGetHeight([screen nativeBounds])),
+							@"displayName": [NSString stringWithUTF8String:_("Physical Height")]
+						},
+						@{
+							@"physicalWidth": @(CGRectGetWidth([screen nativeBounds])),
+							@"displayName": [NSString stringWithUTF8String:_("Physical Width")]
+						},
+						@{
+							@"scale": @([screen scale]),
 							@"displayName": [NSString stringWithUTF8String:_("Scale")]
 						}
 					]);
@@ -578,7 +637,7 @@ int main(int argc, char *argv[]) {
 		else {
 			switch (info) {
 				case iAutoBrightness:
-					printf("%s: %s\n", _("Auto-Brightness"), stateAsString(getAutoBrightness()));
+					printf("%s: %s\n", _("Auto-Brightness"), stateAsString(_AXSAutoBrightnessEnabled() ? sOn : sOff));
 					break;
 				case iBrightness:
 					printf("%s: %.6g\n", _("Brightness"), getBrightness());
@@ -596,24 +655,32 @@ int main(int argc, char *argv[]) {
 					printf("%s: %s\n", _("Reduce White Point"), stateAsString(_AXSReduceWhitePointEnabled() ? sOn : sOff));
 					break;
 				case iHeight:
-					printf("%s: %f\n", _("Height"), CGRectGetHeight([screen bounds]));
+					printf("%s: %.6g\n", _("Height"), CGRectGetHeight([screen bounds]));
 					break;
 				case iWidth:
-					printf("%s: %f\n", _("Width"), CGRectGetWidth([screen bounds]));
+					printf("%s: %.6g\n", _("Width"), CGRectGetWidth([screen bounds]));
+					break;
+				case iPhysicalHeight:
+					printf("%s: %.6g\n", _("Physical Height"), CGRectGetHeight([screen nativeBounds]));
+					break;
+				case iPhysicalWidth:
+					printf("%s: %.6g\n", _("Physical Width"), CGRectGetWidth([screen nativeBounds]));
 					break;
 				case iScale:
-					printf("%s: %f\n", _("Scale"), [screen scale]);
+					printf("%s: %.2g\n", _("Scale"), [screen scale]);
 					break;
 				default:
 					printf("%s: %.6g\n", _("Brightness"), getBrightness());
-					printf("%s: %s\n", _("Auto-Brightness"), stateAsString(getAutoBrightness()));
+					printf("%s: %s\n", _("Auto-Brightness"), stateAsString(_AXSAutoBrightnessEnabled() ? sOn : sOff));
 					printf("%s: %s\n", _("Dark Mode"), stateAsString(getDarkMode()));
 					printf("%s: %s\n", _("Night Shift"), stateAsString(getNightShift()));
 					printf("%s: %s\n", _("True Tone"), stateAsString(getTrueTone()));
 					printf("%s: %s\n", _("Reduce White Point"), stateAsString(_AXSReduceWhitePointEnabled() ? sOn : sOff));
-					printf("%s: %f\n", _("Height"), CGRectGetHeight([screen bounds]));
-					printf("%s: %f\n", _("Width"), CGRectGetWidth([screen bounds]));
-					printf("%s: %f\n", _("Scale"), [screen scale]);
+					printf("%s: %.6g\n", _("Height"), CGRectGetHeight([screen bounds]));
+					printf("%s: %.6g\n", _("Width"), CGRectGetWidth([screen bounds]));
+					printf("%s: %.6g\n", _("Physical Height"), CGRectGetHeight([screen nativeBounds]));
+					printf("%s: %.6g\n", _("Physical Width"), CGRectGetWidth([screen nativeBounds]));
+					printf("%s: %.2g\n", _("Scale"), [screen scale]);
 					break;
 			}
 		}

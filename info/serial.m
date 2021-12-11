@@ -3,7 +3,7 @@
 
 CFTypeRef MGCopyAnswer(CFStringRef);
 
-int handle_serial(void) {
+int serial(void) {
 	uint64_t serial;
 	CFStringRef serialRef = MGCopyAnswer(CFSTR("SerialNumber"));
 	printf("%s\n", CFStringGetCStringPtr(serialRef, kCFStringEncodingASCII));

@@ -19,8 +19,15 @@ will print the specified information, then exit.
 .Bl -tag -width indent
 .It Ar cfversion
 Print the device's CoreFoundation version.
-.It Ar ecid
+.It Ar ecid Op Fl dh
 Print the device's ECID.
+.Bl -tag -width indent
+.It Fl d
+Print the ECID in decimal form.
+.It Fl h
+Print the ECID in hexidecimal form.
+This is the default if no argument is provided.
+.El
 .It Ar locale Op Fl ilcvh
 Prints the system locale in the specified format.
 The following options are available

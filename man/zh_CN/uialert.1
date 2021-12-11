@@ -1,6 +1,6 @@
 .\"-
-.\"Copyright (c) 2020-2021 ProcursusTeam
-.\"SPDX-License-Identifier: BSD-4-Clause
+.\" 版权所有 (c) 2020-2021 ProcursusTeam
+.\" SPDX-License-Identifier: BSD-4-Clause
 .\"
 .Dd October 15, 2021
 .Dt UIALERT 1
@@ -10,10 +10,13 @@
 .Nd 显示一个对话框。
 .Sh 语法
 .Nm
-.Op Fl b Ar body
+.Op Fl b Ar 正文
+.Op Fl i Ar 提词
+.Op Fl j
 .Op Fl p Ar primary
 .Op Fl -priority Ar 数字
 .Op Fl s Ar second
+.Op Fl -secure Ar 提词
 .Op Fl t Ar third
 .Op Fl -timeout Ar 数字
 .Ar title
@@ -22,7 +25,7 @@
 标题会被设定为
 .Ar title
 。
-被选择的按钮的索引会被输出到
+它会印出输入的文字和被选择的按钮的索引到
 .Ar 标准输出
 。
 .Ss 输出
@@ -38,32 +41,44 @@
 .El
 .Sh OPTIONS
 .Bl -tag -width indent
-.It Fl b , -body Ar body
+.It Fl b , -body Ar 正文
 把对话框的正文设定为
-.Ar body .
-.It Fl p , -primary Ar primary
+.Ar 正文 .
+.It Fl i , -input Ar 提词
+加了一个提词为
+.Ar 提词
+的文字输入区。
+可以通过重复使用这个选项来加入多个输入区。
+.It Fl j , -json
+以JSON格式印出输出。
+.It Fl p , -primary Ar 第一
 把预设按钮的文字设定为
-.Ar primary ,
+.Ar 第一
+。
 而不是预设文字
 .Qq 好
 。
-It Fl -priority Ar 数字
+.It Fl -priority Ar 数字
 把对话框的优先度设定为
 .Ar 数字 .
 .Ar 数字
 一定要在0和3之间，且包含0和3。
-If not specified the priority will be 1.
+如果不指名的话，那么优先度就是1。  .
 这只会影响在
 .Os macOS
 上对话框的样貌。
-.It Fl s , -secondary Ar secondary
+.It Fl s , -secondary Ar 第二
 把第二个按钮的文字设定为
-.Ar secondary
+.Ar 第二
 ，
 如没有设定，这按钮将不会显示。
-.It Fl t , -tertiary Ar third
+.It Fl -secure Ar 提词
+这和
+.Fl i
+一样，不过输入的文字会当作密码处理。
+.It Fl t , -tertiary Ar 第三
 把第三个按钮的文字设定为
-.Ar third ,
+.Ar 第三 ,
 如没有设定，这按钮将不会显示。
 .It Fl -timeout Ar 数字
 在经过

@@ -10,10 +10,13 @@
 .Nd 顯示一個對話框。
 .Sh 語法
 .Nm
-.Op Fl b Ar body
+.Op Fl b Ar 正文
+.Op Fl i Ar 提詞
+.Op Fl j
 .Op Fl p Ar primary
 .Op Fl -priority Ar 數字
 .Op Fl s Ar second
+.Op Fl -secure Ar 提詞
 .Op Fl t Ar third
 .Op Fl -timeout Ar 數字
 .Ar title
@@ -22,7 +25,7 @@
 標題會被設定為
 .Ar title
 。
-被選擇的按鈕的索引會被輸出到
+它會印出輸入的文字和被選擇的按鈕的索引到
 .Ar 標準輸出
 。
 .Ss 輸出
@@ -38,32 +41,44 @@
 .El
 .Sh OPTIONS
 .Bl -tag -width indent
-.It Fl b , -body Ar body
+.It Fl b , -body Ar 正文
 把對話框的正文設定為
-.Ar body .
-.It Fl p , -primary Ar primary
+.Ar 正文 .
+.It Fl i , -input Ar 提詞
+加了一個提詞為
+.Ar 提詞
+的文字輸入區。
+可以通過重複使用這個選項來加入多個輸入區。
+.It Fl j , -json
+以JSON格式印出輸出。
+.It Fl p , -primary Ar 第一
 把預設按鈕的文字設定為
-.Ar primary ,
+.Ar 第一
+。
 而不是預設文字
 .Qq 好
 。
-It Fl -priority Ar 數字
+.It Fl -priority Ar 數字
 把對話框的優先度設定為
 .Ar 數字 .
 .Ar 數字
 一定要在0和3之間，且包含0和3。
-If not specified the priority will be 1.
+如果不指名的話，那麼優先度就是1。.
 這只會影響在
 .Os macOS
 上對話框的樣貌。
-.It Fl s , -secondary Ar secondary
+.It Fl s , -secondary Ar 第二
 把第二個按鈕的文字設定為
-.Ar secondary
+.Ar 第二
 ，
 如沒有設定，這按鈕將不會顯示。
-.It Fl t , -tertiary Ar third
+.It Fl -secure Ar 提詞
+這和
+.Fl i
+一樣，不過輸入的文字會當作密碼處理。
+.It Fl t , -tertiary Ar 第三
 把第三個按鈕的文字設定為
-.Ar third ,
+.Ar 第三 ,
 如沒有設定，這按鈕將不會顯示。
 .It Fl -timeout Ar 數字
 在經過

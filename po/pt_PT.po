@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: uikittools-ng\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-21 22:53-0500\n"
-"PO-Revision-Date: 2021-12-06 13:05\n"
+"PO-Revision-Date: 2021-12-31 20:33\n"
 "Last-Translator: \n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: uikittools-ng\n"
 "X-Crowdin-Project-ID: 482777\n"
 "X-Crowdin-Language: pt-PT\n"
-"X-Crowdin-File: uikittools-ng.pot\n"
-"X-Crowdin-File-ID: 3\n"
+"X-Crowdin-File: /[ProcursusTeam.uikittools-ng] main/po/uikittools-ng.pot\n"
+"X-Crowdin-File-ID: 9\n"
 
 #: ../ldrestart.c:78 ../sbreload-launchd.c:78
 #, c-format
@@ -310,11 +310,11 @@ msgstr "Modo Escuro"
 
 #: ../uidisplay.m:542 ../uidisplay.m:603 ../uidisplay.m:649 ../uidisplay.m:676
 msgid "Night Shift"
-msgstr "Night Shift"
+msgstr ""
 
 #: ../uidisplay.m:548 ../uidisplay.m:607 ../uidisplay.m:652 ../uidisplay.m:677
 msgid "True Tone"
-msgstr "True Tone"
+msgstr ""
 
 #: ../uidisplay.m:554 ../uidisplay.m:611 ../uidisplay.m:655 ../uidisplay.m:678
 msgid "Reduce White Point"

@@ -6,6 +6,7 @@
 #ifndef LOCALEDIR
 #	define LOCALEDIR "/usr/share/locale"
 #endif
+
 #ifndef NO_NLS
 #	include <libintl.h>
 #	define _(a) gettext(a)
@@ -29,6 +30,10 @@ extern char *xpc_strerror(int);
 #define ROUTINE_START 0x32d	 // 813
 #define ROUTINE_STOP 0x32e	 // 814
 #define ROUTINE_LIST 0x32f	 // 815
+
+// Required for userspace reboot
+#define RB_USERSPACE    0x2000000000000000ULL
+extern int reboot3(uint64_t arg);
 
 // XPC sets up global variables using os_alloc_once. By reverse engineering
 // you can determine the values. The only one we actually need is the fourth
@@ -89,6 +94,11 @@ int main() {
 	bindtextdomain(PACKAGE, LOCALEDIR);
 	textdomain(PACKAGE);
 #endif
+
+	if (((access("/odyssey/jailbreakd.plist", F_OK ) == 0)) || ((access("/taurine/jailbreakd.plist", F_OK ) == 0)) || ((access("/chimera/jailbreakd.plist", F_OK ) == 0))) {
+		reboot3(RB_USERSPACE);
+		return 0;
+	} 
 
 	xpc_object_t dict = xpc_dictionary_create(NULL, NULL, 0);
 	xpc_dictionary_set_uint64(dict, "subsystem", 3);  // subsystem (3)

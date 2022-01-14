@@ -111,7 +111,8 @@ int main(int argc, char *argv[]) {
 
 	if (argv[0] == NULL) {
 		if ((body == NULL) && (subtitle == NULL)) usage();
-	} else content.title = [NSString stringWithUTF8String:argv[0]];
+	} else
+		content.title = [NSString stringWithUTF8String:argv[0]];
 
 	if (body != NULL) content.body = [NSString stringWithUTF8String:body];
 

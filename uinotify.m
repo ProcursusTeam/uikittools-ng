@@ -98,10 +98,9 @@ int main(int argc, char *argv[]) {
 	}
 	argc -= optind;
 	argv += optind;
-
-	if (argc != 1) usage();
-
-	if (argv[0] == NULL) usage();
+	
+	if (argc != 1)
+		if (((body == NULL) && (subtitle == NULL)) || (argc > 1)) usage();
 
 	UNUserNotificationCenter *center = [[UNUserNotificationCenter alloc]
 		initWithBundleIdentifier:((bundleid != NULL)
@@ -110,7 +109,9 @@ int main(int argc, char *argv[]) {
 	UNMutableNotificationContent *content =
 		[[UNMutableNotificationContent alloc] init];
 
-	content.title = [NSString stringWithUTF8String:argv[0]];
+	if (argv[0] == NULL) {
+		if ((body == NULL) && (subtitle == NULL)) usage();
+	} else content.title = [NSString stringWithUTF8String:argv[0]];
 
 	if (body != NULL) content.body = [NSString stringWithUTF8String:body];
 

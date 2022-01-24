@@ -94,7 +94,9 @@ int main() {
 	bindtextdomain(PACKAGE, LOCALEDIR);
 	textdomain(PACKAGE);
 #endif
-	reboot3(RB_USERSPACE);
+	int userspaceError = reboot3(RB_USERSPACE);
+	if (!userspaceError)
+		return 0;
 
 	xpc_object_t dict = xpc_dictionary_create(NULL, NULL, 0);
 	xpc_dictionary_set_uint64(dict, "subsystem", 3);  // subsystem (3)

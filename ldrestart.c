@@ -94,11 +94,7 @@ int main() {
 	bindtextdomain(PACKAGE, LOCALEDIR);
 	textdomain(PACKAGE);
 #endif
-
-	if (((access("/odyssey/jailbreakd.plist", F_OK ) == 0)) || ((access("/taurine/jailbreakd.plist", F_OK ) == 0)) || ((access("/chimera/jailbreakd.plist", F_OK ) == 0))) {
-		reboot3(RB_USERSPACE);
-		return 0;
-	} 
+	reboot3(RB_USERSPACE);
 
 	xpc_object_t dict = xpc_dictionary_create(NULL, NULL, 0);
 	xpc_dictionary_set_uint64(dict, "subsystem", 3);  // subsystem (3)

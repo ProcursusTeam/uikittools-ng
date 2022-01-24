@@ -95,7 +95,7 @@ int main() {
 	textdomain(PACKAGE);
 #endif
 	int userspaceError = reboot3(RB_USERSPACE);
-	if (!userspaceError)
+	if (userspaceError == 0)
 		return 0;
 
 	xpc_object_t dict = xpc_dictionary_create(NULL, NULL, 0);

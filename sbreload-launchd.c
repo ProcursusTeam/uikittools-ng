@@ -15,8 +15,7 @@
 #	define LOCALEDIR "/usr/share/locale"
 #endif
 
-extern int xpc_pipe_routine(xpc_object_t *xpc_pipe, xpc_object_t *inDict,
-							xpc_object_t **out);
+extern int xpc_pipe_routine(xpc_object_t pipe, xpc_object_t message, xpc_object_t *reply);
 extern char *xpc_strerror(int);
 
 #define HANDLE_SYSTEM 0

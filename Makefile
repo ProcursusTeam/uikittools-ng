@@ -46,10 +46,10 @@ ifeq (,$(findstring macosx,$(CC) $(CFLAGS)))
 endif
 
 ldrestart: ldrestart.c ent.plist
-	$(CC) $(CFLAGS) $< -o $@ $(LDFLAGS)
+	$(CC) -fobjc-arc $(CFLAGS) $< -o $@ $(LDFLAGS)
 
 sbdidlaunch: sbdidlaunch.c ent.plist
-	$(CC) $(CFLAGS) $< -o $@ $(LDFLAGS) -framework CoreFoundation
+	$(CC) -fobjc-arc $(CFLAGS) $< -o $@ $(LDFLAGS) -framework CoreFoundation
 
 uialert: uialert.m strtonum.c ent.plist
 	$(CC) -fobjc-arc $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework CoreFoundation

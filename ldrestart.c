@@ -65,7 +65,7 @@ static int stopService(const char *ServiceName) {
 	xpc_dictionary_set_uint64(dict, "type", 1);
 	xpc_dictionary_set_string(dict, "name", ServiceName);
 
-	xpc_object_t *outDict = NULL;
+	xpc_object_t outDict = NULL;
 
 	struct xpc_global_data *xpc_gd =
 		(struct xpc_global_data *)_os_alloc_once_table[1].ptr;
@@ -96,7 +96,7 @@ int main() {
 	xpc_dictionary_set_uint64(dict, "type", 1);	 // set to 1
 	xpc_dictionary_set_bool(dict, "legacy", 1);	 // mandatory
 
-	xpc_object_t *outDict = NULL;
+	xpc_object_t outDict = NULL;
 
 	struct xpc_global_data *xpc_gd =
 		(struct xpc_global_data *)_os_alloc_once_table[1].ptr;

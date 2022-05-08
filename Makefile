@@ -85,16 +85,19 @@ mgask: mgask.m mgask.plist
 	$(CC) -fobjc-arc $(CFLAGS) $< -o $@ $(LDFLAGS) -framework CoreFoundation -framework Foundation -lMobileGestalt
 
 install: $(ALL) sign install-po
-	install -Dm755 $(ALL) -t $(DESTDIR)$(PREFIX)/bin
+	install -d $(DESTDIR)$(PREFIX)/bin
+	install -m755 $(ALL) $(DESTDIR)$(PREFIX)/bin
 ifneq ($(NO_COMPAT),1)
 	ln -sf deviceinfo $(DESTDIR)$(PREFIX)/bin/cfversion
 	ln -sf deviceinfo $(DESTDIR)$(PREFIX)/bin/uiduid
 	ln -sf deviceinfo $(DESTDIR)$(PREFIX)/bin/ecidecid
 	ln -sf mgask $(DESTDIR)$(PREFIX)/bin/gssc
 endif
-	install -Dm644 $(patsubst %,man/%,$(MAN)) -t $(DESTDIR)$(PREFIX)/share/man/man1
+	install -d $(DESTDIR)$(PREFIX)/share/man/man1
+	install -m644 $(patsubst %,man/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/man1
 	for lang in $(MANLANGS); do \
-		install -Dm644 $(patsubst %,man/$$lang/%,$(MAN)) -t $(DESTDIR)$(PREFIX)/share/man/$$lang/man1 || true; \
+		install -d $(DESTDIR)$(PREFIX)/share/man/$$lang/man1/; \
+		install -m644 $(patsubst %,man/$$lang/%,$(MAN)) $(DESTDIR)$(PREFIX)/share/man/$$lang/man1 || true; \
 	done
 
 po:

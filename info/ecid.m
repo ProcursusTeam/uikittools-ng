@@ -21,6 +21,10 @@ int ecid(int argc, char **argv) {
 
 	uint64_t ecid;
 	CFNumberRef ecidRef = MGCopyAnswer(CFSTR("UniqueChipID"));
+	if (!ecidRef) {
+		printf("failed to get device ECID.\n");
+		return 1;
+	}
 	CFNumberGetValue(ecidRef, kCFNumberSInt64Type, &ecid);
 	printf(hex ? "0x%llX\n" : "%lld\n", ecid);
 	CFRelease(ecidRef);

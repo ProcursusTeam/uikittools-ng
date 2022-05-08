@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uikittools-ng 2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-08 20:05+0300\n"
+"POT-Creation-Date: 2022-05-08 20:20+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -471,7 +471,7 @@ msgstr ""
 
 #: ../info/ecid.m:33
 #, c-format
-msgid "failed to get device ECID.\n"
+msgid "Failed to get device ECID.\n"
 msgstr ""
 
 #: ../info/locale.m:16

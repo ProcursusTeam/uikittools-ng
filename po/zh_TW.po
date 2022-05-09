@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: uikittools-ng\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-08 20:20+0300\n"
-"PO-Revision-Date: 2022-05-09 03:54\n"
+"PO-Revision-Date: 2022-05-09 06:50\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
@@ -58,7 +58,7 @@ msgstr "JSON格式化失敗：%s"
 #: ../mgask.m:117
 #, c-format
 msgid "Usage: %s [-cjpq] [--gssc] [--pretty] question ...\n"
-msgstr ""
+msgstr "用法：%s [-cjpq] [--gssc] [--pretty] 問題 ...\n"
 
 #: ../mgask.m:154
 #, c-format
@@ -474,7 +474,7 @@ msgstr "用法：%s [cfversion | ecid | locale | serial | uniqueid] [引數 ...]
 #: ../info/ecid.m:33
 #, c-format
 msgid "Failed to get device ECID.\n"
-msgstr ""
+msgstr "無法獲取裝置的唯一晶片識別碼。\n"
 
 #: ../info/locale.m:16
 #, c-format

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uikittools-ng\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-21 22:53-0500\n"
-"PO-Revision-Date: 2021-12-06 13:05\n"
+"POT-Creation-Date: 2022-05-08 20:20+0300\n"
+"PO-Revision-Date: 2022-05-09 03:54\n"
 "Last-Translator: \n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: uikittools-ng\n"
 "X-Crowdin-Project-ID: 482777\n"
 "X-Crowdin-Language: pt-PT\n"
-"X-Crowdin-File: uikittools-ng.pot\n"
-"X-Crowdin-File-ID: 3\n"
+"X-Crowdin-File: /main/po/uikittools-ng.pot\n"
+"X-Crowdin-File-ID: 16\n"
 
 #: ../ldrestart.c:78 ../sbreload-launchd.c:78
 #, c-format
@@ -50,26 +50,26 @@ msgstr "método necessário em falta"
 msgid "RebuildApplicationDatabases failed"
 msgstr "RebuildApplicationDatabases falhou"
 
-#: ../mgask.m:33 ../uialert.m:200 ../uidisplay.m:403
+#: ../mgask.m:34 ../uialert.m:200 ../uidisplay.m:403
 #, c-format
 msgid "JSON formating failed: %s"
 msgstr "Falha na formatação JSON: %s"
 
-#: ../mgask.m:98
+#: ../mgask.m:117
 #, c-format
-msgid "Usage: %s [-jpq] [--gssc] [--pretty] question ...\n"
-msgstr "Uso: %s [-jpq] [--gssc] [--pretty] questão ...\n"
+msgid "Usage: %s [-cjpq] [--gssc] [--pretty] question ...\n"
+msgstr ""
 
-#: ../mgask.m:122
+#: ../mgask.m:154
 #, c-format
 msgid "Cannot find key %s\n"
 msgstr "Não foi possível encontrar a chave %s\n"
 
-#: ../mgask.m:136 ../uicache.m:253
+#: ../mgask.m:168 ../uicache.m:254
 msgid "true"
 msgstr "verdadeiro"
 
-#: ../mgask.m:136 ../uicache.m:253
+#: ../mgask.m:168 ../uicache.m:254
 msgid "false"
 msgstr "falso"
 
@@ -181,27 +181,27 @@ msgstr "  -h, --help               Imprimir esta lista de ajuda.\n\n"
 msgid "Contact the Procursus Team for support.\n"
 msgstr "Contacte a Procursus Team para suporte.\n"
 
-#: ../uicache.m:141
+#: ../uicache.m:142
 #, c-format
 msgid "uicache does not support App Store apps.\n"
 msgstr "uicache não suporta aplicações da App Store.\n"
 
-#: ../uicache.m:143
+#: ../uicache.m:144
 #, c-format
 msgid "Continuing anyway...\n"
 msgstr "Continuando de qualquer maneira...\n"
 
-#: ../uicache.m:213
+#: ../uicache.m:214
 #, c-format
 msgid "Error: Unable to register %s\n"
 msgstr "Erro: Não foi possível registar %s\n"
 
-#: ../uicache.m:217
+#: ../uicache.m:218
 #, c-format
 msgid "Error: Unable to unregister %s\n"
 msgstr "Erro: Não foi possível remover o registo de %s\n"
 
-#: ../uicache.m:237
+#: ../uicache.m:238
 #, c-format
 msgid "Name: %s\n"
 "BundleID: %s\n"
@@ -222,22 +222,22 @@ msgstr "Nome: %s\n"
 "Tipo: %s\n"
 "Removível: %s\n"
 
-#: ../uicache.m:256 ../uicache.m:264
+#: ../uicache.m:257 ../uicache.m:265
 #, c-format
 msgid "URLScheme: %s\n"
 msgstr "Esquema de URL: %s\n"
 
-#: ../uicache.m:269
+#: ../uicache.m:270
 #, c-format
 msgid "%s is an invalid bundle id\n"
 msgstr "%s não é um ID de pacote válido\n"
 
-#: ../uicache.m:373
+#: ../uicache.m:374
 #, c-format
 msgid "registering %s\n"
 msgstr "a registar %s\n"
 
-#: ../uicache.m:378
+#: ../uicache.m:379
 #, c-format
 msgid "unregistering %s\n"
 msgstr "removendo o registo de %s\n"
@@ -310,11 +310,11 @@ msgstr "Modo Escuro"
 
 #: ../uidisplay.m:542 ../uidisplay.m:603 ../uidisplay.m:649 ../uidisplay.m:676
 msgid "Night Shift"
-msgstr "Night Shift"
+msgstr ""
 
 #: ../uidisplay.m:548 ../uidisplay.m:607 ../uidisplay.m:652 ../uidisplay.m:677
 msgid "True Tone"
-msgstr "True Tone"
+msgstr ""
 
 #: ../uidisplay.m:554 ../uidisplay.m:611 ../uidisplay.m:655 ../uidisplay.m:678
 msgid "Reduce White Point"
@@ -471,6 +471,11 @@ msgstr "Não foi possível salvar captura de ecrã nas Fotografias: %s\n"
 #, c-format
 msgid "Usage: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"
 msgstr "Uso: %s [cfversion | ecid | locale | serial | uniqueid] [argumentos ...]\n"
+
+#: ../info/ecid.m:33
+#, c-format
+msgid "Failed to get device ECID.\n"
+msgstr ""
 
 #: ../info/locale.m:16
 #, c-format

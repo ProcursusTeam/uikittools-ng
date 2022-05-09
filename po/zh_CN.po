@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uikittools-ng\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-18 09:55-0500\n"
-"PO-Revision-Date: 2021-11-21 01:41\n"
+"POT-Creation-Date: 2022-05-08 20:20+0300\n"
+"PO-Revision-Date: 2022-05-09 03:54\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: uikittools-ng\n"
 "X-Crowdin-Project-ID: 482777\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: uikittools-ng.pot\n"
-"X-Crowdin-File-ID: 3\n"
+"X-Crowdin-File: /main/po/uikittools-ng.pot\n"
+"X-Crowdin-File-ID: 16\n"
 
 #: ../ldrestart.c:78 ../sbreload-launchd.c:78
 #, c-format
@@ -50,26 +50,26 @@ msgstr ""
 msgid "RebuildApplicationDatabases failed"
 msgstr "重建应用程序数据库失败"
 
-#: ../mgask.m:33 ../uialert.m:201 ../uidisplay.m:404
+#: ../mgask.m:34 ../uialert.m:200 ../uidisplay.m:403
 #, c-format
 msgid "JSON formating failed: %s"
 msgstr "JSON格式化失败： %s"
 
-#: ../mgask.m:98
+#: ../mgask.m:117
 #, c-format
-msgid "Usage: %s [-jpq] [--gssc] [--pretty] question ...\n"
-msgstr "用法： %s [-jpq] [--gssc] [--pretty] 问题 ...\n"
+msgid "Usage: %s [-cjpq] [--gssc] [--pretty] question ...\n"
+msgstr ""
 
-#: ../mgask.m:122
+#: ../mgask.m:154
 #, c-format
 msgid "Cannot find key %s\n"
 msgstr "找不到密钥%s\n"
 
-#: ../mgask.m:136 ../uicache.m:253
+#: ../mgask.m:168 ../uicache.m:254
 msgid "true"
 msgstr "真值"
 
-#: ../mgask.m:136 ../uicache.m:253
+#: ../mgask.m:168 ../uicache.m:254
 msgid "false"
 msgstr "错误"
 
@@ -111,16 +111,6 @@ msgid "Output:\n"
 "  2 - tertiary button\n"
 "  3 - timeout/cancel\n\n"
 "Contact the Procursus Team for support.\n"
-msgstr ""
-
-#: ../uialert.m:124
-#, c-format
-msgid "the priority is %s: %s"
-msgstr ""
-
-#: ../uialert.m:142 ../uishoot.m:70
-#, c-format
-msgid "the timeout is %s: %s"
 msgstr ""
 
 #: ../uicache.m:104
@@ -181,27 +171,27 @@ msgstr ""
 msgid "Contact the Procursus Team for support.\n"
 msgstr ""
 
-#: ../uicache.m:141
+#: ../uicache.m:142
 #, c-format
 msgid "uicache does not support App Store apps.\n"
 msgstr ""
 
-#: ../uicache.m:143
+#: ../uicache.m:144
 #, c-format
 msgid "Continuing anyway...\n"
 msgstr ""
 
-#: ../uicache.m:213
+#: ../uicache.m:214
 #, c-format
 msgid "Error: Unable to register %s\n"
 msgstr ""
 
-#: ../uicache.m:217
+#: ../uicache.m:218
 #, c-format
 msgid "Error: Unable to unregister %s\n"
 msgstr ""
 
-#: ../uicache.m:237
+#: ../uicache.m:238
 #, c-format
 msgid "Name: %s\n"
 "BundleID: %s\n"
@@ -214,22 +204,22 @@ msgid "Name: %s\n"
 "Removeable: %s\n"
 msgstr ""
 
-#: ../uicache.m:256 ../uicache.m:264
+#: ../uicache.m:257 ../uicache.m:265
 #, c-format
 msgid "URLScheme: %s\n"
 msgstr ""
 
-#: ../uicache.m:269
+#: ../uicache.m:270
 #, c-format
 msgid "%s is an invalid bundle id\n"
 msgstr ""
 
-#: ../uicache.m:373
+#: ../uicache.m:374
 #, c-format
 msgid "registering %s\n"
 msgstr ""
 
-#: ../uicache.m:378
+#: ../uicache.m:379
 #, c-format
 msgid "unregistering %s\n"
 msgstr ""
@@ -273,71 +263,66 @@ msgstr ""
 msgid "Invalid brightness value: %s\n"
 msgstr ""
 
-#: ../uidisplay.m:305
-#, c-format
-msgid "Invalid brightness value: %s, %s\n"
-msgstr ""
-
-#: ../uidisplay.m:328
+#: ../uidisplay.m:327
 #, c-format
 msgid "Unable to increase the brightness by %d, %.6g.\n"
 msgstr ""
 
-#: ../uidisplay.m:340
+#: ../uidisplay.m:339
 #, c-format
 msgid "Unable to decrease the brightness by %d, %.6g.\n"
 msgstr ""
 
-#: ../uidisplay.m:471
+#: ../uidisplay.m:470
 #, c-format
 msgid "Unknown information type: %s\n"
 msgstr ""
 
-#: ../uidisplay.m:525 ../uidisplay.m:592 ../uidisplay.m:641 ../uidisplay.m:675
+#: ../uidisplay.m:524 ../uidisplay.m:591 ../uidisplay.m:640 ../uidisplay.m:674
 msgid "Auto-Brightness"
 msgstr ""
 
-#: ../uidisplay.m:531 ../uidisplay.m:596 ../uidisplay.m:644 ../uidisplay.m:674
+#: ../uidisplay.m:530 ../uidisplay.m:595 ../uidisplay.m:643 ../uidisplay.m:673
 msgid "Brightness"
 msgstr ""
 
-#: ../uidisplay.m:537 ../uidisplay.m:600 ../uidisplay.m:647 ../uidisplay.m:676
+#: ../uidisplay.m:536 ../uidisplay.m:599 ../uidisplay.m:646 ../uidisplay.m:675
 msgid "Dark Mode"
 msgstr ""
 
-#: ../uidisplay.m:543 ../uidisplay.m:604 ../uidisplay.m:650 ../uidisplay.m:677
+#: ../uidisplay.m:542 ../uidisplay.m:603 ../uidisplay.m:649 ../uidisplay.m:676
 msgid "Night Shift"
 msgstr ""
 
-#: ../uidisplay.m:549 ../uidisplay.m:608 ../uidisplay.m:653 ../uidisplay.m:678
+#: ../uidisplay.m:548 ../uidisplay.m:607 ../uidisplay.m:652 ../uidisplay.m:677
 msgid "True Tone"
 msgstr ""
 
-#: ../uidisplay.m:555 ../uidisplay.m:612 ../uidisplay.m:656 ../uidisplay.m:679
+#: ../uidisplay.m:554 ../uidisplay.m:611 ../uidisplay.m:655 ../uidisplay.m:678
 msgid "Reduce White Point"
 msgstr ""
 
-#: ../uidisplay.m:561 ../uidisplay.m:616 ../uidisplay.m:659 ../uidisplay.m:680
+#: ../uidisplay.m:560 ../uidisplay.m:615 ../uidisplay.m:658 ../uidisplay.m:679
 msgid "Height"
 msgstr ""
 
-#: ../uidisplay.m:567 ../uidisplay.m:620 ../uidisplay.m:662 ../uidisplay.m:681
+#: ../uidisplay.m:566 ../uidisplay.m:619 ../uidisplay.m:661 ../uidisplay.m:680
 msgid "Width"
 msgstr ""
 
-#: ../uidisplay.m:573 ../uidisplay.m:624 ../uidisplay.m:665 ../uidisplay.m:682
+#: ../uidisplay.m:572 ../uidisplay.m:623 ../uidisplay.m:664 ../uidisplay.m:681
 msgid "Physical Height"
 msgstr ""
 
-#: ../uidisplay.m:579 ../uidisplay.m:628 ../uidisplay.m:668 ../uidisplay.m:683
+#: ../uidisplay.m:578 ../uidisplay.m:627 ../uidisplay.m:667 ../uidisplay.m:682
 msgid "Physical Width"
 msgstr ""
 
-#: ../uidisplay.m:585 ../uidisplay.m:632 ../uidisplay.m:671 ../uidisplay.m:684
+#: ../uidisplay.m:584 ../uidisplay.m:631 ../uidisplay.m:670 ../uidisplay.m:683
 msgid "Scale"
 msgstr ""
 
-#: ../uidisplay.m:689
+#: ../uidisplay.m:688
 msgid "-j/--json may only be used in combination with -i/--info"
 msgstr ""
 
@@ -354,11 +339,6 @@ msgstr ""
 #: ../uinotify.m:49
 #, c-format
 msgid "Failed to add notification: %s\n"
-msgstr ""
-
-#: ../uinotify.m:93
-#, c-format
-msgid "the delay is %s: %s"
 msgstr ""
 
 #: ../uiopen.m:37
@@ -464,6 +444,11 @@ msgstr ""
 #, c-format
 msgid "Usage: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"
 msgstr "用法： %s [cfversion | ecid | 语言 | 序列号| UUID] [参数...]\n"
+
+#: ../info/ecid.m:33
+#, c-format
+msgid "Failed to get device ECID.\n"
+msgstr ""
 
 #: ../info/locale.m:16
 #, c-format

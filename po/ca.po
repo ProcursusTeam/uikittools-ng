@@ -1,0 +1,459 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: uikittools-ng\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-08 20:20+0300\n"
+"PO-Revision-Date: 2022-05-09 03:43\n"
+"Last-Translator: \n"
+"Language-Team: Catalan\n"
+"Language: ca_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: uikittools-ng\n"
+"X-Crowdin-Project-ID: 482777\n"
+"X-Crowdin-Language: ca\n"
+"X-Crowdin-File: /main/po/uikittools-ng.pot\n"
+"X-Crowdin-File-ID: 16\n"
+
+#: ../ldrestart.c:78 ../sbreload-launchd.c:78
+#, c-format
+msgid "Error stopping service:  %d - %s\n"
+msgstr ""
+
+#: ../ldrestart.c:112 ../sbreload-launchd.c:106
+#, c-format
+msgid "Error: no services returned for list\n"
+msgstr ""
+
+#: ../ldrestart.c:120 ../sbreload-launchd.c:114
+#, c-format
+msgid "Error: services returned for list aren't a dictionary!\n"
+msgstr ""
+
+#: ../ldrestart.c:138 ../sbreload-launchd.c:136
+#, c-format
+msgid "Error:  %d - %s\n"
+msgstr ""
+
+#: ../ldrestart.c:141 ../sbreload-launchd.c:139
+#, c-format
+msgid "Unable to get launchd: %d\n"
+msgstr ""
+
+#: ../lsrebuild.m:60
+msgid "missing necessary method"
+msgstr ""
+
+#: ../lsrebuild.m:66
+msgid "RebuildApplicationDatabases failed"
+msgstr ""
+
+#: ../mgask.m:34 ../uialert.m:200 ../uidisplay.m:403
+#, c-format
+msgid "JSON formating failed: %s"
+msgstr ""
+
+#: ../mgask.m:117
+#, c-format
+msgid "Usage: %s [-cjpq] [--gssc] [--pretty] question ...\n"
+msgstr ""
+
+#: ../mgask.m:154
+#, c-format
+msgid "Cannot find key %s\n"
+msgstr ""
+
+#: ../mgask.m:168 ../uicache.m:254
+msgid "true"
+msgstr ""
+
+#: ../mgask.m:168 ../uicache.m:254
+msgid "false"
+msgstr ""
+
+#: ../uialert.m:22
+#, c-format
+msgid "Usage: %s [-b body] [-i prompt] [-j] [-p primary] [--priority number] [-s second] [--secure prompt] [-t third] [--timeout number] title\n"
+"Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
+"Display an alert\n\n"
+msgstr ""
+
+#: ../uialert.m:26
+#, c-format
+msgid "  -b, --body <text>        Text for alert body\n"
+"  -p, --primary <text>     Default button text instead of \"OK\"\n"
+"      --priority 0-3       Alert priority\n"
+"                           This will change the icon on macOS\n"
+"  -s, --secondary <text>   Second button text\n"
+"  -t, --tertiary <text>    Third button text\n"
+"  -i, --input <text>       Ask for text input\n"
+"  -j, --json               Print the output in JSON\n"
+"      --secure <text>      Show text field as secure\n"
+"      --timeout <num>      Number of seconds to wait before exiting\n\n"
+msgstr ""
+
+#: ../uialert.m:37
+#, c-format
+msgid "Output:\n"
+"  0 - primary button\n"
+"  1 - secondary button\n"
+"  2 - tertiary button\n"
+"  3 - timeout/cancel\n\n"
+"Contact the Procursus Team for support.\n"
+msgstr ""
+
+#: ../uicache.m:104
+#, c-format
+msgid "Usage: %s [-afhlr] [-i id] [-p path] [-u path]\n"
+"Modified work Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
+msgstr ""
+
+#: ../uicache.m:106
+#, c-format
+msgid "Update iOS registered applications and optionally restart SpringBoard\n\n"
+msgstr ""
+
+#: ../uicache.m:108
+#, c-format
+msgid "  -a, --all                Update all system and internal applications\n"
+msgstr ""
+
+#: ../uicache.m:109
+#, c-format
+msgid "  -f, --force              Force -a to reregister all Applications\n"
+"                              and modify App Store apps\n"
+msgstr ""
+
+#: ../uicache.m:111
+#, c-format
+msgid "  -p, --path <path>        Update application bundle at the specified path\n"
+msgstr ""
+
+#: ../uicache.m:112
+#, c-format
+msgid "  -u, --unregister <path>  Unregister application bundle at the specified path\n"
+msgstr ""
+
+#: ../uicache.m:113
+#, c-format
+msgid "  -r, --respring           Restart SpringBoard and backboardd after\n"
+"                              updating applications\n"
+msgstr ""
+
+#: ../uicache.m:115
+#, c-format
+msgid "  -l, --list               List the bundle ids of installed apps\n"
+msgstr ""
+
+#: ../uicache.m:116
+#, c-format
+msgid "  -i, --info <bundleid>    Give information about given bundle id\n"
+msgstr ""
+
+#: ../uicache.m:117
+#, c-format
+msgid "  -h, --help               Give this help list.\n\n"
+msgstr ""
+
+#: ../uicache.m:119 ../uisave.m:27
+#, c-format
+msgid "Contact the Procursus Team for support.\n"
+msgstr ""
+
+#: ../uicache.m:142
+#, c-format
+msgid "uicache does not support App Store apps.\n"
+msgstr ""
+
+#: ../uicache.m:144
+#, c-format
+msgid "Continuing anyway...\n"
+msgstr ""
+
+#: ../uicache.m:214
+#, c-format
+msgid "Error: Unable to register %s\n"
+msgstr ""
+
+#: ../uicache.m:218
+#, c-format
+msgid "Error: Unable to unregister %s\n"
+msgstr ""
+
+#: ../uicache.m:238
+#, c-format
+msgid "Name: %s\n"
+"BundleID: %s\n"
+"ExecutableName: %s\n"
+"Path: %s\n"
+"Container Path: %s\n"
+"VendorName: %s\n"
+"TeamID: %s\n"
+"Type: %s\n"
+"Removeable: %s\n"
+msgstr ""
+
+#: ../uicache.m:257 ../uicache.m:265
+#, c-format
+msgid "URLScheme: %s\n"
+msgstr ""
+
+#: ../uicache.m:270
+#, c-format
+msgid "%s is an invalid bundle id\n"
+msgstr ""
+
+#: ../uicache.m:374
+#, c-format
+msgid "registering %s\n"
+msgstr ""
+
+#: ../uicache.m:379
+#, c-format
+msgid "unregistering %s\n"
+msgstr ""
+
+#: ../uidisplay.m:106
+#, c-format
+msgid "Usage: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-j] [-l] [-n state] [-t state] [-w state]\n"
+msgstr ""
+
+#: ../uidisplay.m:117
+#, c-format
+msgid "Invalid %s value: '%s', permitted values: 0, off, 1, on\n"
+msgstr ""
+
+#: ../uidisplay.m:125
+msgid "on"
+msgstr ""
+
+#: ../uidisplay.m:127
+msgid "off"
+msgstr ""
+
+#: ../uidisplay.m:129
+msgid "not supported"
+msgstr ""
+
+#: ../uidisplay.m:181
+msgid "Dark Mode is only supported on iOS 13 and higher.\n"
+msgstr ""
+
+#: ../uidisplay.m:214
+msgid "Night Shift is not supported on this device.\n"
+msgstr ""
+
+#: ../uidisplay.m:250
+msgid "True Tone is not supported on this device.\n"
+msgstr ""
+
+#: ../uidisplay.m:291
+#, c-format
+msgid "Invalid brightness value: %s\n"
+msgstr ""
+
+#: ../uidisplay.m:327
+#, c-format
+msgid "Unable to increase the brightness by %d, %.6g.\n"
+msgstr ""
+
+#: ../uidisplay.m:339
+#, c-format
+msgid "Unable to decrease the brightness by %d, %.6g.\n"
+msgstr ""
+
+#: ../uidisplay.m:470
+#, c-format
+msgid "Unknown information type: %s\n"
+msgstr ""
+
+#: ../uidisplay.m:524 ../uidisplay.m:591 ../uidisplay.m:640 ../uidisplay.m:674
+msgid "Auto-Brightness"
+msgstr ""
+
+#: ../uidisplay.m:530 ../uidisplay.m:595 ../uidisplay.m:643 ../uidisplay.m:673
+msgid "Brightness"
+msgstr ""
+
+#: ../uidisplay.m:536 ../uidisplay.m:599 ../uidisplay.m:646 ../uidisplay.m:675
+msgid "Dark Mode"
+msgstr ""
+
+#: ../uidisplay.m:542 ../uidisplay.m:603 ../uidisplay.m:649 ../uidisplay.m:676
+msgid "Night Shift"
+msgstr ""
+
+#: ../uidisplay.m:548 ../uidisplay.m:607 ../uidisplay.m:652 ../uidisplay.m:677
+msgid "True Tone"
+msgstr ""
+
+#: ../uidisplay.m:554 ../uidisplay.m:611 ../uidisplay.m:655 ../uidisplay.m:678
+msgid "Reduce White Point"
+msgstr ""
+
+#: ../uidisplay.m:560 ../uidisplay.m:615 ../uidisplay.m:658 ../uidisplay.m:679
+msgid "Height"
+msgstr ""
+
+#: ../uidisplay.m:566 ../uidisplay.m:619 ../uidisplay.m:661 ../uidisplay.m:680
+msgid "Width"
+msgstr ""
+
+#: ../uidisplay.m:572 ../uidisplay.m:623 ../uidisplay.m:664 ../uidisplay.m:681
+msgid "Physical Height"
+msgstr ""
+
+#: ../uidisplay.m:578 ../uidisplay.m:627 ../uidisplay.m:667 ../uidisplay.m:682
+msgid "Physical Width"
+msgstr ""
+
+#: ../uidisplay.m:584 ../uidisplay.m:631 ../uidisplay.m:670 ../uidisplay.m:683
+msgid "Scale"
+msgstr ""
+
+#: ../uidisplay.m:688
+msgid "-j/--json may only be used in combination with -i/--info"
+msgstr ""
+
+#: ../uinotify.m:23
+#, c-format
+msgid "Usage: %s [-b body] [-d number] [-i bundleid] [-s subtitle] title\n"
+msgstr ""
+
+#: ../uinotify.m:34
+#, c-format
+msgid "Authorization request failed: %s\n"
+msgstr ""
+
+#: ../uinotify.m:49
+#, c-format
+msgid "Failed to add notification: %s\n"
+msgstr ""
+
+#: ../uiopen.m:37
+#, c-format
+msgid "Usage: %s [OPTION...]\n"
+"Open URLs and open iOS applications by bundle ID\n\n"
+msgstr ""
+
+#: ../uiopen.m:40
+#, c-format
+msgid "  --url <URL>     Open the specified URL\n"
+"  --bundleid <id> Open application with the\n"
+"                     specified bundle id.\n"
+"  --app <app>     Open application with the\n"
+"                     specified name.\n"
+"  --path <path>   Open application at the specified path\n"
+"  --help          Give this help list.\n"
+msgstr ""
+
+#: ../uiopen.m:149
+#, c-format
+msgid "No application called: %s\n"
+msgstr ""
+
+#: ../uiopen.m:178
+#, c-format
+msgid "No application at path: %s\n"
+msgstr ""
+
+#: ../uiopen.m:182 ../uisave.m:62
+#, c-format
+msgid "Invalid path: %s\n"
+msgstr ""
+
+#: ../uisave.m:19
+#, c-format
+msgid "Usage: %s file ...\n"
+"Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
+msgstr ""
+
+#: ../uisave.m:22
+#, c-format
+msgid "Save images and videos to the camera roll\n\n"
+msgstr ""
+
+#: ../uisave.m:24
+#, c-format
+msgid "Image and video formats that can be saved to the camera roll\n"
+"vary between iOS versions\n\n"
+msgstr ""
+
+#: ../uisave.m:57
+#, c-format
+msgid "No file at path: %s\n"
+msgstr ""
+
+#: ../uisave.m:73
+#, c-format
+msgid "No supported image or video format at: %s\n"
+msgstr ""
+
+#: ../uisave.m:91
+#, c-format
+msgid "Failed to save image at %s with error: %s\n"
+msgstr ""
+
+#: ../uisave.m:108
+#, c-format
+msgid "Failed to save video at %s with error: %s\n"
+msgstr ""
+
+#: ../uishoot.m:25
+#, c-format
+msgid "Usage: %s [-cp] [-d number] [-f [png | jpeg | heic]] [-o file]\n"
+msgstr ""
+
+#: ../uishoot.m:77
+#, c-format
+msgid "Invalid image format '%s'\n"
+msgstr ""
+
+#: ../uishoot.m:96
+#, c-format
+msgid "Could not capture screenshot!\n"
+msgstr ""
+
+#: ../uishoot.m:123
+#, c-format
+msgid "Could not get image data to write to file!\n"
+msgstr ""
+
+#: ../uishoot.m:132
+#, c-format
+msgid "Could not write image to %s: %s\n"
+msgstr ""
+
+#: ../uishoot.m:148
+#, c-format
+msgid "Could not save screenshot to Photos: %s\n"
+msgstr ""
+
+#: ../info/deviceinfo.c:39 ../info/deviceinfo.c:72
+#, c-format
+msgid "Usage: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"
+msgstr ""
+
+#: ../info/ecid.m:33
+#, c-format
+msgid "Failed to get device ECID.\n"
+msgstr ""
+
+#: ../info/locale.m:16
+#, c-format
+msgid "Usage: deviceinfo locale [-ilcvh]\n"
+"Print the current locale\n\n"
+msgstr ""
+
+#: ../info/locale.m:19
+#, c-format
+msgid "-h --help      Give this help list.\n"
+" -i --identifier Print the locale identifier (default)\n"
+" -l --language   Print the language code\n"
+" -c --country    Print the country code\n"
+" -v --variant    Print the variant code\n\n"
+"If multiple output formats are specified the last will be used\n"
+msgstr ""
+

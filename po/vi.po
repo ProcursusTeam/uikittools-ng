@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uikittools-ng\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-21 22:53-0500\n"
-"PO-Revision-Date: 2021-11-22 03:56\n"
+"POT-Creation-Date: 2022-05-08 20:20+0300\n"
+"PO-Revision-Date: 2022-05-09 03:42\n"
 "Last-Translator: \n"
 "Language-Team: Vietnamese\n"
 "Language: vi_VN\n"
@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: uikittools-ng\n"
 "X-Crowdin-Project-ID: 482777\n"
 "X-Crowdin-Language: vi\n"
-"X-Crowdin-File: uikittools-ng.pot\n"
-"X-Crowdin-File-ID: 3\n"
+"X-Crowdin-File: /main/po/uikittools-ng.pot\n"
+"X-Crowdin-File-ID: 16\n"
 
 #: ../ldrestart.c:78 ../sbreload-launchd.c:78
 #, c-format
@@ -50,28 +50,28 @@ msgstr ""
 msgid "RebuildApplicationDatabases failed"
 msgstr ""
 
-#: ../mgask.m:33 ../uialert.m:200 ../uidisplay.m:403
+#: ../mgask.m:34 ../uialert.m:200 ../uidisplay.m:403
 #, c-format
 msgid "JSON formating failed: %s"
 msgstr ""
 
-#: ../mgask.m:98
+#: ../mgask.m:117
 #, c-format
-msgid "Usage: %s [-jpq] [--gssc] [--pretty] question ...\n"
+msgid "Usage: %s [-cjpq] [--gssc] [--pretty] question ...\n"
 msgstr ""
 
-#: ../mgask.m:122
+#: ../mgask.m:154
 #, c-format
 msgid "Cannot find key %s\n"
 msgstr ""
 
-#: ../mgask.m:136 ../uicache.m:253
+#: ../mgask.m:168 ../uicache.m:254
 msgid "true"
-msgstr "đúng"
+msgstr ""
 
-#: ../mgask.m:136 ../uicache.m:253
+#: ../mgask.m:168 ../uicache.m:254
 msgid "false"
-msgstr "sai"
+msgstr ""
 
 #: ../uialert.m:22
 #, c-format
@@ -160,29 +160,29 @@ msgstr ""
 #: ../uicache.m:119 ../uisave.m:27
 #, c-format
 msgid "Contact the Procursus Team for support.\n"
-msgstr "Liên hệ Procursus Team để được hỗ trợ.\n"
+msgstr ""
 
-#: ../uicache.m:141
+#: ../uicache.m:142
 #, c-format
 msgid "uicache does not support App Store apps.\n"
-msgstr "uicache không hỗ trợ ứng dụng từ App Store.\n"
+msgstr ""
 
-#: ../uicache.m:143
+#: ../uicache.m:144
 #, c-format
 msgid "Continuing anyway...\n"
 msgstr ""
 
-#: ../uicache.m:213
+#: ../uicache.m:214
 #, c-format
 msgid "Error: Unable to register %s\n"
 msgstr ""
 
-#: ../uicache.m:217
+#: ../uicache.m:218
 #, c-format
 msgid "Error: Unable to unregister %s\n"
 msgstr ""
 
-#: ../uicache.m:237
+#: ../uicache.m:238
 #, c-format
 msgid "Name: %s\n"
 "BundleID: %s\n"
@@ -195,22 +195,22 @@ msgid "Name: %s\n"
 "Removeable: %s\n"
 msgstr ""
 
-#: ../uicache.m:256 ../uicache.m:264
+#: ../uicache.m:257 ../uicache.m:265
 #, c-format
 msgid "URLScheme: %s\n"
 msgstr ""
 
-#: ../uicache.m:269
+#: ../uicache.m:270
 #, c-format
 msgid "%s is an invalid bundle id\n"
-msgstr "%s là một bundle id không hợp lệ\n"
+msgstr ""
 
-#: ../uicache.m:373
+#: ../uicache.m:374
 #, c-format
 msgid "registering %s\n"
 msgstr ""
 
-#: ../uicache.m:378
+#: ../uicache.m:379
 #, c-format
 msgid "unregistering %s\n"
 msgstr ""
@@ -227,79 +227,79 @@ msgstr ""
 
 #: ../uidisplay.m:125
 msgid "on"
-msgstr "bật"
+msgstr ""
 
 #: ../uidisplay.m:127
 msgid "off"
-msgstr "tắt"
+msgstr ""
 
 #: ../uidisplay.m:129
 msgid "not supported"
-msgstr "không hỗ trợ"
+msgstr ""
 
 #: ../uidisplay.m:181
 msgid "Dark Mode is only supported on iOS 13 and higher.\n"
-msgstr "Chế độ tối chỉ được hỗ trợ trên iOS 13 hoặc mới hơn.\n"
+msgstr ""
 
 #: ../uidisplay.m:214
 msgid "Night Shift is not supported on this device.\n"
-msgstr "Night Shift không được hỗ trợ trên thiết bị này.\n"
+msgstr ""
 
 #: ../uidisplay.m:250
 msgid "True Tone is not supported on this device.\n"
-msgstr "True Tone không được hỗ trợ trên thiết bị này.\n"
+msgstr ""
 
 #: ../uidisplay.m:291
 #, c-format
 msgid "Invalid brightness value: %s\n"
-msgstr "Giá trị độ sáng không hợp lệ: %s\n"
+msgstr ""
 
 #: ../uidisplay.m:327
 #, c-format
 msgid "Unable to increase the brightness by %d, %.6g.\n"
-msgstr "Không thể tăng độ sáng thêm %d, %.6g.\n"
+msgstr ""
 
 #: ../uidisplay.m:339
 #, c-format
 msgid "Unable to decrease the brightness by %d, %.6g.\n"
-msgstr "Không thể giảm độ sáng xuống thêm %d, %.6g.\n"
+msgstr ""
 
 #: ../uidisplay.m:470
 #, c-format
 msgid "Unknown information type: %s\n"
-msgstr "Thông tin không rõ loại: %s\n"
+msgstr ""
 
 #: ../uidisplay.m:524 ../uidisplay.m:591 ../uidisplay.m:640 ../uidisplay.m:674
 msgid "Auto-Brightness"
-msgstr "Độ sáng tự động"
+msgstr ""
 
 #: ../uidisplay.m:530 ../uidisplay.m:595 ../uidisplay.m:643 ../uidisplay.m:673
 msgid "Brightness"
-msgstr "Độ sáng"
+msgstr ""
 
 #: ../uidisplay.m:536 ../uidisplay.m:599 ../uidisplay.m:646 ../uidisplay.m:675
 msgid "Dark Mode"
-msgstr "Chế độ tối"
+msgstr ""
 
 #: ../uidisplay.m:542 ../uidisplay.m:603 ../uidisplay.m:649 ../uidisplay.m:676
 msgid "Night Shift"
-msgstr "Night Shift"
+msgstr ""
 
 #: ../uidisplay.m:548 ../uidisplay.m:607 ../uidisplay.m:652 ../uidisplay.m:677
 msgid "True Tone"
-msgstr "True Tone"
+msgstr ""
 
 #: ../uidisplay.m:554 ../uidisplay.m:611 ../uidisplay.m:655 ../uidisplay.m:678
 msgid "Reduce White Point"
-msgstr "Giảm điểm trắng"
+msgstr ""
 
 #: ../uidisplay.m:560 ../uidisplay.m:615 ../uidisplay.m:658 ../uidisplay.m:679
 msgid "Height"
-msgstr "Độ dài"
+msgstr ""
 
 #: ../uidisplay.m:566 ../uidisplay.m:619 ../uidisplay.m:661 ../uidisplay.m:680
 msgid "Width"
-msgstr "Độ rộng"
+msgstr ""
 
 #: ../uidisplay.m:572 ../uidisplay.m:623 ../uidisplay.m:664 ../uidisplay.m:681
 msgid "Physical Height"
@@ -311,7 +311,7 @@ msgstr ""
 
 #: ../uidisplay.m:584 ../uidisplay.m:631 ../uidisplay.m:670 ../uidisplay.m:683
 msgid "Scale"
-msgstr "Tỷ lệ"
+msgstr ""
 
 #: ../uidisplay.m:688
 msgid "-j/--json may only be used in combination with -i/--info"
@@ -399,7 +399,7 @@ msgstr ""
 #: ../uisave.m:108
 #, c-format
 msgid "Failed to save video at %s with error: %s\n"
-msgstr "Không thể lưu video vào %s với lỗi: %s\n"
+msgstr ""
 
 #: ../uishoot.m:25
 #, c-format
@@ -414,12 +414,12 @@ msgstr ""
 #: ../uishoot.m:96
 #, c-format
 msgid "Could not capture screenshot!\n"
-msgstr "Không thể chụp ảnh màn hình!\n"
+msgstr ""
 
 #: ../uishoot.m:123
 #, c-format
 msgid "Could not get image data to write to file!\n"
-msgstr "Không thể lấy dữ liệu hình ảnh để viết vào tệp!\n"
+msgstr ""
 
 #: ../uishoot.m:132
 #, c-format
@@ -429,19 +429,23 @@ msgstr ""
 #: ../uishoot.m:148
 #, c-format
 msgid "Could not save screenshot to Photos: %s\n"
-msgstr "Không thể lưu ảnh màn hình vào Thư viện Ảnh: %s\n"
+msgstr ""
 
 #: ../info/deviceinfo.c:39 ../info/deviceinfo.c:72
 #, c-format
 msgid "Usage: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"
-msgstr "Cách dùng: %s [cfversion | ecid | khu vực | số sêri | uniqueid] [tham số ...]\n"
+msgstr ""
+
+#: ../info/ecid.m:33
+#, c-format
+msgid "Failed to get device ECID.\n"
+msgstr ""
 
 #: ../info/locale.m:16
 #, c-format
 msgid "Usage: deviceinfo locale [-ilcvh]\n"
 "Print the current locale\n\n"
-msgstr "Cách dùng: deviceinfo locale [-ilcvh]\n"
-"In ra khu vực hiện tại\n\n"
+msgstr ""
 
 #: ../info/locale.m:19
 #, c-format

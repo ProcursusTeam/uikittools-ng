@@ -28,24 +28,24 @@ NSDictionary<NSString *, id> *getVibrationTypes(void) {
 void help(void) {
 	printf("Usage: uivibrate [options]\n");
 	printf("Options:\n");
-	printf("  -t, --type <type>         Type of vibration (medium by default)\n");
-	printf("  -d, --duration <duration> Duration of vibration, in seconds\n");
-	printf("  -h, --help                Show this help message\n");
+	printf("  -t, --type type         Type of vibration (medium by default)\n");
+	printf("  -d, --duration number[unit] Duration of vibration\n");
+	printf("                                  Unit can be 's' (seconds, the default),\n");
+	printf("                                  m (minutes), h (hours), or d (days).\n");
+	printf("  -h, --help                  Show this help message\n");
 
-	printf("List of vibration types:\n");
 	if ([(NSNumber *)[[UIDevice currentDevice]
 			valueForKey:@"_feedbackSupportLevel"] intValue] != 1) {
+		printf("List of vibration types:\n");
 		for (NSString *key in getVibrationTypes()) {
 			printf("\t%s\n", [key UTF8String]);
 		}
+		printf("\tselection-change\n");  // Not listed in the dicionary, but is valid
 	}
-	printf(
-		"\tselection-change\n");  // Not listed in the dicionary, but is valid
 }
 
 int playFeedback(NSString *type) {
-	if ([(NSNumber *)[[UIDevice currentDevice]
-			valueForKey:@"_feedbackSupportLevel"] intValue] == 1) {
+	if ([(NSNumber *)[[UIDevice currentDevice] valueForKey:@"_feedbackSupportLevel"] intValue] == 1) {
 		AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
 		return 0;
 	}
@@ -86,33 +86,57 @@ int main(int argc, char *argv[]) {
 
 	@autoreleasepool {
 		int ch;
-		int duration = 0;
+		double duration = 0, d = 0;
+		char unit;
+		char buf[2];
+		int matches = 0;
 		NSString *feedbackType = @"medium"; // Rigid by default.
 
-		while ((ch = getopt_long(argc, argv, "t:d:", longopts, NULL)) != -1) {
+		while ((ch = getopt_long(argc, argv, "t:d:h", longopts, NULL)) != -1) {
 			switch (ch) {
-				case 't':
-					feedbackType = [NSString stringWithUTF8String:optarg];
-					break;
 				case 'd':
-					duration = atoi(optarg);
+					matches = sscanf(optarg, "%lf%c%1s", &d, &unit, buf);
+					if (matches == 2)
+						switch (unit) {
+							case 'd':
+								d *= 24;
+								/* FALLTHROUGH */
+							case 'h':
+								d *= 60;
+								/* FALLTHROUGH */
+							case 'm':
+								d *= 60;
+								/* FALLTHROUGH */
+							case 's':
+								break;
+							default:
+								help();
+						}
+					else if (matches != 1)
+						help();
+					duration += d;
 					break;
 				case 'h':
 					help();
 					return 0;
+				case 't':
+					feedbackType = [NSString stringWithUTF8String:optarg];
+					break;
 				default:
 					help();
 					return 1;
 			}
 		}
 
-		if (duration && duration > 0) {
-			for (int i; i < duration; i++) {
+		if (duration != 0) {
+			for (double i = 0; i < duration; i++) {
 				playFeedback(feedbackType);
 				sleep(1);
 			}
 		} else {
 			playFeedback(feedbackType);
+			sleep(1); // We need to give it time to play before exiting
 		}
 	}
+	return 0;
 }

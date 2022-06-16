@@ -11,6 +11,7 @@ uinotify
 uisave
 lsrebuild
 uidisplay
+uivibrate
 mgask
 compile_commands.json
 .cache

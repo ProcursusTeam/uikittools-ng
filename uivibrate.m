@@ -1,4 +1,5 @@
 #include <UIKit/UIKit.h>
+#include <AudioToolbox/AudioToolbox.h>
 #include <getopt.h>
 
 NSDictionary <NSString *, id> *getVibrationTypes() {
@@ -32,13 +33,20 @@ void help(void) {
     printf("  -h, --help                Show this help message\n");
 
     printf("List of vibration types:\n");
-    for (NSString *key in getVibrationTypes()) {
-        printf("\t%s\n", [key UTF8String]);
+    if ([(NSNumber *)[[UIDevice currentDevice] valueForKey:@"_feedbackSupportLevel"] intValue] != 1) {
+        for (NSString *key in getVibrationTypes()) {
+            printf("\t%s\n", [key UTF8String]);
+        }
     }
     printf("\tselection-change\n"); // Not listed in the dicionary, but is valid
 }
 
 int playFeedback(NSString* type) {
+    if ([(NSNumber *)[[UIDevice currentDevice] valueForKey:@"_feedbackSupportLevel"] intValue] == 1) {
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+        return 0;
+    }
+
     NSDictionary<NSString *, id> *vibrationTypes = getVibrationTypes();
 
     if ([type isEqualToString:@"light"]  || [type isEqualToString:@"heavy"]  || 
@@ -73,7 +81,7 @@ int main(int argc, char *argv[]) {
         int duration = 0;
         NSString* feedbackType = @"medium"; // Rigid by default.
 
-        while ((ch = getopt_long(argc, argv, "td:", longopts, NULL)) != -1) {
+        while ((ch = getopt_long(argc, argv, "t:d:", longopts, NULL)) != -1) {
             switch (ch) {
                 case 't':
                     feedbackType = [NSString stringWithUTF8String:optarg];

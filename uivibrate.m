@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
 
     struct option longopts[] = {
 	{"type", required_argument, 0, 't'},
-    {"vibration-types", no_argument, 0, 'v'},
+        {"vibration-types", no_argument, 0, 'v'},
 	{"duration", required_argument, NULL, 'd'},
 	{NULL, 0, NULL, 0}};
 

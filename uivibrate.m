@@ -25,21 +25,13 @@ static NSDictionary<NSString *, id> *vibrationTypes = @{
 
 int playFeedback(NSString* type) {
 
-    if (
-        [type isEqualToString:@"light"]  || 
-        [type isEqualToString:@"heavy"]  || 
-        [type isEqualToString:@"medium"] ||
-        [type isEqualToString:@"rigid"]  ||
-        [type isEqualToString:@"soft"]
-        ) {
+    if ([type isEqualToString:@"light"]  || [type isEqualToString:@"heavy"]  || 
+        [type isEqualToString:@"medium"] || [type isEqualToString:@"rigid"]  ||
+        [type isEqualToString:@"soft"]) {
         UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:[vibrationTypes[type] integerValue]];
         [generator prepare];
         [generator impactOccurred];
-    } else if (
-        [type isEqualToString: @"warning"] ||
-        [type isEqualToString: @"error"] ||
-        [type isEqualToString: @"success"]
-    ) {
+    } else if ([type isEqualToString: @"warning"] || [type isEqualToString: @"error"] || [type isEqualToString: @"success"]) {
         UINotificationFeedbackGenerator *generator = [[UINotificationFeedbackGenerator alloc] init];
         [generator prepare];
         [generator notificationOccurred:[vibrationTypes[type] integerValue]];

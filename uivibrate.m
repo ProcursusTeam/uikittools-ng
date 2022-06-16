@@ -6,7 +6,7 @@ void help(void) {
     printf("Options:\n");
     printf("  -t, --type <type>         Type of vibration\n");
     printf("  -d, --duration <duration> Duration of vibration, in seconds\n");
-    printf("  -v, --vibration-types,        List of available vibration types\n"); 
+    printf("  -v, --vibration-types     List of available vibration types\n"); 
     printf("  -h, --help                Show this help message\n");
 }
 

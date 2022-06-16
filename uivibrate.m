@@ -1,29 +1,45 @@
 #include <UIKit/UIKit.h>
 #include <getopt.h>
 
+NSDictionary <NSString *, id> *getVibrationTypes() {
+    NSDictionary *dict = @{
+        @"light": @(UIImpactFeedbackStyleLight),
+        @"heavy": @(UIImpactFeedbackStyleMedium),
+        @"medium": @(UIImpactFeedbackStyleHeavy),
+
+        @"warning": @(UINotificationFeedbackTypeWarning),
+        @"error": @(UINotificationFeedbackTypeError),
+        @"success": @(UINotificationFeedbackTypeSuccess),
+    };
+
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+
+    // Rigid & Soft are iOS 13.0+
+    if (@available(iOS 13.0, *)) {
+        mutableDict[@"rigid"] = @(UIImpactFeedbackStyleRigid);
+        mutableDict[@"soft"] = @(UIImpactFeedbackStyleSoft);
+    }
+
+    return [mutableDict copy];
+}
+
+
 void help(void) {
     printf("Usage: uivibrate [options]\n");
     printf("Options:\n");
-    printf("  -t, --type <type>         Type of vibration\n");
+    printf("  -t, --type <type>         Type of vibration (medium by default)\n");
     printf("  -d, --duration <duration> Duration of vibration, in seconds\n");
-    printf("  -v, --vibration-types     List of available vibration types\n"); 
     printf("  -h, --help                Show this help message\n");
+
+    printf("List of vibration types:\n");
+    for (NSString *key in getVibrationTypes()) {
+        printf("\t%s\n", [key UTF8String]);
+    }
+    printf("\tselection-change\n"); // Not listed in the dicionary, but is valid
 }
 
-static NSDictionary<NSString *, id> *vibrationTypes = @{
-    @"light": @(UIImpactFeedbackStyleLight),
-    @"heavy": @(UIImpactFeedbackStyleMedium),
-    @"medium": @(UIImpactFeedbackStyleHeavy),
-
-    @"rigid": @(UIImpactFeedbackStyleRigid),
-    @"soft": @(UIImpactFeedbackStyleSoft),
-
-    @"warning": @(UINotificationFeedbackTypeWarning),
-    @"error": @(UINotificationFeedbackTypeError),
-    @"success": @(UINotificationFeedbackTypeSuccess),
-};
-
 int playFeedback(NSString* type) {
+    NSDictionary<NSString *, id> *vibrationTypes = getVibrationTypes();
 
     if ([type isEqualToString:@"light"]  || [type isEqualToString:@"heavy"]  || 
         [type isEqualToString:@"medium"] || [type isEqualToString:@"rigid"]  ||
@@ -49,14 +65,13 @@ int main(int argc, char *argv[]) {
 
     struct option longopts[] = {
 	{"type", required_argument, 0, 't'},
-        {"vibration-types", no_argument, 0, 'v'},
 	{"duration", required_argument, NULL, 'd'},
 	{NULL, 0, NULL, 0}};
 
     @autoreleasepool {
         int ch;
         int duration = 0;
-        NSString* feedbackType = @"rigid"; // Rigid by default.
+        NSString* feedbackType = @"medium"; // Rigid by default.
 
         while ((ch = getopt_long(argc, argv, "td:", longopts, NULL)) != -1) {
             switch (ch) {
@@ -66,13 +81,6 @@ int main(int argc, char *argv[]) {
                 case 'd':
                     duration = atoi(optarg);
                     break;
-                case 'v':
-                    printf("Available vibration types:\n");
-                    for (NSString* key in vibrationTypes) {
-                        printf("\t%s\n", [key UTF8String]);
-                    }
-                    printf("\tselection-change\n"); // Not listed in dictionary, but supported.
-                    return 0;
                 case 'h': 
                     help(); 
                     return 0;

@@ -30,7 +30,6 @@ void help(void) {
     printf("Options:\n");
     printf("  -t, --type <type>         Type of vibration (medium by default)\n");
     printf("  -d, --duration <duration> Duration of vibration, in seconds\n");
-    printf("  -u, --unit <unit>         Unit of duration (seconds by default)\n");
     printf("  -h, --help                Show this help message\n");
 
     printf("List of vibration types:\n");
@@ -75,7 +74,6 @@ int main(int argc, char *argv[]) {
     struct option longopts[] = {
 	{"type", required_argument, 0, 't'},
 	{"duration", required_argument, NULL, 'd'},
-	{"unit", required_argument, NULL, 'u'},
 	{NULL, 0, NULL, 0}};
 
     @autoreleasepool {
@@ -83,7 +81,7 @@ int main(int argc, char *argv[]) {
         int duration = 0;
         NSString* feedbackType = @"medium"; // Rigid by default.
 
-        while ((ch = getopt_long(argc, argv, "t:d:u:", longopts, NULL)) != -1) {
+        while ((ch = getopt_long(argc, argv, "t:d:", longopts, NULL)) != -1) {
             switch (ch) {
                 case 't':
                     feedbackType = [NSString stringWithUTF8String:optarg];
@@ -91,17 +89,6 @@ int main(int argc, char *argv[]) {
                 case 'd':
                     duration = atoi(optarg);
                     break;
-                case 'u':
-                    if (strcmp(optarg, "seconds") == 0) {
-                        duration *= 1;
-                    } else if (strcmp(optarg, "minutes") == 0) {
-                        duration *= 60;
-                    } else if (strcmp(optarg, "hours") == 0) {
-                        duration *= 60 * 60;
-                    } else {
-                        printf("Unknown unit: %s\n", optarg);
-                        return 1;
-                    }
                 case 'h': 
                     help(); 
                     return 0;

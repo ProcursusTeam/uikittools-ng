@@ -4,8 +4,8 @@
 NSDictionary <NSString *, id> *getVibrationTypes() {
     NSDictionary *dict = @{
         @"light": @(UIImpactFeedbackStyleLight),
-        @"heavy": @(UIImpactFeedbackStyleMedium),
-        @"medium": @(UIImpactFeedbackStyleHeavy),
+        @"heavy": @(UIImpactFeedbackStyleHeavy),
+        @"medium": @(UIImpactFeedbackStyleMedium),
 
         @"warning": @(UINotificationFeedbackTypeWarning),
         @"error": @(UINotificationFeedbackTypeError),

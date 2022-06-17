@@ -30,7 +30,7 @@ void help(void) {
 	printf("Options:\n");
 	printf("  -t, --type type         Type of vibration (medium by default)\n");
 	printf("  -d, --duration number[unit] Duration of vibration\n");
-       printf("  -i, --intensity number      Intensity of vibration\n");
+        printf("  -i, --intensity number      Intensity of vibration\n");
 	printf("                                  Unit can be 's' (seconds, the default),\n");
 	printf("                                  m (minutes), h (hours), or d (days).\n");
 	printf("  -h, --help                  Show this help message\n");
@@ -86,7 +86,7 @@ int main(int argc, char *argv[]) {
 	struct option longopts[] = {
 		{"type", required_argument, 0, 't'},
 		{"duration", required_argument, NULL, 'd'},
-               {"intensity", required_argument, NULL, 'i'},
+                {"intensity", required_argument, NULL, 'i'},
 		{NULL, 0, NULL, 0}
 	};
 

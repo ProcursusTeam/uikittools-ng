@@ -129,8 +129,9 @@ int main(int argc, char *argv[]) {
 				case 't':
 					feedbackType = [NSString stringWithUTF8String:optarg];
 					break;
-                case 'i':
-                    intensity = atof(optarg);
+		                case 'i':
+                		    	intensity = atof(optarg);
+					break;
 				default:
 					help();
 					return 1;

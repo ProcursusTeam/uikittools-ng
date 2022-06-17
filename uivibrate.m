@@ -44,7 +44,7 @@ void help(void) {
 	}
 }
 
-int playFeedback(NSString *type) {
+int playFeedback(NSString *type, float intensity) {
 	if ([(NSNumber *)[[UIDevice currentDevice] valueForKey:@"_feedbackSupportLevel"] intValue] == 1) {
 		AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
 		return 0;
@@ -59,7 +59,11 @@ int playFeedback(NSString *type) {
 			[[UIImpactFeedbackGenerator alloc]
 				initWithStyle:[vibrationTypes[type] integerValue]];
 		[generator prepare];
-		[generator impactOccurred];
+        if (intensity) {
+            [generator impactOccurredWithIntensity: intensity];
+        } else {
+            [generator impactOccurred];
+        }
 	} else if ([type isEqualToString:@"warning"] ||
 			   [type isEqualToString:@"error"] ||
 			   [type isEqualToString:@"success"]) {
@@ -81,18 +85,20 @@ int main(int argc, char *argv[]) {
 	struct option longopts[] = {
 		{"type", required_argument, 0, 't'},
 		{"duration", required_argument, NULL, 'd'},
+                {"intensity", required_argument, NULL, 'i'},
 		{NULL, 0, NULL, 0}
 	};
 
 	@autoreleasepool {
 		int ch;
 		double duration = 0, d = 0;
+        	float intensity;
 		char unit;
 		char buf[2];
 		int matches = 0;
-		NSString *feedbackType = @"medium"; // Rigid by default.
+		NSString *feedbackType = @"medium"; // Medium by default.
 
-		while ((ch = getopt_long(argc, argv, "t:d:h", longopts, NULL)) != -1) {
+		while ((ch = getopt_long(argc, argv, "i:t:d:h", longopts, NULL)) != -1) {
 			switch (ch) {
 				case 'd':
 					matches = sscanf(optarg, "%lf%c%1s", &d, &unit, buf);
@@ -122,6 +128,8 @@ int main(int argc, char *argv[]) {
 				case 't':
 					feedbackType = [NSString stringWithUTF8String:optarg];
 					break;
+                case 'i':
+                    intensity = atof(optarg);
 				default:
 					help();
 					return 1;
@@ -130,11 +138,11 @@ int main(int argc, char *argv[]) {
 
 		if (duration != 0) {
 			for (double i = 0; i < duration; i++) {
-				playFeedback(feedbackType);
+				playFeedback(feedbackType, intensity);
 				sleep(1);
 			}
 		} else {
-			playFeedback(feedbackType);
+			playFeedback(feedbackType, intensity);
 			sleep(1); // We need to give it time to play before exiting
 		}
 	}

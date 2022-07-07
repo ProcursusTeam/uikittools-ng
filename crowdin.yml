@@ -1,0 +1,5 @@
+commit_message: '[Localization] Update %language% translations'
+append_commit_message: false
+files:
+  - source: /po/uikittools-ng.pot
+    translation: /po/%locale_with_underscore%.po

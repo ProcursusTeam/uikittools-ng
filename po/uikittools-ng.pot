@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uikittools-ng 2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-21 22:53-0500\n"
+"POT-Creation-Date: 2022-05-08 20:20+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,26 +50,26 @@ msgstr ""
 msgid "RebuildApplicationDatabases failed"
 msgstr ""
 
-#: ../mgask.m:33 ../uialert.m:200 ../uidisplay.m:403
+#: ../mgask.m:34 ../uialert.m:200 ../uidisplay.m:403
 #, c-format
 msgid "JSON formating failed: %s"
 msgstr ""
 
-#: ../mgask.m:98
+#: ../mgask.m:117
 #, c-format
-msgid "Usage: %s [-jpq] [--gssc] [--pretty] question ...\n"
+msgid "Usage: %s [-cjpq] [--gssc] [--pretty] question ...\n"
 msgstr ""
 
-#: ../mgask.m:122
+#: ../mgask.m:154
 #, c-format
 msgid "Cannot find key %s\n"
 msgstr ""
 
-#: ../mgask.m:136 ../uicache.m:253
+#: ../mgask.m:168 ../uicache.m:254
 msgid "true"
 msgstr ""
 
-#: ../mgask.m:136 ../uicache.m:253
+#: ../mgask.m:168 ../uicache.m:254
 msgid "false"
 msgstr ""
 
@@ -182,27 +182,27 @@ msgstr ""
 msgid "Contact the Procursus Team for support.\n"
 msgstr ""
 
-#: ../uicache.m:141
+#: ../uicache.m:142
 #, c-format
 msgid "uicache does not support App Store apps.\n"
 msgstr ""
 
-#: ../uicache.m:143
+#: ../uicache.m:144
 #, c-format
 msgid "Continuing anyway...\n"
 msgstr ""
 
-#: ../uicache.m:213
+#: ../uicache.m:214
 #, c-format
 msgid "Error: Unable to register %s\n"
 msgstr ""
 
-#: ../uicache.m:217
+#: ../uicache.m:218
 #, c-format
 msgid "Error: Unable to unregister %s\n"
 msgstr ""
 
-#: ../uicache.m:237
+#: ../uicache.m:238
 #, c-format
 msgid ""
 "Name: %s\n"
@@ -216,22 +216,22 @@ msgid ""
 "Removeable: %s\n"
 msgstr ""
 
-#: ../uicache.m:256 ../uicache.m:264
+#: ../uicache.m:257 ../uicache.m:265
 #, c-format
 msgid "URLScheme: %s\n"
 msgstr ""
 
-#: ../uicache.m:269
+#: ../uicache.m:270
 #, c-format
 msgid "%s is an invalid bundle id\n"
 msgstr ""
 
-#: ../uicache.m:373
+#: ../uicache.m:374
 #, c-format
 msgid "registering %s\n"
 msgstr ""
 
-#: ../uicache.m:378
+#: ../uicache.m:379
 #, c-format
 msgid "unregistering %s\n"
 msgstr ""
@@ -467,6 +467,11 @@ msgstr ""
 #, c-format
 msgid ""
 "Usage: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"
+msgstr ""
+
+#: ../info/ecid.m:33
+#, c-format
+msgid "Failed to get device ECID.\n"
 msgstr ""
 
 #: ../info/locale.m:16

@@ -16,13 +16,9 @@
 #endif
 
 #if __has_feature(objc_arc)
-
 extern int xpc_pipe_routine(xpc_object_t pipe, xpc_object_t message, __strong xpc_object_t *reply);
-
 #else
-
 extern int xpc_pipe_routine(xpc_object_t pipe, xpc_object_t message, xpc_object_t *reply);
-
 #endif
 
 extern char *xpc_strerror(int);

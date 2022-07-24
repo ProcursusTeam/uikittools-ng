@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: uikittools-ng\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-08 20:20+0300\n"
-"PO-Revision-Date: 2022-05-09 03:54\n"
+"PO-Revision-Date: 2022-07-24 15:40\n"
 "Last-Translator: \n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -20,65 +20,67 @@ msgstr ""
 #: ../ldrestart.c:78 ../sbreload-launchd.c:78
 #, c-format
 msgid "Error stopping service:  %d - %s\n"
-msgstr ""
+msgstr "Fout bij het stopzetten van de service:  %d - %s\n"
 
 #: ../ldrestart.c:112 ../sbreload-launchd.c:106
 #, c-format
 msgid "Error: no services returned for list\n"
-msgstr ""
+msgstr "Fout: geen diensten geretourneerd voor lijst\n"
 
 #: ../ldrestart.c:120 ../sbreload-launchd.c:114
 #, c-format
 msgid "Error: services returned for list aren't a dictionary!\n"
-msgstr ""
+msgstr "Fout: services geretourneerd voor de lijst zijn geen woordenboek!\n"
 
 #: ../ldrestart.c:138 ../sbreload-launchd.c:136
 #, c-format
 msgid "Error:  %d - %s\n"
-msgstr ""
+msgstr "Fout: %d - %s\n"
 
 #: ../ldrestart.c:141 ../sbreload-launchd.c:139
 #, c-format
 msgid "Unable to get launchd: %d\n"
-msgstr ""
+msgstr "Kan launchd niet ophalen: %d\n"
 
 #: ../lsrebuild.m:60
 msgid "missing necessary method"
-msgstr ""
+msgstr "ontbreekt de noodzakelijke methode"
 
 #: ../lsrebuild.m:66
 msgid "RebuildApplicationDatabases failed"
-msgstr ""
+msgstr "RebuildApplicationDatabases mislukt"
 
 #: ../mgask.m:34 ../uialert.m:200 ../uidisplay.m:403
 #, c-format
 msgid "JSON formating failed: %s"
-msgstr ""
+msgstr "JSON opmaak mislukt: %s"
 
 #: ../mgask.m:117
 #, c-format
 msgid "Usage: %s [-cjpq] [--gssc] [--pretty] question ...\n"
-msgstr ""
+msgstr "Gebruik: %s [-cjpq] [--gssc] [--pretty] vraag ...\n"
 
 #: ../mgask.m:154
 #, c-format
 msgid "Cannot find key %s\n"
-msgstr ""
+msgstr "Kan sleutel %s niet vinden\n"
 
 #: ../mgask.m:168 ../uicache.m:254
 msgid "true"
-msgstr ""
+msgstr "juist"
 
 #: ../mgask.m:168 ../uicache.m:254
 msgid "false"
-msgstr ""
+msgstr "onjuist"
 
 #: ../uialert.m:22
 #, c-format
 msgid "Usage: %s [-b body] [-i prompt] [-j] [-p primary] [--priority number] [-s second] [--secure prompt] [-t third] [--timeout number] title\n"
 "Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
 "Display an alert\n\n"
-msgstr ""
+msgstr "Gebruik: %s [-b lichaam] [-i prompt] [-j] [-p primair] [--priority nummer] [-s tweede] [--secure prompt] [-t derde] [--timeout nummer] titel\n"
+"Copyright (C) 2021, Procursus Team. Alle rechten voorbehouden.\n\n"
+"Een waarschuwing weergeven\n\n"
 
 #: ../uialert.m:26
 #, c-format
@@ -92,7 +94,16 @@ msgid "  -b, --body <text>        Text for alert body\n"
 "  -j, --json               Print the output in JSON\n"
 "      --secure <text>      Show text field as secure\n"
 "      --timeout <num>      Number of seconds to wait before exiting\n\n"
-msgstr ""
+msgstr "  -b, --body <tekst>        Tekst voor waarschuwing\n"
+"  -p, --primary <tekst>     Standaard knop tekst in plaats van \"OK\"\n"
+"      --priority 0-3 Alert prioriteit\n"
+"                           Dit zal het pictogram op macOS veranderen\n"
+"  -s, --secondary <tekst>   Tweede knop tekst\n"
+"  -t, --tertiary <tekst>    Derde knop tekst\n"
+"  -i, --input <tekst>       Vraag om tekstinvoer\n"
+"  -j, --json                 Print de uitvoer in JSON\n"
+"      --secure <tekst>      Toon tekstveld als veilig\n"
+"      --timeout <num>      Seconden te wachten voor af te sluiten\n\n"
 
 #: ../uialert.m:37
 #, c-format

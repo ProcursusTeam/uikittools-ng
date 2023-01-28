@@ -7,6 +7,10 @@ Files: *
 Copyright: 2020-2022 Procursus Team <team@procurs.us>
 License: BSD-3-Clause
 
+Files: uivibrate.m
+Copyright: Copyright (c) 1988, 1993, 1994
+            The Regents of the University of California.  All rights reserved.
+
 Files: ent.plist ldrestart.c sbdidlaunch.c sbreload-launchd.c sbreload.m uicache.m uicache.plist uiopen.m uiopen.plist
 Copyright: Copyright (c) 2019 CoolStar,
            Modified work Copyright (c) 2020-2022 Procursus Team <team@procurs.us>

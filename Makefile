@@ -79,6 +79,9 @@ lsrebuild: lsrebuild.m lsrebuild.plist
 uidisplay: uidisplay.m strtonum.c uidisplay.plist
 	$(CC) -fobjc-arc $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework Foundation -lAccessibility -framework UIKit -framework CoreGraphics -framework IOKit
 
+uivibrate: uivibrate.m 
+	$(CC) -fobjc-arc $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -framework UIKit -framework AudioToolbox
+
 deviceinfo: info/deviceinfo.c info/ecid.m info/uid.m info/serial.m info/locale.m info/cfversion.c
 	$(CC) -fobjc-arc $(CFLAGS) $^ -o $@ $(LDFLAGS) -framework CoreFoundation -lMobileGestalt
 

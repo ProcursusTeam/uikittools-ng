@@ -5,42 +5,42 @@ msgstr ""
 "POT-Creation-Date: 2022-05-08 20:20+0300\n"
 "PO-Revision-Date: 2022-05-09 03:54\n"
 "Last-Translator: \n"
-"Language-Team: Chinese Simplified\n"
-"Language: zh_CN\n"
+"Language-Team: French\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Crowdin-Project: uikittools-ng\n"
 "X-Crowdin-Project-ID: 482777\n"
-"X-Crowdin-Language: zh-CN\n"
+"X-Crowdin-Language: fr\n"
 "X-Crowdin-File: /main/po/uikittools-ng.pot\n"
 "X-Crowdin-File-ID: 16\n"
 
 #: ../ldrestart.c:78 ../sbreload-launchd.c:78
 #, c-format
 msgid "Error stopping service:  %d - %s\n"
-msgstr "停止服务时出错：  %d - %s\n"
+msgstr ""
 
 #: ../ldrestart.c:112 ../sbreload-launchd.c:106
 #, c-format
 msgid "Error: no services returned for list\n"
-msgstr "错误： 返回列表无服务\n"
+msgstr ""
 
 #: ../ldrestart.c:120 ../sbreload-launchd.c:114
 #, c-format
 msgid "Error: services returned for list aren't a dictionary!\n"
-msgstr "错误：返回服务列表不是字典！\n"
+msgstr ""
 
 #: ../ldrestart.c:138 ../sbreload-launchd.c:136
 #, c-format
 msgid "Error:  %d - %s\n"
-msgstr "错误:  %d - %s\n"
+msgstr ""
 
 #: ../ldrestart.c:141 ../sbreload-launchd.c:139
 #, c-format
 msgid "Unable to get launchd: %d\n"
-msgstr "无法获得launchd： %d\n"
+msgstr ""
 
 #: ../lsrebuild.m:60
 msgid "missing necessary method"
@@ -48,12 +48,12 @@ msgstr ""
 
 #: ../lsrebuild.m:66
 msgid "RebuildApplicationDatabases failed"
-msgstr "重建应用程序数据库失败"
+msgstr ""
 
 #: ../mgask.m:34 ../uialert.m:200 ../uidisplay.m:403
 #, c-format
 msgid "JSON formating failed: %s"
-msgstr "JSON格式化失败： %s"
+msgstr ""
 
 #: ../mgask.m:117
 #, c-format
@@ -63,15 +63,15 @@ msgstr ""
 #: ../mgask.m:154
 #, c-format
 msgid "Cannot find key %s\n"
-msgstr "找不到密钥%s\n"
+msgstr ""
 
 #: ../mgask.m:168 ../uicache.m:254
 msgid "true"
-msgstr "真值"
+msgstr ""
 
 #: ../mgask.m:168 ../uicache.m:254
 msgid "false"
-msgstr "错误"
+msgstr ""
 
 #: ../uialert.m:22
 #, c-format
@@ -92,16 +92,7 @@ msgid "  -b, --body <text>        Text for alert body\n"
 "  -j, --json               Print the output in JSON\n"
 "      --secure <text>      Show text field as secure\n"
 "      --timeout <num>      Number of seconds to wait before exiting\n\n"
-msgstr "  -b, --body <text>        文本用于警报正文\n"
-"  -p, --prior <text>     默认按钮文本而不是“确定”\n"
-"      --priority 0-3 警报优先级\n"
-"                           这将更改 macOS\n"
-"  - s, --secondary <text>   第二个按钮文本\n"
-"  - t, --terirator <text>    第三按钮文本\n"
-"  -i --input <text>       要求输入文本\n"
-"  -j, --json 在 JSON 中打印输出\n"
-"      --secure <text>      显示文本字段为安全\n"
-"      --timeout <num>      等待秒数才退出\n\n"
+msgstr ""
 
 #: ../uialert.m:37
 #, c-format
@@ -443,7 +434,7 @@ msgstr ""
 #: ../info/deviceinfo.c:39 ../info/deviceinfo.c:72
 #, c-format
 msgid "Usage: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"
-msgstr "用法： %s [cfversion | ecid | 语言 | 序列号| UUID] [参数...]\n"
+msgstr ""
 
 #: ../info/ecid.m:33
 #, c-format

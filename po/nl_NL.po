@@ -3,82 +3,84 @@ msgstr ""
 "Project-Id-Version: uikittools-ng\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-08 20:20+0300\n"
-"PO-Revision-Date: 2022-05-09 03:54\n"
+"PO-Revision-Date: 2022-07-24 16:39\n"
 "Last-Translator: \n"
-"Language-Team: Chinese Simplified\n"
-"Language: zh_CN\n"
+"Language-Team: Dutch\n"
+"Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: uikittools-ng\n"
 "X-Crowdin-Project-ID: 482777\n"
-"X-Crowdin-Language: zh-CN\n"
+"X-Crowdin-Language: nl\n"
 "X-Crowdin-File: /main/po/uikittools-ng.pot\n"
 "X-Crowdin-File-ID: 16\n"
 
 #: ../ldrestart.c:78 ../sbreload-launchd.c:78
 #, c-format
 msgid "Error stopping service:  %d - %s\n"
-msgstr "停止服务时出错：  %d - %s\n"
+msgstr "Fout bij het stopzetten van de service:  %d - %s\n"
 
 #: ../ldrestart.c:112 ../sbreload-launchd.c:106
 #, c-format
 msgid "Error: no services returned for list\n"
-msgstr "错误： 返回列表无服务\n"
+msgstr "Fout: geen diensten geretourneerd voor lijst\n"
 
 #: ../ldrestart.c:120 ../sbreload-launchd.c:114
 #, c-format
 msgid "Error: services returned for list aren't a dictionary!\n"
-msgstr "错误：返回服务列表不是字典！\n"
+msgstr "Fout: services geretourneerd voor de lijst zijn geen woordenboek!\n"
 
 #: ../ldrestart.c:138 ../sbreload-launchd.c:136
 #, c-format
 msgid "Error:  %d - %s\n"
-msgstr "错误:  %d - %s\n"
+msgstr "Fout: %d - %s\n"
 
 #: ../ldrestart.c:141 ../sbreload-launchd.c:139
 #, c-format
 msgid "Unable to get launchd: %d\n"
-msgstr "无法获得launchd： %d\n"
+msgstr "Kan launchd niet ophalen: %d\n"
 
 #: ../lsrebuild.m:60
 msgid "missing necessary method"
-msgstr ""
+msgstr "ontbreekt de noodzakelijke methode"
 
 #: ../lsrebuild.m:66
 msgid "RebuildApplicationDatabases failed"
-msgstr "重建应用程序数据库失败"
+msgstr "RebuildApplicationDatabases mislukt"
 
 #: ../mgask.m:34 ../uialert.m:200 ../uidisplay.m:403
 #, c-format
 msgid "JSON formating failed: %s"
-msgstr "JSON格式化失败： %s"
+msgstr "JSON opmaak mislukt: %s"
 
 #: ../mgask.m:117
 #, c-format
 msgid "Usage: %s [-cjpq] [--gssc] [--pretty] question ...\n"
-msgstr ""
+msgstr "Gebruik: %s [-cjpq] [--gssc] [--pretty] vraag ...\n"
 
 #: ../mgask.m:154
 #, c-format
 msgid "Cannot find key %s\n"
-msgstr "找不到密钥%s\n"
+msgstr "Kan sleutel %s niet vinden\n"
 
 #: ../mgask.m:168 ../uicache.m:254
 msgid "true"
-msgstr "真值"
+msgstr "juist"
 
 #: ../mgask.m:168 ../uicache.m:254
 msgid "false"
-msgstr "错误"
+msgstr "onjuist"
 
 #: ../uialert.m:22
 #, c-format
 msgid "Usage: %s [-b body] [-i prompt] [-j] [-p primary] [--priority number] [-s second] [--secure prompt] [-t third] [--timeout number] title\n"
 "Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
 "Display an alert\n\n"
-msgstr ""
+msgstr "Gebruik: %s [-b lichaam] [-i prompt] [-j] [-p primair] [--priority nummer] [-s tweede] [--secure prompt] [-t derde] [--timeout nummer] titel\n"
+"Copyright (C) 2021, Procursus Team. Alle rechten voorbehouden.\n\n"
+"Een waarschuwing weergeven\n\n"
 
 #: ../uialert.m:26
 #, c-format
@@ -92,16 +94,16 @@ msgid "  -b, --body <text>        Text for alert body\n"
 "  -j, --json               Print the output in JSON\n"
 "      --secure <text>      Show text field as secure\n"
 "      --timeout <num>      Number of seconds to wait before exiting\n\n"
-msgstr "  -b, --body <text>        文本用于警报正文\n"
-"  -p, --prior <text>     默认按钮文本而不是“确定”\n"
-"      --priority 0-3 警报优先级\n"
-"                           这将更改 macOS\n"
-"  - s, --secondary <text>   第二个按钮文本\n"
-"  - t, --terirator <text>    第三按钮文本\n"
-"  -i --input <text>       要求输入文本\n"
-"  -j, --json 在 JSON 中打印输出\n"
-"      --secure <text>      显示文本字段为安全\n"
-"      --timeout <num>      等待秒数才退出\n\n"
+msgstr "  -b, --body <tekst>        Tekst voor waarschuwing\n"
+"  -p, --primary <tekst>     Standaard knop tekst in plaats van \"OK\"\n"
+"      --priority 0-3 Alert prioriteit\n"
+"                           Dit zal het pictogram op macOS veranderen\n"
+"  -s, --secondary <tekst>   Tweede knop tekst\n"
+"  -t, --tertiary <tekst>    Derde knop tekst\n"
+"  -i, --input <tekst>       Vraag om tekstinvoer\n"
+"  -j, --json                 Print de uitvoer in JSON\n"
+"      --secure <tekst>      Toon tekstveld als veilig\n"
+"      --timeout <num>      Seconden te wachten voor af te sluiten\n\n"
 
 #: ../uialert.m:37
 #, c-format
@@ -111,85 +113,93 @@ msgid "Output:\n"
 "  2 - tertiary button\n"
 "  3 - timeout/cancel\n\n"
 "Contact the Procursus Team for support.\n"
-msgstr ""
+msgstr "Uitvoer:\n"
+"  0 - primaire knop\n"
+"  1 - secundaire knop\n"
+"  2 - tertiaire knop\n"
+"  3 - time-out/annuleer\n\n"
+"Neem contact op met het Procursus Team voor ondersteuning.\n"
 
 #: ../uicache.m:104
 #, c-format
 msgid "Usage: %s [-afhlr] [-i id] [-p path] [-u path]\n"
 "Modified work Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
-msgstr ""
+msgstr "Gebruik: %s [-afhlr] [-i id] [-p pad] [-u pad]\n"
+"Aangepast werkauteursrecht (C) 2021, Procursus Team. Alle rechten voorbehouden.\n\n"
 
 #: ../uicache.m:106
 #, c-format
 msgid "Update iOS registered applications and optionally restart SpringBoard\n\n"
-msgstr ""
+msgstr "Update iOS geregistreerde applicaties en optioneel herstart SpringBoard\n\n"
 
 #: ../uicache.m:108
 #, c-format
 msgid "  -a, --all                Update all system and internal applications\n"
-msgstr ""
+msgstr "  -a --all                 Werk alle systeem en interne applicaties bij\n"
 
 #: ../uicache.m:109
 #, c-format
 msgid "  -f, --force              Force -a to reregister all Applications\n"
 "                              and modify App Store apps\n"
-msgstr ""
+msgstr "  -f, --force               Forceer -a om alle Applicaties te herregistreren\n"
+"                              en wijzig App Store apps\n"
 
 #: ../uicache.m:111
 #, c-format
 msgid "  -p, --path <path>        Update application bundle at the specified path\n"
-msgstr ""
+msgstr "  -p, --path <pad>         Werk de applicatiebundel bij op het opgegeven pad\n"
 
 #: ../uicache.m:112
 #, c-format
 msgid "  -u, --unregister <path>  Unregister application bundle at the specified path\n"
-msgstr ""
+msgstr "  -u, --unregister <pad>         Schrijf de applicatiebundel uit op het opgegeven pad\n"
 
 #: ../uicache.m:113
 #, c-format
 msgid "  -r, --respring           Restart SpringBoard and backboardd after\n"
 "                              updating applications\n"
-msgstr ""
+msgstr "  -r, --respring            Herstart SpringBoard en backboardd na\n"
+"                              het bijwerken van de applicaties\n"
 
 #: ../uicache.m:115
 #, c-format
 msgid "  -l, --list               List the bundle ids of installed apps\n"
-msgstr ""
+msgstr "  -l, --list                Maak een lijst van de bundel ids van de geïnstalleerde apps\n"
 
 #: ../uicache.m:116
 #, c-format
 msgid "  -i, --info <bundleid>    Give information about given bundle id\n"
-msgstr ""
+msgstr "  -i, --info <bundelid>     Geef informatie op over een bepaalde bundel id\n"
 
 #: ../uicache.m:117
 #, c-format
 msgid "  -h, --help               Give this help list.\n\n"
-msgstr ""
+msgstr "  -h, --help                Geef deze help lijst.\n\n"
 
 #: ../uicache.m:119 ../uisave.m:27
 #, c-format
 msgid "Contact the Procursus Team for support.\n"
-msgstr ""
+msgstr "Neem contact op met het Procursus Team voor ondersteuning.\n"
 
 #: ../uicache.m:142
 #, c-format
 msgid "uicache does not support App Store apps.\n"
-msgstr ""
+msgstr "uicache ondersteunt geen App Store apps.\n"
 
 #: ../uicache.m:144
 #, c-format
 msgid "Continuing anyway...\n"
-msgstr ""
+msgstr "Toch doorgaan...\n"
 
 #: ../uicache.m:214
 #, c-format
 msgid "Error: Unable to register %s\n"
-msgstr ""
+msgstr "Fout: Kan %s niet registreren\n"
 
 #: ../uicache.m:218
 #, c-format
 msgid "Error: Unable to unregister %s\n"
-msgstr ""
+msgstr "Fout: kan niet %s uitschrijven \n"
 
 #: ../uicache.m:238
 #, c-format
@@ -202,150 +212,159 @@ msgid "Name: %s\n"
 "TeamID: %s\n"
 "Type: %s\n"
 "Removeable: %s\n"
-msgstr ""
+msgstr "Naam: %s\n"
+"BundelID: %s\n"
+"Uitvoerbare Naam: %s\n"
+"Pad: %s\n"
+"Container Pad: %s\n"
+"ProviderNaam: %s\n"
+"TeamID: %s\n"
+"Type: %s\n"
+"Verwijderbaar: %s\n"
 
 #: ../uicache.m:257 ../uicache.m:265
 #, c-format
 msgid "URLScheme: %s\n"
-msgstr ""
+msgstr "URLScheme: %s\n"
 
 #: ../uicache.m:270
 #, c-format
 msgid "%s is an invalid bundle id\n"
-msgstr ""
+msgstr "%s is een ongeldige bundel-id\n"
 
 #: ../uicache.m:374
 #, c-format
 msgid "registering %s\n"
-msgstr ""
+msgstr "%s aan het registreren\n"
 
 #: ../uicache.m:379
 #, c-format
 msgid "unregistering %s\n"
-msgstr ""
+msgstr "%s aan het uitschrijven\n"
 
 #: ../uidisplay.m:106
 #, c-format
 msgid "Usage: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-j] [-l] [-n state] [-t state] [-w state]\n"
-msgstr ""
+msgstr "Gebruik: %s [-a status] [-b [+|-]num] [-d status] [-h] [-i [sleutel]] [-j] [-l] [-n status] [-t status] [-w status]\n"
 
 #: ../uidisplay.m:117
 #, c-format
 msgid "Invalid %s value: '%s', permitted values: 0, off, 1, on\n"
-msgstr ""
+msgstr "Ongeldige %s waarde: '%s', toegestane waarden: 0, off, 1, on\n"
 
 #: ../uidisplay.m:125
 msgid "on"
-msgstr ""
+msgstr "aan"
 
 #: ../uidisplay.m:127
 msgid "off"
-msgstr ""
+msgstr "uit"
 
 #: ../uidisplay.m:129
 msgid "not supported"
-msgstr ""
+msgstr "niet ondersteund"
 
 #: ../uidisplay.m:181
 msgid "Dark Mode is only supported on iOS 13 and higher.\n"
-msgstr ""
+msgstr "Donkere modus wordt alleen ondersteund op iOS 13 en hoger.\n"
 
 #: ../uidisplay.m:214
 msgid "Night Shift is not supported on this device.\n"
-msgstr ""
+msgstr "Night Shift wordt niet ondersteund op dit apparaat.\n"
 
 #: ../uidisplay.m:250
 msgid "True Tone is not supported on this device.\n"
-msgstr ""
+msgstr "True Tone wordt niet ondersteund op dit apparaat.\n"
 
 #: ../uidisplay.m:291
 #, c-format
 msgid "Invalid brightness value: %s\n"
-msgstr ""
+msgstr "Ongeldige helderheidswaarde: %s\n"
 
 #: ../uidisplay.m:327
 #, c-format
 msgid "Unable to increase the brightness by %d, %.6g.\n"
-msgstr ""
+msgstr "Niet in staat om de helderheid te verhogen met %d, %.6g.\n"
 
 #: ../uidisplay.m:339
 #, c-format
 msgid "Unable to decrease the brightness by %d, %.6g.\n"
-msgstr ""
+msgstr "Niet in staat om de helderheid te verlagen met %d, %.6g.\n"
 
 #: ../uidisplay.m:470
 #, c-format
 msgid "Unknown information type: %s\n"
-msgstr ""
+msgstr "Onbekend informatietype: %s\n"
 
 #: ../uidisplay.m:524 ../uidisplay.m:591 ../uidisplay.m:640 ../uidisplay.m:674
 msgid "Auto-Brightness"
-msgstr ""
+msgstr "Automatische Helderheid"
 
 #: ../uidisplay.m:530 ../uidisplay.m:595 ../uidisplay.m:643 ../uidisplay.m:673
 msgid "Brightness"
-msgstr ""
+msgstr "Helderheid"
 
 #: ../uidisplay.m:536 ../uidisplay.m:599 ../uidisplay.m:646 ../uidisplay.m:675
 msgid "Dark Mode"
-msgstr ""
+msgstr "Donkere Modus"
 
 #: ../uidisplay.m:542 ../uidisplay.m:603 ../uidisplay.m:649 ../uidisplay.m:676
 msgid "Night Shift"
-msgstr ""
+msgstr "Night Shift"
 
 #: ../uidisplay.m:548 ../uidisplay.m:607 ../uidisplay.m:652 ../uidisplay.m:677
 msgid "True Tone"
-msgstr ""
+msgstr "True Tone"
 
 #: ../uidisplay.m:554 ../uidisplay.m:611 ../uidisplay.m:655 ../uidisplay.m:678
 msgid "Reduce White Point"
-msgstr ""
+msgstr "Verminder witpunt"
 
 #: ../uidisplay.m:560 ../uidisplay.m:615 ../uidisplay.m:658 ../uidisplay.m:679
 msgid "Height"
-msgstr ""
+msgstr "Hoogte"
 
 #: ../uidisplay.m:566 ../uidisplay.m:619 ../uidisplay.m:661 ../uidisplay.m:680
 msgid "Width"
-msgstr ""
+msgstr "Breedte"
 
 #: ../uidisplay.m:572 ../uidisplay.m:623 ../uidisplay.m:664 ../uidisplay.m:681
 msgid "Physical Height"
-msgstr ""
+msgstr "Fysieke hoogte"
 
 #: ../uidisplay.m:578 ../uidisplay.m:627 ../uidisplay.m:667 ../uidisplay.m:682
 msgid "Physical Width"
-msgstr ""
+msgstr "Fysieke breedte"
 
 #: ../uidisplay.m:584 ../uidisplay.m:631 ../uidisplay.m:670 ../uidisplay.m:683
 msgid "Scale"
-msgstr ""
+msgstr "Schaal"
 
 #: ../uidisplay.m:688
 msgid "-j/--json may only be used in combination with -i/--info"
-msgstr ""
+msgstr "-j/--json mag alleen gebruikt worden in combinatie met -i/--info"
 
 #: ../uinotify.m:23
 #, c-format
 msgid "Usage: %s [-b body] [-d number] [-i bundleid] [-s subtitle] title\n"
-msgstr ""
+msgstr "Gebruik: %s [-b body] [-d nummer] [-i bundelid] [-s subtitel] titel\n"
 
 #: ../uinotify.m:34
 #, c-format
 msgid "Authorization request failed: %s\n"
-msgstr ""
+msgstr "Autorisatieverzoek mislukt: %s\n"
 
 #: ../uinotify.m:49
 #, c-format
 msgid "Failed to add notification: %s\n"
-msgstr ""
+msgstr "Notificatie toevoegen mislukt: %s\n"
 
 #: ../uiopen.m:37
 #, c-format
 msgid "Usage: %s [OPTION...]\n"
 "Open URLs and open iOS applications by bundle ID\n\n"
-msgstr ""
+msgstr "Gebruik: %s [OPTIE...]\n"
+"Open URL's en open iOS applicaties met de bundel ID\n\n"
 
 #: ../uiopen.m:40
 #, c-format
@@ -356,105 +375,114 @@ msgid "  --url <URL>     Open the specified URL\n"
 "                     specified name.\n"
 "  --path <path>   Open application at the specified path\n"
 "  --help          Give this help list.\n"
-msgstr ""
+msgstr "  --url <URL>     Open de opgegeven URL\n"
+"  --bundelid <id> Open de applicatie met de\n"
+"                     opgegeven bundel id.\n"
+"  --app <app>     Open applicatie met de opgegeven\n"
+"                     naam.\n"
+"  --path <pad>   Open de applicatie op het opgegeven pad\n"
+"  --help            Geef deze help lijst.\n"
 
 #: ../uiopen.m:149
 #, c-format
 msgid "No application called: %s\n"
-msgstr ""
+msgstr "Geen applicatie genaamd: %s\n"
 
 #: ../uiopen.m:178
 #, c-format
 msgid "No application at path: %s\n"
-msgstr ""
+msgstr "Geen applicatie op pad: %s\n"
 
 #: ../uiopen.m:182 ../uisave.m:62
 #, c-format
 msgid "Invalid path: %s\n"
-msgstr ""
+msgstr "Ongeldig pad: %s\n"
 
 #: ../uisave.m:19
 #, c-format
 msgid "Usage: %s file ...\n"
 "Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
-msgstr ""
+msgstr "Gebruik: %s bestand ...\n"
+"Copyright (C) 2021, Procursus Team. Alle rechten voorbehouden.\n\n"
 
 #: ../uisave.m:22
 #, c-format
 msgid "Save images and videos to the camera roll\n\n"
-msgstr ""
+msgstr "Sla afbeeldingen en video's op in de filmrol\n\n"
 
 #: ../uisave.m:24
 #, c-format
 msgid "Image and video formats that can be saved to the camera roll\n"
 "vary between iOS versions\n\n"
-msgstr ""
+msgstr "Afbeeldings- en video-formaten die op de camerarol kunnen worden opgeslagen\n"
+"variëren tussen iOS-versies\n\n"
 
 #: ../uisave.m:57
 #, c-format
 msgid "No file at path: %s\n"
-msgstr ""
+msgstr "Geen bestand op pad: %s\n"
 
 #: ../uisave.m:73
 #, c-format
 msgid "No supported image or video format at: %s\n"
-msgstr ""
+msgstr "Geen ondersteunde afbeelding of videoformaat op: %s\n"
 
 #: ../uisave.m:91
 #, c-format
 msgid "Failed to save image at %s with error: %s\n"
-msgstr ""
+msgstr "Opslaan van afbeelding op %s is mislukt met fout: %s\n"
 
 #: ../uisave.m:108
 #, c-format
 msgid "Failed to save video at %s with error: %s\n"
-msgstr ""
+msgstr "Opslaan van video op %s is mislukt met fout: %s\n"
 
 #: ../uishoot.m:25
 #, c-format
 msgid "Usage: %s [-cp] [-d number] [-f [png | jpeg | heic]] [-o file]\n"
-msgstr ""
+msgstr "Gebruik: %s [-cp] [-d nummer] [-f [png | jpeg | heic]] [-o bestand]\n"
 
 #: ../uishoot.m:77
 #, c-format
 msgid "Invalid image format '%s'\n"
-msgstr ""
+msgstr "Ongeldig afbeelding formaat '%s'\n"
 
 #: ../uishoot.m:96
 #, c-format
 msgid "Could not capture screenshot!\n"
-msgstr ""
+msgstr "Schermafbeelding maken is mislukt!\n"
 
 #: ../uishoot.m:123
 #, c-format
 msgid "Could not get image data to write to file!\n"
-msgstr ""
+msgstr "Kan geen afbeeldingsgegevens ophalen om naar het bestand te schrijven!\n"
 
 #: ../uishoot.m:132
 #, c-format
 msgid "Could not write image to %s: %s\n"
-msgstr ""
+msgstr "Kon de afbeelding niet wegschrijven naar %s: %s\n"
 
 #: ../uishoot.m:148
 #, c-format
 msgid "Could not save screenshot to Photos: %s\n"
-msgstr ""
+msgstr "Kan schermafbeelding niet opslaan naar Foto's: %s\n"
 
 #: ../info/deviceinfo.c:39 ../info/deviceinfo.c:72
 #, c-format
 msgid "Usage: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"
-msgstr "用法： %s [cfversion | ecid | 语言 | 序列号| UUID] [参数...]\n"
+msgstr "Gebruik: %s [cfversion | ecid | locale | serial | uniqueid] [argumenten ...]\n"
 
 #: ../info/ecid.m:33
 #, c-format
 msgid "Failed to get device ECID.\n"
-msgstr ""
+msgstr "Fout bij het ophalen van apparaat ECID.\n"
 
 #: ../info/locale.m:16
 #, c-format
 msgid "Usage: deviceinfo locale [-ilcvh]\n"
 "Print the current locale\n\n"
-msgstr ""
+msgstr "Gebruik: deviceinfo locale [-ilcvh]\n"
+"Print de huidige landinstelling\n\n"
 
 #: ../info/locale.m:19
 #, c-format
@@ -464,5 +492,10 @@ msgid "-h --help      Give this help list.\n"
 " -c --country    Print the country code\n"
 " -v --variant    Print the variant code\n\n"
 "If multiple output formats are specified the last will be used\n"
-msgstr ""
+msgstr "-h --help        Geef deze help lijst\n"
+" -i --identifier Print de locale identifier (standaard)\n"
+" -l --language     Print de taalcode\n"
+" -c --country      Print de landcode\n"
+" -v --variant      Print de variatie code\n\n"
+"Als meerdere uitvoerformaten zijn opgegeven word de laatste gebruikt\n"
 

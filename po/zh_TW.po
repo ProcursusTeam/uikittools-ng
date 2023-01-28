@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uikittools-ng\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-21 22:53-0500\n"
-"PO-Revision-Date: 2021-12-16 04:38\n"
+"POT-Creation-Date: 2022-05-08 20:20+0300\n"
+"PO-Revision-Date: 2022-05-09 06:50\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: uikittools-ng\n"
 "X-Crowdin-Project-ID: 482777\n"
 "X-Crowdin-Language: zh-TW\n"
-"X-Crowdin-File: uikittools-ng.pot\n"
-"X-Crowdin-File-ID: 3\n"
+"X-Crowdin-File: /main/po/uikittools-ng.pot\n"
+"X-Crowdin-File-ID: 16\n"
 
 #: ../ldrestart.c:78 ../sbreload-launchd.c:78
 #, c-format
@@ -50,26 +50,26 @@ msgstr "缺少必須的方法"
 msgid "RebuildApplicationDatabases failed"
 msgstr "RebuildApplicationDatabases 失敗"
 
-#: ../mgask.m:33 ../uialert.m:200 ../uidisplay.m:403
+#: ../mgask.m:34 ../uialert.m:200 ../uidisplay.m:403
 #, c-format
 msgid "JSON formating failed: %s"
 msgstr "JSON格式化失敗：%s"
 
-#: ../mgask.m:98
+#: ../mgask.m:117
 #, c-format
-msgid "Usage: %s [-jpq] [--gssc] [--pretty] question ...\n"
-msgstr "用法：%s [-jpq] [--gssc] [--pretty] 問題 ...\n"
+msgid "Usage: %s [-cjpq] [--gssc] [--pretty] question ...\n"
+msgstr "用法：%s [-cjpq] [--gssc] [--pretty] 問題 ...\n"
 
-#: ../mgask.m:122
+#: ../mgask.m:154
 #, c-format
 msgid "Cannot find key %s\n"
 msgstr "找不到鍵值%s\n"
 
-#: ../mgask.m:136 ../uicache.m:253
+#: ../mgask.m:168 ../uicache.m:254
 msgid "true"
 msgstr "是"
 
-#: ../mgask.m:136 ../uicache.m:253
+#: ../mgask.m:168 ../uicache.m:254
 msgid "false"
 msgstr "否"
 
@@ -181,27 +181,27 @@ msgstr "  -h, --help               印出這個幫助。\n\n"
 msgid "Contact the Procursus Team for support.\n"
 msgstr "聯絡Procursus團隊以取得支援。\n"
 
-#: ../uicache.m:141
+#: ../uicache.m:142
 #, c-format
 msgid "uicache does not support App Store apps.\n"
 msgstr "uicache不支援App Store應用程式\n"
 
-#: ../uicache.m:143
+#: ../uicache.m:144
 #, c-format
 msgid "Continuing anyway...\n"
 msgstr "強行繼續中......\n"
 
-#: ../uicache.m:213
+#: ../uicache.m:214
 #, c-format
 msgid "Error: Unable to register %s\n"
 msgstr "錯誤：無法注冊%s\n"
 
-#: ../uicache.m:217
+#: ../uicache.m:218
 #, c-format
 msgid "Error: Unable to unregister %s\n"
 msgstr "錯誤：無法注冊%s\n"
 
-#: ../uicache.m:237
+#: ../uicache.m:238
 #, c-format
 msgid "Name: %s\n"
 "BundleID: %s\n"
@@ -221,22 +221,22 @@ msgstr "名稱：%s\n"
 "團隊識別碼：%s\n"
 "可移除：%s\n"
 
-#: ../uicache.m:256 ../uicache.m:264
+#: ../uicache.m:257 ../uicache.m:265
 #, c-format
 msgid "URLScheme: %s\n"
 msgstr "網址協定：%s\n"
 
-#: ../uicache.m:269
+#: ../uicache.m:270
 #, c-format
 msgid "%s is an invalid bundle id\n"
 msgstr "%s不是一個有效的封包識別碼\n"
 
-#: ../uicache.m:373
+#: ../uicache.m:374
 #, c-format
 msgid "registering %s\n"
 msgstr "註冊%s中\n"
 
-#: ../uicache.m:378
+#: ../uicache.m:379
 #, c-format
 msgid "unregistering %s\n"
 msgstr "正在取消註冊%s\n"
@@ -470,6 +470,11 @@ msgstr "無法把螢幕截圖儲存到相片中：%s\n"
 #, c-format
 msgid "Usage: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"
 msgstr "用法：%s [cfversion | ecid | locale | serial | uniqueid] [引數 ...]\n"
+
+#: ../info/ecid.m:33
+#, c-format
+msgid "Failed to get device ECID.\n"
+msgstr "無法獲取裝置的唯一晶片識別碼。\n"
 
 #: ../info/locale.m:16
 #, c-format

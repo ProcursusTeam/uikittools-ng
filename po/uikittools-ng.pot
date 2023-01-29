@@ -213,7 +213,7 @@ msgid ""
 "VendorName: %s\n"
 "TeamID: %s\n"
 "Type: %s\n"
-"Removeable: %s\n"
+"Removable: %s\n"
 msgstr ""
 
 #: ../uicache.m:257 ../uicache.m:265

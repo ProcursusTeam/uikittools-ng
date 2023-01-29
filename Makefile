@@ -59,7 +59,7 @@ sbreload: sbreload.m sbreload-launchd.c sbreload.plist
 	$(CC) -fobjc-arc $(CFLAGS) $< $(word 2,$^) -o $@ $(LDFLAGS) -framework Foundation
 
 uicache: uicache.m uicache.plist
-	$(CC) -fobjc-arc $(CFLAGS) $< -o $@ -framework Foundation $(LDFLAGS) -framework MobileCoreServices -DAPP_PATH="@\"$(APP_PATH)\""
+	$(CC) -fobjc-arc $(CFLAGS) $< -o $@ -framework Foundation $(LDFLAGS) -FFrameworks -framework MobileCoreServices -framework Security -framework MobileContainerManager -DAPP_PATH="@\"$(APP_PATH)\""
 
 uiopen: uiopen.m ent.plist
 	$(CC) -fobjc-arc $(CFLAGS) $< -o $@ $(LDFLAGS) -framework Foundation -framework MobileCoreServices

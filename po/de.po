@@ -182,35 +182,66 @@ msgstr ""
 msgid "Error: Unable to register %s\n"
 msgstr ""
 
-#: ../uicache.m:217
+#: ../uicache.m:447
 #, c-format
 msgid "Error: Unable to unregister %s\n"
 msgstr ""
 
-#: ../uicache.m:237
+#: ../uicache.m:448
 #, c-format
 msgid "Name: %s\n"
-"BundleID: %s\n"
-"ExecutableName: %s\n"
-"Path: %s\n"
-"Container Path: %s\n"
-"VendorName: %s\n"
-"TeamID: %s\n"
-"Type: %s\n"
-"Removeable: %s\n"
+
+#: ../uicache.m:449
+#, c-format
+msgid "Bundle Identifier: %s\n"
 msgstr ""
 
-#: ../uicache.m:253
+#: ../uicache.m:450
+#, c-format
+msgid "Executable Name: %s\n"
+msgstr ""
+
+#: ../uicache.m:451
+#, c-format
+msgid "Path: %s\n"
+msgstr ""
+
+#: ../uicache.m:452
+#, c-format
+msgid "Container Path: %s\n"
+msgstr ""
+
+#: ../uicache.m:453
+#, c-format
+msgid "Vendor Name: %s\n"
+msgstr ""
+
+#: ../uicache.m:454
+#, c-format
+msgid "Team ID: %s\n"
+msgstr ""
+
+#: ../uicache.m:455
+#, c-format
+msgid "Type: %s\n"
+msgstr ""
+
+#: ../uicache.m:456
+#, c-format
+msgid "Removable: %s\n"
+msgstr ""
+
+#: ../uicache.m:456
 msgid "true"
 msgstr ""
 
-#: ../uicache.m:253
+#: ../uicache.m:456
 msgid "false"
 msgstr ""
 
 #: ../uicache.m:256 ../uicache.m:264
 #, c-format
-msgid "URLScheme: %s\n"
+msgid "URL Scheme: %s\n"
 msgstr ""
 
 #: ../uicache.m:269

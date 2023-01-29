@@ -433,13 +433,13 @@ void registerPath(NSString *path, BOOL unregister, BOOL forceSystem) {
 		}
 
 		if (![workspace registerApplicationDictionary:dictToRegister]) {
-			printf("Error: Unable to register %s\n", path.fileSystemRepresentation);
+			fprintf(stderr, _("Error: Unable to register %s\n"), path.fileSystemRepresentation);
 		}
 	}
 	else {
 		NSURL *url = [NSURL fileURLWithPath:path];
 		if (![workspace unregisterApplication:url]) {
-			printf("Error: Unable to unregister %s\n", path.fileSystemRepresentation);
+			fprintf(stderr, _("Error: Unable to unregister %s\n"), path.fileSystemRepresentation);
 		}
 	}
 }

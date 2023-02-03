@@ -452,7 +452,6 @@ void listBundleID() {
 }
 
 void infoForBundleID(NSString *bundleID) {
-	LSApplicationWorkspace *workspace = [LSApplicationWorkspace defaultWorkspace];
 	LSApplicationProxy *app = [LSApplicationProxy applicationProxyForIdentifier:bundleID];
 	if ([[app appState] isValid]) {
 		printf(_("Name: %s\n"), [[app localizedNameForContext:nil] UTF8String]);
@@ -504,7 +503,6 @@ void registerAll() {
 	NSMutableSet<NSURL *> *installedAppURLs = [[NSMutableSet alloc] init];
 
 	void (^installedAppEnumerator)(NSURL *appURL) = ^(NSURL *appURL) {
-		BOOL isApp = [appURL.pathExtension isEqualToString:@"app"];
 		NSURL *infoPlistURL = [appURL URLByAppendingPathComponent:@"Info.plist"];
 		NSDictionary *infoPlist = [NSDictionary dictionaryWithContentsOfURL:infoPlistURL error:nil];
 		if (infoPlist) {
@@ -560,7 +558,6 @@ int main(int argc, char *argv[]) {
 		BOOL forceSystem = NO;
 		NSMutableSet *registerSet = [[NSMutableSet alloc] init];
 		NSMutableSet *unregisterSet = [[NSMutableSet alloc] init];
-		char *path;
 		BOOL list = NO;
 		NSMutableSet *infoSet = [[NSMutableSet alloc] init];
 		BOOL showHelp = NO;

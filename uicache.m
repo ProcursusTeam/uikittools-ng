@@ -303,18 +303,8 @@ void registerPath(NSString *path, BOOL unregister, BOOL forceSystem) {
 		MCMContainer *appContainer = [NSClassFromString(@"MCMAppDataContainer") containerWithIdentifier:appBundleID createIfNecessary:YES existed:nil error:nil];
 		NSString *containerPath = [appContainer url].path;
 
-		BOOL registerAsUser = [path hasPrefix:@"/var/containers"];
-		BOOL isRemovableSystemApp = NO;
-		if(registerAsUser)
-		{
-			if (@available(iOS 14, *)) { // Removable system apps don't exist on iOS 13 and below
-				isRemovableSystemApp = [[NSFileManager defaultManager] fileExistsAtPath:[@"/System/Library/AppSignatures" stringByAppendingPathComponent:appBundleID]];
-			}
-
-			if (isRemovableSystemApp || forceSystem) {
-				registerAsUser = NO;
-			}
-		}
+		BOOL isRemovableSystemApp = [[NSFileManager defaultManager] fileExistsAtPath:[@"/System/Library/AppSignatures" stringByAppendingPathComponent:appBundleID]];
+		BOOL registerAsUser = [path hasPrefix:@"/var/containers"] && !isRemovableSystemApp && !forceSystem;
 
 		NSMutableDictionary *dictToRegister = [NSMutableDictionary dictionary];
 

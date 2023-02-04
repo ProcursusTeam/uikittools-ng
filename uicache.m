@@ -303,9 +303,17 @@ void registerPath(NSString *path, BOOL unregister, BOOL forceSystem) {
 		MCMContainer *appContainer = [NSClassFromString(@"MCMAppDataContainer") containerWithIdentifier:appBundleID createIfNecessary:YES existed:nil error:nil];
 		NSString *containerPath = [appContainer url].path;
 
-		BOOL registerAsUser = NO;
-		if (@available(iOS 14, *)) {
-			registerAsUser = [path hasPrefix:@"/var/containers"] && !forceSystem;
+		BOOL registerAsUser = [path hasPrefix:@"/var/containers"];
+		BOOL isRemovableSystemApp = NO;
+		if(registerAsUser)
+		{
+			if (@available(iOS 14, *)) { // Removable system apps don't exist on iOS 13 and below
+				isRemovableSystemApp = [[NSFileManager defaultManager] fileExistsAtPath:[@"/System/Library/AppSignatures" stringByAppendingPathComponent:appBundleID]];
+			}
+
+			if (isRemovableSystemApp || forceSystem) {
+				registerAsUser = NO;
+			}
 		}
 
 		NSMutableDictionary *dictToRegister = [NSMutableDictionary dictionary];
@@ -328,7 +336,7 @@ void registerPath(NSString *path, BOOL unregister, BOOL forceSystem) {
 			dictToRegister[@"Container"] = containerPath;
 			dictToRegister[@"EnvironmentVariables"] = constructEnvironmentVariablesForContainerPath(containerPath);
 		}
-		dictToRegister[@"IsDeletable"] = @(registerAsUser);
+		dictToRegister[@"IsDeletable"] = @(registerAsUser || isRemovableSystemApp);
 		dictToRegister[@"Path"] = path;
 		dictToRegister[@"IsContainerized"] = @(constructContainerizationForEntitlements(entitlements));
 		dictToRegister[@"SignerOrganization"] = @"Apple Inc.";

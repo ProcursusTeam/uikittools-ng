@@ -1,17 +1,33 @@
-,.\"-
+.\"-
 .\" 版權所有 (c) 2020-2021 ProcursusTeam
 .\" SPDX-License-Identifier: BSD-4-Clause
 .\"
-.Dd ugust 23, 2021
+.Dd August 23, 2021
 .Dt DEVICEINFO 1
 .Os
 .Sh 名稱
 .Nm deviceinfo
 .Nd 印出各種裝置資訊
 .Sh 語法
-.Nm
-,.Oo Ar cfversion | ecid | locale | serial | uniqueid Oc
-.Op 選項 ...
+.Bl -compact -tag
+.It
+.Sy deviceinfo
+cfversion
+.It
+.Sy deviceinfo
+ecid
+.Op Fl dh
+.It
+.Sy deviceinfo
+locale
+.Op Fl ilcvh
+.It
+.Sy deviceinfo
+serial
+.It
+.Sy deviceinfo
+uniqueid
+.El
 .Sh 描述
 .Nm
 印出指定的裝置資訊，然後退出。
@@ -44,7 +60,7 @@
 .Sh 歷史
 這個
 .Nm
-工具程式在2021年8月23日被
+工具程式在2021年8月23日由
 .An sunchipnacho
 編寫，取代uikittools-ng中的
 .Nm cfversion ，

@@ -21,6 +21,9 @@
 所有的陣列或字典會以JSON格式印出。
 .Sh 選項
 .Bl -tag -width indent
+.It Fl c , -calculate
+對於每個指明的鍵值，計算混淆後的鍵值。
+這不會回傳鍵值的數值，而只會回傳混淆後的鍵值。
 .It Fl -gssc
 令
 .Nm
@@ -32,7 +35,7 @@
 .It Fl p , -plist
 以NeXTSTEP plist格式印出所有鍵值。
 .It Fl -pretty
-美麗地印出JSON。
+印出經格式化的JSON。
 視乎是否有指定
 .Fl j
 這只會影響陣列和字典，或整個輸出。

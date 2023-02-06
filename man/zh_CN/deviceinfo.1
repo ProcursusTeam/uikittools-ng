@@ -1,6 +1,6 @@
 .\"-
-.\"Copyright (c) 2020-2021 ProcursusTeam
-.\"SPDX-License-Identifier: BSD-4-Clause
+.\" 版权所有 (c) 2020-2021 ProcursusTeam
+.\" SPDX-License-Identifier: BSD-4-Clause
 .\"
 .Dd August 23, 2021
 .Dt DEVICEINFO 1
@@ -9,9 +9,25 @@
 .Nm deviceinfo
 .Nd 印出各种装置资讯
 .Sh 语法
-.Nm
-.Oo Ar cfversion | ecid | locale | serial | uniqueid Oc
-.Op 选项 ...
+.Bl -compact -tag
+.It
+.Sy deviceinfo
+cfversion
+.It
+.Sy deviceinfo
+ecid
+.Op Fl dh
+.It
+.Sy deviceinfo
+locale
+.Op Fl ilcvh
+.It
+.Sy deviceinfo
+serial
+.It
+.Sy deviceinfo
+uniqueid
+.El
 .Sh 描述
 .Nm
 印出指定的装置资讯，然后退出。
@@ -44,7 +60,7 @@
 .Sh 历史
 这个
 .Nm
-工具程式在2021年8月23日被
+工具程式在2021年8月23日由
 .An sunchipnacho
 编写，取代uikittools-ng中的
 .Nm cfversion ，

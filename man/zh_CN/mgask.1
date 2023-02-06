@@ -21,6 +21,9 @@
 所有的阵列或字典会以JSON格式印出。
 .Sh 选项
 .Bl -tag -width indent
+.It Fl c , -calculate
+对于每个指明的键值，计算混淆后的键值。
+这不会回传键值的数值，而只会回传混淆后的键值。
 .It Fl -gssc
 令
 .Nm
@@ -32,7 +35,7 @@
 .It Fl p , -plist
 以NeXTSTEP plist格式印出所有键值。
 .It Fl -pretty
-美丽地印出JSON。
+印出经格式化的JSON。
 视乎是否有指定
 .Fl j
 这只会影响阵列和字典，或整个输出。

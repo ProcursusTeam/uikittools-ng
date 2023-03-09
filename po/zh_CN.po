@@ -63,7 +63,7 @@ msgstr "用法：%s [-jpq] [--gssc] [--pretty] 问题 ...\n"
 #: ../mgask.m:122
 #, c-format
 msgid "Cannot find key %s\n"
-msgstr "找不到密钥%s\n"
+msgstr "找不到键值 %s\n"
 
 #: ../mgask.m:136 ../uicache.m:253
 msgid "true"

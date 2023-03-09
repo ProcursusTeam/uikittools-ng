@@ -20,12 +20,12 @@ msgstr ""
 #: ../ldrestart.c:78 ../sbreload-launchd.c:78
 #, c-format
 msgid "Error stopping service:  %d - %s\n"
-msgstr "停止服务时出错：  %d - %s\n"
+msgstr "停止服务时出错：%d - %s\n"
 
 #: ../ldrestart.c:112 ../sbreload-launchd.c:106
 #, c-format
 msgid "Error: no services returned for list\n"
-msgstr "错误： 返回列表无服务\n"
+msgstr "错误：返回列表无服务\n"
 
 #: ../ldrestart.c:120 ../sbreload-launchd.c:114
 #, c-format
@@ -35,30 +35,30 @@ msgstr "错误：返回服务列表不是字典！\n"
 #: ../ldrestart.c:138 ../sbreload-launchd.c:136
 #, c-format
 msgid "Error:  %d - %s\n"
-msgstr "错误:  %d - %s\n"
+msgstr "错误：%d - %s\n"
 
 #: ../ldrestart.c:141 ../sbreload-launchd.c:139
 #, c-format
 msgid "Unable to get launchd: %d\n"
-msgstr "无法获得launchd： %d\n"
+msgstr "无法获得launchd：%d\n"
 
 #: ../lsrebuild.m:60
 msgid "missing necessary method"
-msgstr ""
+msgstr "缺失必要方法"
 
 #: ../lsrebuild.m:66
 msgid "RebuildApplicationDatabases failed"
-msgstr "重建应用程序数据库失败"
+msgstr "重建应用程序数据库(RebuildApplicationDatabases)失败"
 
 #: ../mgask.m:33 ../uialert.m:201 ../uidisplay.m:404
 #, c-format
 msgid "JSON formating failed: %s"
-msgstr "JSON格式化失败： %s"
+msgstr "JSON格式化失败：%s"
 
 #: ../mgask.m:98
 #, c-format
 msgid "Usage: %s [-jpq] [--gssc] [--pretty] question ...\n"
-msgstr "用法： %s [-jpq] [--gssc] [--pretty] 问题 ...\n"
+msgstr "用法：%s [-jpq] [--gssc] [--pretty] 问题 ...\n"
 
 #: ../mgask.m:122
 #, c-format
@@ -67,18 +67,20 @@ msgstr "找不到密钥%s\n"
 
 #: ../mgask.m:136 ../uicache.m:253
 msgid "true"
-msgstr "真值"
+msgstr "是"
 
 #: ../mgask.m:136 ../uicache.m:253
 msgid "false"
-msgstr "错误"
+msgstr "否"
 
 #: ../uialert.m:22
 #, c-format
 msgid "Usage: %s [-b body] [-i prompt] [-j] [-p primary] [--priority number] [-s second] [--secure prompt] [-t third] [--timeout number] title\n"
 "Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
 "Display an alert\n\n"
-msgstr ""
+msgstr "用法：%s [-b body] [-i prompt] [-j] [-p primary] [--priority number] [-s second] [--secure prompt] [-t third] [--timeout number] 标题\n"
+"版权所有 (C) 2021, Procursus Team. 保留所有权利。\n\n"
+"显示一个弹窗\n\n"
 
 #: ../uialert.m:26
 #, c-format
@@ -92,16 +94,16 @@ msgid "  -b, --body <text>        Text for alert body\n"
 "  -j, --json               Print the output in JSON\n"
 "      --secure <text>      Show text field as secure\n"
 "      --timeout <num>      Number of seconds to wait before exiting\n\n"
-msgstr "  -b, --body <text>        文本用于警报正文\n"
-"  -p, --prior <text>     默认按钮文本而不是“确定”\n"
-"      --priority 0-3 警报优先级\n"
-"                           这将更改 macOS\n"
-"  - s, --secondary <text>   第二个按钮文本\n"
-"  - t, --terirator <text>    第三按钮文本\n"
-"  -i --input <text>       要求输入文本\n"
-"  -j, --json 在 JSON 中打印输出\n"
-"      --secure <text>      显示文本字段为安全\n"
-"      --timeout <num>      等待秒数才退出\n\n"
+msgstr "  -b, --body <text>        文本用于通知正文\n"
+"  -p, --prior <text>       默认按钮文本，取代默认的“好”\n"
+"      --priority 0-3       通知优先级\n"
+"                           这将更改 macOS 显示图标的方式\n"
+"  -s, --secondary <text>   第二个按钮文本\n"
+"  -t, --terirator <text>   第三个按钮文本\n"
+"  -i, --input <text>       要求输入文本\n"
+"  -j, --json               输出为JSON\n"
+"      --secure <text>      安全输入框（密码框）\n"
+"      --timeout <num>      等待秒数后退出\n\n"
 
 #: ../uialert.m:37
 #, c-format
@@ -111,95 +113,102 @@ msgid "Output:\n"
 "  2 - tertiary button\n"
 "  3 - timeout/cancel\n\n"
 "Contact the Procursus Team for support.\n"
-msgstr ""
+msgstr "输出：\n"
+"  0 - 第一按钮\n"
+"  1 - 第二按钮\n"
+"  2 - 第三按钮\n"
+"  3 - 超时或取消\n\n"
+"联系Procursus Team以寻求支持。\n"
 
 #: ../uialert.m:124
 #, c-format
 msgid "the priority is %s: %s"
-msgstr ""
+msgstr "优先级 %s：%s"
 
 #: ../uialert.m:142 ../uishoot.m:70
 #, c-format
 msgid "the timeout is %s: %s"
-msgstr ""
+msgstr "超时 %s：%s"
 
 #: ../uicache.m:104
 #, c-format
 msgid "Usage: %s [-afhlr] [-i id] [-p path] [-u path]\n"
 "Modified work Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
-msgstr ""
+msgstr "用法：%s [-afhlr] [-i id] [-p path] [-u path]\n"
+"更改部分版权所有 (C) 2021, Procursus Team. 保留所有权利。\n\n"
 
 #: ../uicache.m:106
 #, c-format
 msgid "Update iOS registered applications and optionally restart SpringBoard\n\n"
-msgstr ""
+msgstr "更新iOS的应用程序注册状态，然后可选地重新启动主界面（SpringBoard）"
 
 #: ../uicache.m:108
 #, c-format
 msgid "  -a, --all                Update all system and internal applications\n"
-msgstr ""
+msgstr "  -a, --all                遍历更新每一个系统应用程序\n"
 
 #: ../uicache.m:109
 #, c-format
 msgid "  -f, --force              Force -a to reregister all Applications\n"
 "                              and modify App Store apps\n"
-msgstr ""
+msgstr "  -f, --force              与 -a 同时使用来强制重新注册所有的应用程序\n"
+"                              并且作用于App Store应用程序\n"
 
 #: ../uicache.m:111
 #, c-format
 msgid "  -p, --path <path>        Update application bundle at the specified path\n"
-msgstr ""
+msgstr "  -p, --path <path>        更新指定路径的应用程序本体\n"
 
 #: ../uicache.m:112
 #, c-format
 msgid "  -u, --unregister <path>  Unregister application bundle at the specified path\n"
-msgstr ""
+msgstr "  -u, --unregister <path>  取消指定路径的应用程序本体的注册状态\n"
 
 #: ../uicache.m:113
 #, c-format
 msgid "  -r, --respring           Restart SpringBoard and backboardd after\n"
 "                              updating applications\n"
-msgstr ""
+msgstr "  -r, --respring           在完成操作之后，重新启动SpringBoard和backboard。\n"
 
 #: ../uicache.m:115
 #, c-format
 msgid "  -l, --list               List the bundle ids of installed apps\n"
-msgstr ""
+msgstr "  -l, --list               列出每一个应用程序的Bundle ID。\n"
 
 #: ../uicache.m:116
 #, c-format
 msgid "  -i, --info <bundleid>    Give information about given bundle id\n"
-msgstr ""
+msgstr "  -i, --info <bundleid>    显示指定Bundle ID的应用程序信息。\n"
 
 #: ../uicache.m:117
 #, c-format
 msgid "  -h, --help               Give this help list.\n\n"
-msgstr ""
+msgstr "  -h, --help               输出帮助文本。\n\n"
 
 #: ../uicache.m:119 ../uisave.m:27
 #, c-format
 msgid "Contact the Procursus Team for support.\n"
-msgstr ""
+msgstr "联系Procursus Team以寻求支持。\n"
 
 #: ../uicache.m:141
 #, c-format
 msgid "uicache does not support App Store apps.\n"
-msgstr ""
+msgstr "uicache不支持App Store应用程序。\n"
 
 #: ../uicache.m:143
 #, c-format
 msgid "Continuing anyway...\n"
-msgstr ""
+msgstr "仍然继续…\n"
 
 #: ../uicache.m:213
 #, c-format
 msgid "Error: Unable to register %s\n"
-msgstr ""
+msgstr "错误：无法注册%s\n"
 
 #: ../uicache.m:217
 #, c-format
 msgid "Error: Unable to unregister %s\n"
-msgstr ""
+msgstr "错误：无法取消注册%s\n"
 
 #: ../uicache.m:237
 #, c-format
@@ -212,160 +221,168 @@ msgid "Name: %s\n"
 "TeamID: %s\n"
 "Type: %s\n"
 "Removeable: %s\n"
-msgstr ""
+msgstr "名称：%s\n"
+"BundleID: %s\n"
+"可执行程序名称：%s\n"
+"路径：%s\n"
+"发行者名称：%s\n"
+"TeamID: %s\n"
+"类型：%s\n"
+"可移除：%s\n"
 
 #: ../uicache.m:256 ../uicache.m:264
 #, c-format
 msgid "URLScheme: %s\n"
-msgstr ""
+msgstr "URLScheme: %s\n"
 
 #: ../uicache.m:269
 #, c-format
 msgid "%s is an invalid bundle id\n"
-msgstr ""
+msgstr "“%s”是无效的Bundle ID\n"
 
 #: ../uicache.m:373
 #, c-format
 msgid "registering %s\n"
-msgstr ""
+msgstr "正在注册%s\n"
 
 #: ../uicache.m:378
 #, c-format
 msgid "unregistering %s\n"
-msgstr ""
+msgstr "正在取消注册%s\n"
 
 #: ../uidisplay.m:106
 #, c-format
 msgid "Usage: %s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-j] [-l] [-n state] [-t state] [-w state]\n"
-msgstr ""
+msgstr "用法：%s [-a state] [-b [+|-]num] [-d state] [-h] [-i [key]] [-j] [-l] [-n state] [-t state] [-w state]\n"
 
 #: ../uidisplay.m:117
 #, c-format
 msgid "Invalid %s value: '%s', permitted values: 0, off, 1, on\n"
-msgstr ""
+msgstr "无效的 %s 数值：'%s'，可用数值：0，off，1，on\n"
 
 #: ../uidisplay.m:125
 msgid "on"
-msgstr ""
+msgstr "开"
 
 #: ../uidisplay.m:127
 msgid "off"
-msgstr ""
+msgstr "关"
 
 #: ../uidisplay.m:129
 msgid "not supported"
-msgstr ""
+msgstr "不支持"
 
 #: ../uidisplay.m:181
 msgid "Dark Mode is only supported on iOS 13 and higher.\n"
-msgstr ""
+msgstr "“深色模式”仅支持iOS 13或更高版本。\n"
 
 #: ../uidisplay.m:214
 msgid "Night Shift is not supported on this device.\n"
-msgstr ""
+msgstr "“夜览”在此设备不可用。\n"
 
 #: ../uidisplay.m:250
 msgid "True Tone is not supported on this device.\n"
-msgstr ""
+msgstr "“原彩显示”在此设备不可用。\n"
 
 #: ../uidisplay.m:291
 #, c-format
 msgid "Invalid brightness value: %s\n"
-msgstr ""
+msgstr "无效亮度值：%s\n"
 
 #: ../uidisplay.m:305
 #, c-format
 msgid "Invalid brightness value: %s, %s\n"
-msgstr ""
+msgstr "无效亮度值：%s，%s\n"
 
 #: ../uidisplay.m:328
 #, c-format
 msgid "Unable to increase the brightness by %d, %.6g.\n"
-msgstr ""
+msgstr "无法增加%d的亮度值，%.6g\n"
 
 #: ../uidisplay.m:340
 #, c-format
 msgid "Unable to decrease the brightness by %d, %.6g.\n"
-msgstr ""
+msgstr "无法减少%d的亮度值，%.6g\n"
 
 #: ../uidisplay.m:471
 #, c-format
 msgid "Unknown information type: %s\n"
-msgstr ""
+msgstr "未知信息类型：%s\n"
 
 #: ../uidisplay.m:525 ../uidisplay.m:592 ../uidisplay.m:641 ../uidisplay.m:675
 msgid "Auto-Brightness"
-msgstr ""
+msgstr "自动亮度调节"
 
 #: ../uidisplay.m:531 ../uidisplay.m:596 ../uidisplay.m:644 ../uidisplay.m:674
 msgid "Brightness"
-msgstr ""
+msgstr "亮度"
 
 #: ../uidisplay.m:537 ../uidisplay.m:600 ../uidisplay.m:647 ../uidisplay.m:676
 msgid "Dark Mode"
-msgstr ""
+msgstr "深色模式"
 
 #: ../uidisplay.m:543 ../uidisplay.m:604 ../uidisplay.m:650 ../uidisplay.m:677
 msgid "Night Shift"
-msgstr ""
+msgstr "夜览"
 
 #: ../uidisplay.m:549 ../uidisplay.m:608 ../uidisplay.m:653 ../uidisplay.m:678
 msgid "True Tone"
-msgstr ""
+msgstr "原彩显示"
 
 #: ../uidisplay.m:555 ../uidisplay.m:612 ../uidisplay.m:656 ../uidisplay.m:679
 msgid "Reduce White Point"
-msgstr ""
+msgstr "降低白点值"
 
 #: ../uidisplay.m:561 ../uidisplay.m:616 ../uidisplay.m:659 ../uidisplay.m:680
 msgid "Height"
-msgstr ""
+msgstr "高度"
 
 #: ../uidisplay.m:567 ../uidisplay.m:620 ../uidisplay.m:662 ../uidisplay.m:681
 msgid "Width"
-msgstr ""
+msgstr "宽度"
 
 #: ../uidisplay.m:573 ../uidisplay.m:624 ../uidisplay.m:665 ../uidisplay.m:682
 msgid "Physical Height"
-msgstr ""
+msgstr "物理高度"
 
 #: ../uidisplay.m:579 ../uidisplay.m:628 ../uidisplay.m:668 ../uidisplay.m:683
 msgid "Physical Width"
-msgstr ""
+msgstr "物理宽度"
 
 #: ../uidisplay.m:585 ../uidisplay.m:632 ../uidisplay.m:671 ../uidisplay.m:684
 msgid "Scale"
-msgstr ""
+msgstr "尺寸"
 
 #: ../uidisplay.m:689
 msgid "-j/--json may only be used in combination with -i/--info"
-msgstr ""
+msgstr "-j/--json 仅可与 -i/--info 同时使用"
 
 #: ../uinotify.m:23
 #, c-format
 msgid "Usage: %s [-b body] [-d number] [-i bundleid] [-s subtitle] title\n"
-msgstr ""
+msgstr "用法：%s [-b body] [-d number] [-i bundleid] [-s subtitle] 标题\n"
 
 #: ../uinotify.m:34
 #, c-format
 msgid "Authorization request failed: %s\n"
-msgstr ""
+msgstr "验证请求失败：%s\n"
 
 #: ../uinotify.m:49
 #, c-format
 msgid "Failed to add notification: %s\n"
-msgstr ""
+msgstr "未能添加推送通知：%s\n"
 
 #: ../uinotify.m:93
 #, c-format
 msgid "the delay is %s: %s"
-msgstr ""
+msgstr "延迟为%s：%s"
 
 #: ../uiopen.m:37
 #, c-format
 msgid "Usage: %s [OPTION...]\n"
 "Open URLs and open iOS applications by bundle ID\n\n"
-msgstr ""
+msgstr "用法：%s [OPTION...]\n"
+"打开URL或者通过Bundle ID打开iOS应用程序\n\n"
 
 #: ../uiopen.m:40
 #, c-format
@@ -376,100 +393,105 @@ msgid "  --url <URL>     Open the specified URL\n"
 "                     specified name.\n"
 "  --path <path>   Open application at the specified path\n"
 "  --help          Give this help list.\n"
-msgstr ""
+msgstr "  --url <URL>     打开指定的URL\n"
+"  --bundleid <id> 打开指定Bundle ID的应用程序\n"
+"  --app <app>     打开指定名称的应用程序\n"
+"  --path <path>   打开指定路径的应用程序\n"
+"  --help          输出这条帮助\n"
 
 #: ../uiopen.m:149
 #, c-format
 msgid "No application called: %s\n"
-msgstr ""
+msgstr "没有应用程序：%s\n"
 
 #: ../uiopen.m:178
 #, c-format
 msgid "No application at path: %s\n"
-msgstr ""
+msgstr "指定路径没有应用程序：%s\n"
 
 #: ../uiopen.m:182 ../uisave.m:62
 #, c-format
 msgid "Invalid path: %s\n"
-msgstr ""
+msgstr "无效路径：%s\n"
 
 #: ../uisave.m:19
 #, c-format
 msgid "Usage: %s file ...\n"
 "Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"
-msgstr ""
+msgstr "版权所有 (C) 2021, Procursus Team. 保留所有权利。\n\n"
 
 #: ../uisave.m:22
 #, c-format
 msgid "Save images and videos to the camera roll\n\n"
-msgstr ""
+msgstr "保存图片与视频到相机胶卷\n"
 
 #: ../uisave.m:24
 #, c-format
 msgid "Image and video formats that can be saved to the camera roll\n"
 "vary between iOS versions\n\n"
-msgstr ""
+msgstr "能够储存的图片与视频格式因iOS版本而异。"
 
 #: ../uisave.m:57
 #, c-format
 msgid "No file at path: %s\n"
-msgstr ""
+msgstr "文件不存在：%s\n"
 
 #: ../uisave.m:73
 #, c-format
 msgid "No supported image or video format at: %s\n"
-msgstr ""
+msgstr "不支持的多媒体格式：%s\n"
 
 #: ../uisave.m:91
 #, c-format
 msgid "Failed to save image at %s with error: %s\n"
-msgstr ""
+msgstr "未能保存位于 %s 的图片：%s\n"
 
 #: ../uisave.m:108
 #, c-format
 msgid "Failed to save video at %s with error: %s\n"
-msgstr ""
+msgstr "未能保存位于 %s 的视频：%s\n"
 
 #: ../uishoot.m:25
 #, c-format
 msgid "Usage: %s [-cp] [-d number] [-f [png | jpeg | heic]] [-o file]\n"
-msgstr ""
+msgstr "用法；%s [-cp] [-d number] [-f [png | jpeg | heic]] [-o file]\n"
 
 #: ../uishoot.m:77
 #, c-format
 msgid "Invalid image format '%s'\n"
-msgstr ""
+msgstr "无效的图片格式 '%s'\n"
 
 #: ../uishoot.m:96
 #, c-format
 msgid "Could not capture screenshot!\n"
-msgstr ""
+msgstr "未能进行屏幕截图！\n"
 
 #: ../uishoot.m:123
 #, c-format
 msgid "Could not get image data to write to file!\n"
-msgstr ""
+msgstr "未能将图像数据写入文件！\n"
 
 #: ../uishoot.m:132
 #, c-format
 msgid "Could not write image to %s: %s\n"
-msgstr ""
+msgstr "未能写入图片%s：%s\n"
 
 #: ../uishoot.m:148
 #, c-format
 msgid "Could not save screenshot to Photos: %s\n"
-msgstr ""
+msgstr "未能保存屏幕截图到相机胶卷：%s\n"
 
 #: ../info/deviceinfo.c:39 ../info/deviceinfo.c:72
 #, c-format
 msgid "Usage: %s [cfversion | ecid | locale | serial | uniqueid] [arguments ...]\n"
-msgstr "用法： %s [cfversion | ecid | 语言 | 序列号| UUID] [参数...]\n"
+msgstr "用法： %s [cfversion | ecid | locale | serial | uniqueid] [参数...]\n"
 
 #: ../info/locale.m:16
 #, c-format
 msgid "Usage: deviceinfo locale [-ilcvh]\n"
 "Print the current locale\n\n"
-msgstr ""
+msgstr "用法：deviceinfo locale [-ilcvh]\n"
+"输出当前区域设置\n\n"
 
 #: ../info/locale.m:19
 #, c-format
@@ -479,5 +501,9 @@ msgid "-h --help      Give this help list.\n"
 " -c --country    Print the country code\n"
 " -v --variant    Print the variant code\n\n"
 "If multiple output formats are specified the last will be used\n"
-msgstr ""
-
+msgstr "-h --help      输出这条帮助\n"
+ " -i --identifier 输出区域设置标识符（默认）\n"
+" -l --language   输出语言代码\n"
+" -c --country    输出国家与地区代码\n"
+" -v --variant    输出变种代码\n\n"
+"当多个输出格式被指定时，将使用最后指定的格式\n"

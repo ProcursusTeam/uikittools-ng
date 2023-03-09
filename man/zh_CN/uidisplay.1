@@ -7,7 +7,7 @@
 .Os
 .Sh 名称
 .Nm uidisplay
-.Nd 取得或设定关于显示的资讯
+.Nd 获取或设置关于显示的信息
 .Sh 语法
 .Nm
 .Op Fl a Ar 状态
@@ -20,36 +20,36 @@
 .Op Fl w Ar 状态
 .Sh 描述
 .Nm
-会印出或设定您的装置的亮度，和其他选项例如自动亮度、暗黑模式、夜间模式、原色调和减少白点。
+会输出或设置您的设备的亮度以及其他选项，例如自动亮度、深色模式、夜览、原彩显示和降低白点值。
 .Sh 选项
 .Bl -tag -width indent
 .It Fl a , -autobrightness Ar 状态
 .Ar 状态
 ，可以是 on, 1, off, 或 0.
 .It Fl b , -brightness Oo Ar + Ns | Ns Ar - Oc Ns Ar 数字
-把亮度设定为
+把亮度设置为
 .Ar 数字 ,
-其必须要是在0到100之间。
-结尾
+其必须在0到100之间。
+结尾添加
 .Dq %
 是有效的。
 如果使用了
 .Ar +
-号，那么亮度将会被增加
+号，那么亮度将被增加
 .Ar 数字
 。 如果使用了
 .Ar -
-号，那么亮度将会被减少
+号，那么亮度将被减少
 .Ar 数字
 。
 .It Fl d , -darkmode Ar 状态
-把暗黑模式的值凌驾到
+把深色模式的值覆盖到
 .Ar 状态 ,
 这可以是on, 1, off, 或 0 。
 .It Fl h
-印出帮助文本
+输出帮助文本
 .It Fl i , -info Ar 键值
-印出亮度和目前自动亮度、暗黑模式、夜间模式、原色调和减少白度的设定 。
+输出亮度和目前自动亮度、深色模式、夜览、原彩显示和降低白点值的设置 。
 如果
 .Ar 键值
 是
@@ -58,50 +58,51 @@
 .Ar darkmode ,
 .Ar nightmode ,
 .Ar truetone ,
+.Ar reducewhitepoint ,
+.Ar scale ,
+.Ar width ,
 或
-.Ar reducewhitepoint
+.Ar height
 其中之一，
-就只会印出
+就只会输出
 .Ar 键值
 的数值。
 .It Fl l , -lock
-锁定装置。
+锁定设备。
 .It Fl n , -nightshift Ar 状态
-把夜间模式的数值凌驾为
+把夜间模式的数值覆盖为
 .Ar 状态 ,
 这可以是on, 1, off, 或 0 。
 .It Fl t , -truetone Ar 状态
-把原色调的设定设定为
+把原色调的设置设置为
 .Ar 状态 ,
 这可以是on, 1, off, 或 0。
 .It Fl w , -reducewhitepoint Ar 状态
-把减少白度设定设定为
+把减少白度设置设置为
 .Ar 状态 ,
 这可以是 1, off, 或 0。
 .El
 .Sh 退出状态
-这个
 .Nm
-工具程式会以以下其中一个状态推出：
+工具会以以下其中一个状态退出：
 .Pp
 .Bl -tag -width Ds -compact
 .It 0
-一切像预期般工作。
+一切如同预期般工作。
 .It 1
-有些事情出错了，会印出一则错误讯息。
+有些地方出错了，会输出一则错误信息。
 .It 2
-要求的动作不被支援。
+不支持正在请求的操作。
 .Sh 例子
 把亮度增加百分之10：
 .Dl "uidisplay -b +10"
 .Pp
-印出现在的亮度：
+输出现在的亮度：
 .Dl "uidisplay -i brightness"
 .Sh 另见
 .Xr uiopen 1
 .Sh 历史
-这个
 .Nm
-工具程式首先在2021年10月29日在uikittools-ng中出现，由
+工具首先在2021年10月29日于uikittools-ng中出现，由
 .An absidue
 编写。

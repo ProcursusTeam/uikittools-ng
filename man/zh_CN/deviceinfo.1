@@ -7,7 +7,7 @@
 .Os
 .Sh 名称
 .Nm deviceinfo
-.Nd 印出各种装置资讯
+.Nd 输出设备信息
 .Sh 语法
 .Bl -compact -tag
 .It
@@ -30,40 +30,46 @@ uniqueid
 .El
 .Sh 描述
 .Nm
-印出指定的装置资讯，然后退出。
+输出指定的设备信息，然后退出。
 .Sh 子命令
 .Bl -tag -width indent
 .It Ar cfversion
-印出装置CoreFoundation版本.
-.It Ar ecid
-印出装置的唯一晶片识别码 (ECID)。
+输出设备CoreFoundation版本.
+.It Ar ecid Op Fl dh
+输出设备的专有芯片ID (ECID)。
+.Bl -tag -width indent
+.It Fl d
+以十进制输出ECID
+.It Fl h
+以十六进制输出ECID
+未指定选项时，这是默认选项。
+.El
 .It Ar locale Op Fl ilcvh
-以要求的格式印出系统区域设置。
+以指定的格式输出系统区域设置。
 以下的选项是可用的：
 .Bl -tag -width indent
 .It Fl i , -identifier
-印出区域设置识别吗，这是预设选项。
+输出区域设置标识符，这是默认选项。
 .It Fl l , -language
-印出语言编号。
+输出区域设置的语言代码。
 .It Fl c , -country
-印出区域设置的国家的编号。
+输出区域设置的国家代码。
 .It Fl v , -variant
-印出区域设置变种。
+输出区域设置变种。
 .It Fl h , -help
-印出帮助。
+输出帮助。
 .El
 .It Ar serial
-印出装置的串列码。
+输出设备的序列号。
 .It Ar uniqueid
-印出装置唯一编号 (UDID)。
+输出设备的唯一标识符 (UDID)。
 .El
 .Sh 历史
-这个
 .Nm
-工具程式在2021年8月23日由
+工具在2021年8月23日由
 .An sunchipnacho
 编写，取代uikittools-ng中的
-.Nm cfversion ，
-.Nm ecidecid ，
+.Nm cfversion，
+.Nm ecidecid，
 和
-.Nm uiduid 。
+.Nm uiduid。

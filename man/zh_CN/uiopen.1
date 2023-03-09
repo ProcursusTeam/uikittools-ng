@@ -7,52 +7,51 @@
 .Os
 .Sh 名称
 .Nm uiopen
-.Nd 开启应用程式或网址
+.Nd 开启应用程序或URL
 .Sh 语法
 .Nm
 .Op Fl h
 .Op Fl a Ar 名称
-.Op Fl b Ar 识别码
+.Op Fl b Ar ID
 .Op Fl p Ar 路径
 .Op Fl u Ar 网址
 .Sh 描述
 .Nm
-会开启指定的应用程式或网页，并在主画面上显示。
+会开启指定的应用程序或网页，并在主画面上显示。
 .Sh OPTIONS
 .Bl -tag -width indent
 .It Fl a , -app Ar 名称
-寻找这个名称的应用程式， 并把它打开。
+寻找这个名称的应用程序，并把它打开。
 .It Fl b , -bundleid Ar 识别码
-开启指定封装识别码的应用程式。
+开启指定Bundle ID的应用程序。
 .It Fl h , -help
 印出帮助文本。
 .It Fl p , -path Ar 路径
-开启位于指定.app封装的应用程式。
-.It Fl u , -网址 Ar 网址
-在浏览器中使用http或根据网址中的协定来开启网址。
+开启位于指定.app路径的应用程序。
+.It Fl u , -url Ar URL
+在浏览器中使用http或根据URL中的协议来开启URL。
 .El
 .Sh 例子
-要在预设浏览器中开启github.com
+要在默认浏览器中开启github.com
 .Dl "uiopen -u https://github.com"
 .Pp
-要开启「设定」应用程式
+要开启"设置"应用程序
 .Dl "uiopen -a Settings"
 .Pp
-要通过使用路径来开启Sileo, /Applications/Sileo.app
+要通过路径来开启Sileo, /Applications/Sileo.app
 .Dl "uiopen -p /Application/Sileo.app"
 .Sh 另见
 .Xr uicache 1
 .Sh 历史
-这个
 .Nm
-工具程式首先在2008年8月18号在uikittools中出现，由
+工具首先在2008年8月18号于uikittools中出现，由
 .An Jay Qo Saurik Qc Freeman .
 之后
 .An CoolStar
-在2019年4月30号由CoolStar为Chimera越狱重新实现。
+在2019年4月30号由CoolStar为Chimera越狱而重新实现。
 选项
-.Fl u ，
-.Fl h ，
+.Fl u，
+.Fl h，
 和
 .Fl b
 在2020年12月25日由absidue加到uiopen中。
@@ -61,5 +60,5 @@
 和
 .Fl p
 在2020年12月25日由absidue加入。
-.Nm Ar 网址
+.Nm Ar url
 在2021年8月19日被标记为过时。

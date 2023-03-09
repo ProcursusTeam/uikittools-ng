@@ -11,21 +11,21 @@
 .Sh 语法
 .Nm
 .Op Fl b Ar 正文
-.Op Fl i Ar 提词
+.Op Fl i Ar 提示语
 .Op Fl j
 .Op Fl p Ar primary
 .Op Fl -priority Ar 数字
 .Op Fl s Ar second
-.Op Fl -secure Ar 提词
+.Op Fl -secure Ar 提示语
 .Op Fl t Ar third
 .Op Fl -timeout Ar 数字
 .Ar title
 .Sh 描述
-从命令列介面中来令在图形介面中显示一个原生对话框。
-标题会被设定为
+通过命令行来使图形界面中显示一个原生对话框。
+标题会被指定为
 .Ar title
 。
-它会印出输入的文字和被选择的按钮的索引到
+它会输出输入的文字和被选择的按钮的索引值到
 .Ar 标准输出
 。
 .Ss 输出
@@ -37,49 +37,49 @@
 .It Sy 2
 第三个按钮被按下。
 .It Sy 3
-对话框超时或在没有回应的情况下被关闭。
+对话框超时或在没有得到回应的情况下被关闭。
 .El
 .Sh OPTIONS
 .Bl -tag -width indent
 .It Fl b , -body Ar 正文
-把对话框的正文设定为
+把对话框的正文设置为
 .Ar 正文 .
-.It Fl i , -input Ar 提词
-加了一个提词为
-.Ar 提词
+.It Fl i , -input Ar 提示语
+加了一个提示语为
+.Ar 提示语
 的文字输入区。
 可以通过重复使用这个选项来加入多个输入区。
 .It Fl j , -json
-以JSON格式印出输出。
+以JSON格式输出。
 .It Fl p , -primary Ar 第一
-把预设按钮的文字设定为
+把预设按钮的文字设置为
 .Ar 第一
 。
-而不是预设文字
+而不是预设的
 .Qq 好
 。
 .It Fl -priority Ar 数字
-把对话框的优先度设定为
+把对话框的优先级设置为
 .Ar 数字 .
 .Ar 数字
 一定要在0和3之间，且包含0和3。
-如果不指名的话，那么优先度就是1。  .
+如果不制定的话，那么优先级就是1。  .
 这只会影响在
 .Os macOS
-上对话框的样貌。
+上对话框的样式。
 .It Fl s , -secondary Ar 第二
-把第二个按钮的文字设定为
+把第二个按钮的文字设置为
 .Ar 第二
 ，
-如没有设定，这按钮将不会显示。
-.It Fl -secure Ar 提词
+如果没有设置，这个按钮将不会显示。
+.It Fl -secure Ar 提示语
 这和
 .Fl i
 一样，不过输入的文字会当作密码处理。
 .It Fl t , -tertiary Ar 第三
-把第三个按钮的文字设定为
+把第三个按钮的文字设置为
 .Ar 第三 ,
-如没有设定，这按钮将不会显示。
+如果没有设置，这个按钮将不会显示。
 .It Fl -timeout Ar 数字
 在经过
 .Ar 数字
@@ -96,11 +96,10 @@
 。
 .Dl "uialert -p \*q取消\*q -s \*q仍要继续\*q -b \*q继续？\*q \*q这个操作将会删除数据。\*q"
 .Sh 历史
-这个
 .Nm
-工具程式首先在2008年2月26日出现在uikittools中，由
+工具首先在2008年2月26日出现于uikittools中，由
 .An Jay Qo Saurik Qc Freeman
 编写。
 之后
 .An Cameron Katri
-在2021年10月15日为uikittools-ng重新实现了这个工具程式，且用法完全不同。
+在2021年10月15日为uikittools-ng重新实现了这个工具，且用法完全不同。

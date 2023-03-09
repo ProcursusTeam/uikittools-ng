@@ -7,7 +7,7 @@
 .Os
 .Sh 名称
 .Nm uicache
-.Nd 更新已注册的应用程式
+.Nd 更新已注册的应用程序
 .Sh 语法
 .Nm
 .Op Fl afhlr
@@ -15,18 +15,18 @@
 .Op Fl p Ar 路径
 .Op Fl u Ar 路径
 .Sh 描述
-更新iOS已注册的应用程式，然后可选地重新启动主画面。
+更新iOS已注册的应用程序，然后可选地重新启动主界面（SpringBoard）。
 .Sh 选项
 .Bl -tag -width indent
 .It Fl a , -all
-迭代每一个系统应用程式， 并更新快取以反映情况。
+遍历每一个系统应用程序， 并更新缓存以及时映射更改。
 这和旧
 .Nm
-的行为一样。
+不添加任何选项的行为一样。
 .It Fl f , -force
 当和
 .Fl a
-强制重新注册所有的应用程式，而不是改变。
+强制重新注册所有的应用程序，而不仅仅是被更改的应用程序。
 这个选项会导致
 .Fl a
 的速度明显减慢。
@@ -35,48 +35,47 @@
 或
 .Fl u ,
 .Nm
-一起使用时，会作用在App Store应用程式上。
+一起使用时，会作用在App Store应用程序上。
 .It Fl h , -help
-印出帮助文本。
-.It Fl i , -info Ar 封装识别码
-显示指定封装识别码的应用程式资讯。
+输出帮助文本。
+.It Fl i , -info Ar bundleid
+显示指定Bundle ID的应用程序信息。
 .It Fl l , -list
-列出每一个应用程式的路径和封装识别码。
+列出每一个应用程序的路径和Bundle ID。
 .It Fl p , -path Ar 路径
 把位于指定
 .Ar 路径
-, 中的应用程式加入到快取中， 或更新快取。
+, 中的应用程序加入或更新到缓存中。
 .It Fl r , -respring
-在完成所有操作之后，重新启动主画面和backboard。
+在完成所有操作之后，重新启动SpringBoard和backboard。
 .It Fl u , -unregister Ar 路径
-从快取中移除位于
+从缓存中移除位于
 .Ar 路径
-, 的应用程式。
+, 的应用程序。
 .It Fl v , -verbose
 当和
 .Fl a
-一起使用时，印出被注册或被取消注册的应用程式。
+一起使用时，输出被注册或被取消注册的应用程序。
 .El
 .Sh 例子
-要重新整理所有应用程式，
+刷新所有应用程序，
 .Dl "uicache -a"
 .Pp
-要注册Sileo，
+注册Sileo，
 .Dl "uicache -p /Applications/Sileo.app"
 .Pp
-要显示关于「设定」应用程式的资讯，
+要显示关于"设置"应用程序的资讯，
 .Dl "uicache -i com.apple.preferences"
 .Sh 另见
 .Xr sbreload 1 ,
 .Xr uiopen 1
 .Sh 历史
-这个
 .Nm
-工具程式首先在2008年9月14日在uikittools中出现，由
+工具首先在2008年9月14日于uikittools中出现，由
 .An Jay Qo Saurik Qc Freeman 编写。
 之后，它被
 .An CoolStar
-为Chimera越狱重新实现。
+为Chimera越狱而重新实现。
 .Fl l
 和
 .Fl i
@@ -84,7 +83,7 @@
 .Sh 警告
 这个
 .Nm
-工具程式不会工作在任何由App Store安装的应用程式，
-这个工具程式有一个检查来防止改动但可以用
+工具对任何由App Store安装的应用程序生效，
+这个工具会进行检查来防止对其进行改动，但仍然可以用
 .Fl f
 来强制执行。

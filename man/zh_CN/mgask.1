@@ -7,7 +7,7 @@
 .Os
 .Sh 名称
 .Nm mgask
-.Nd 向MobileGestalt问问题
+.Nd 向MobileGestalt提问
 .Sh 语法
 .Nm
 .Op Fl jpq
@@ -15,36 +15,34 @@
 .Op Fl -pretty
 .Ar 问题…
 .Sh 描述
-这个
 .Nm
-工具程式会向MobileGestalt查询指定问题的答案。
-所有的阵列或字典会以JSON格式印出。
+工具会向MobileGestalt查询指定问题的答案。
+所有的数组或字典会以JSON格式输出。
 .Sh 选项
 .Bl -tag -width indent
 .It Fl c , -calculate
 对于每个指明的键值，计算混淆后的键值。
 这不会回传键值的数值，而只会回传混淆后的键值。
 .It Fl -gssc
-令
+使
 .Nm
-的行为和旧式的
+的行为和旧的
 .Nm gssc
 一样。
 .It Fl j , -json
-把所有键值以JSON格式印出
+把所有键值以JSON格式输出
 .It Fl p , -plist
-以NeXTSTEP plist格式印出所有键值。
+以NeXTSTEP plist格式输出所有键值。
 .It Fl -pretty
-印出经格式化的JSON。
-视乎是否有指定
+输出格式化的JSON。
+取决于是否有指定
 .Fl j
-这只会影响阵列和字典，或整个输出。
+而只影响阵列和字典，或者是整个输出。
 .It Fl q , -quiet
-找不到键值时，不印出错误。
+找不到键值时，不输出错误。
 .El
 .Sh 历史
-这个
 .Nm
-工具程式首先在2021年11月4日uikittools-ng在出现，由
+工具最早于2021年11月4日出现在uikittools-ng，由
 .An Cameron Katri
 编写。

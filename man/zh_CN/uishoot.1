@@ -7,43 +7,41 @@
 .Os
 .Sh 名称
 .Nm uishoot
-.Nd 截取萤幕截图
+.Nd 屏幕截图
 .Sh 语法
 .Nm
 .Op Fl cp
 .Op Fl d Ar 数字
 .Op Fl f Op Ar jpeg | png | heic
-.Op Fl o Ar 档案
+.Op Fl o Ar 文件
 .Sh 描述
-这个
 .Nm
-工具程式会截取一张萤幕截图。
+工具会截取一张屏幕截图。
 .Sh 选项
 .Bl -tag -width indent
 .It Fl c , -clipboard
-把萤幕截图储存到剪贴板中。
+将屏幕截图储存到剪贴板中。
 .It Fl d , -delay Ar 数字
-在截取萤幕截图前，等待
+在截取屏幕截图前，等待
 .Ar 数字
 秒的时间。
 .It Fl p , -photos
-把萤幕截图加到相机胶卷中。
+将屏幕截图添加到相机胶卷中。
 .It Fl f , -format Op Ar jpeg | png | heic
-输出并以指定的格式储存萤幕截图。
+输出并以指定的格式储存屏幕截图。
 .It Fl o , -output Ar 档案
-把萤幕截图储存到
-.Ar 档案 。
+把屏幕截图储存到
+.Ar 文件 。
 如果
 .Fl f
-没有设定那么格式将会以
-.Ar 档案
-的副档名来推断出来。
+没有指定，那么最终格式将会以
+.Ar 文件
+的扩展名来推断出来。
 .El
 .Sh 历史
-这个
 .Nm
-工具程式首先在2008年8月29日出现，由
+工具首先在2008年8月29日出现，由
 .An Jay Qo Saurik Qc Freeman 编写。
 之后，
 .An sunchipnacho
-在2021年10月18日为uikitoools-ng重新实现了这一工具程式，并加入更多的选项。
+在2021年10月18日为uikitoools-ng重新实现了这一工具，并加入更多的选项。

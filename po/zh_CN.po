@@ -140,7 +140,7 @@ msgstr "用法：%s [-afhlr] [-i id] [-p path] [-u path]\n"
 #: ../uicache.m:106
 #, c-format
 msgid "Update iOS registered applications and optionally restart SpringBoard\n\n"
-msgstr "更新iOS的应用程序注册状态，然后可选地重新启动主界面（SpringBoard）"
+msgstr "更新iOS的应用程序注册状态，然后可选地重新启动主界面（SpringBoard）\n\n"
 
 #: ../uicache.m:108
 #, c-format
@@ -429,7 +429,7 @@ msgstr "保存图片与视频到相机胶卷\n"
 #, c-format
 msgid "Image and video formats that can be saved to the camera roll\n"
 "vary between iOS versions\n\n"
-msgstr "能够储存的图片与视频格式因iOS版本而异。"
+msgstr "能够储存的图片与视频格式因iOS版本而异。\n\n"
 
 #: ../uisave.m:57
 #, c-format
@@ -503,7 +503,7 @@ msgid "-h --help      Give this help list.\n"
 "If multiple output formats are specified the last will be used\n"
 msgstr "-h --help      输出这条帮助\n"
  " -i --identifier 输出区域设置标识符（默认）\n"
-" -l --language   输出语言代码\n"
-" -c --country    输出国家与地区代码\n"
-" -v --variant    输出变种代码\n\n"
+" -l --language   输出区域设置语言代码\n"
+" -c --country    输出区域设置国家与地区代码\n"
+" -v --variant    输出区域设置变种代码\n\n"
 "当多个输出格式被指定时，将使用最后指定的格式\n"

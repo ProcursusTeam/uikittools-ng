@@ -204,7 +204,7 @@ msgid "Name: %s\n"
 "VendorName: %s\n"
 "TeamID: %s\n"
 "Type: %s\n"
-"Removeable: %s\n"
+"Removable: %s\n"
 msgstr "Name: %s\n"
 "BundleID: %s\n"
 "ExecutableName: %s\n"
@@ -213,7 +213,7 @@ msgstr "Name: %s\n"
 "VendorName: %s\n"
 "TeamID: %s\n"
 "Type: %s\n"
-"Removeable: %s\n"
+"Removable: %s\n"
 
 #: ../uicache.m:256 ../uicache.m:264
 #, c-format

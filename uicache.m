@@ -26,6 +26,11 @@
 - (BOOL)isValid;
 @end
 
+@interface LSPlugInKitProxy : NSObject
+- (NSString *)bundleIdentifier;
+@property (nonatomic,readonly) NSURL *dataContainerURL;
+@end
+
 @interface LSApplicationProxy : NSObject
 + (id)applicationProxyForIdentifier:(id)arg1;
 - (id)localizedNameForContext:(id)arg1;
@@ -39,6 +44,8 @@
 - (NSString *)applicationType;
 - (NSSet *)claimedURLSchemes;
 - (BOOL)isDeletable;
+@property (nonatomic,readonly) NSDictionary *groupContainerURLs;
+@property (nonatomic,readonly) NSArray<LSPlugInKitProxy *> *plugInKitPlugins;
 @end
 
 @interface LSApplicationWorkspace : NSObject
@@ -80,6 +87,12 @@ typedef NS_OPTIONS(NSUInteger, SBSRelaunchActionOptions) {
 @interface MCMPluginKitPluginDataContainer : MCMContainer
 @end
 
+@interface MCMSystemDataContainer : MCMContainer
+@end
+
+@interface MCMSharedDataContainer : MCMContainer
+@end
+
 @interface SBSRelaunchAction : NSObject
 + (instancetype)actionWithReason:(NSString *)reason
 						 options:(SBSRelaunchActionOptions)options
@@ -96,10 +109,28 @@ typedef NS_OPTIONS(NSUInteger, SBSRelaunchActionOptions) {
 - (void)relaunch;
 @end
 
+typedef struct __SecCode const *SecStaticCodeRef;
+
+typedef CF_OPTIONS(uint32_t, SecCSFlags) {
+	kSecCSDefaultFlags = 0
+};
+#define kSecCSRequirementInformation 1 << 2
+#define kSecCSSigningInformation 1 << 1
+
+OSStatus SecStaticCodeCreateWithPathAndAttributes(CFURLRef path, SecCSFlags flags, CFDictionaryRef attributes, SecStaticCodeRef *staticCode);
+OSStatus SecCodeCopySigningInformation(SecStaticCodeRef code, SecCSFlags flags, CFDictionaryRef *information);
+CFDataRef SecCertificateCopyExtensionValue(SecCertificateRef certificate, CFTypeRef extensionOID, bool *isCritical);
+void SecPolicySetOptionsValue(SecPolicyRef policy, CFStringRef key, CFTypeRef value);
+
+extern CFStringRef kSecCodeInfoEntitlementsDict;
+extern CFStringRef kSecCodeInfoCertificates;
+extern CFStringRef kSecPolicyAppleiPhoneApplicationSigning;
+extern CFStringRef kSecPolicyAppleiPhoneProfileApplicationSigning;
+extern CFStringRef kSecPolicyLeafMarkerOid;
+
 int force = 0;
 int verbose = 0;
 
-// clang-format off
 void help() {
 	printf(_("Usage: %s [-afhlr] [-i id] [-p path] [-u path]\n\
 Modified work Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"), getprogname());
@@ -109,6 +140,7 @@ Modified work Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"), ge
 	printf(_("  -f, --force              Force -a to reregister all Applications\n\
                               and modify App Store apps\n"));
 	printf(_("  -p, --path <path>        Update application bundle at the specified path\n"));
+	printf(_("  -s, --force-system       When registering an app inside /var/containers, register it as system\n"));
 	printf(_("  -u, --unregister <path>  Unregister application bundle at the specified path\n"));
 	printf(_("  -r, --respring           Restart SpringBoard and backboardd after\n\
                               updating applications\n"));
@@ -118,266 +150,396 @@ Modified work Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"), ge
 
 	printf(_("Contact the Procursus Team for support.\n"));
 }
-// clang-format on
 
-void registerPath(char *path, int unregister) {
-	dlopen(
-		"/System/Library/PrivateFrameworks/MobileContainerManager.framework/"
-		"MobileContainerManager",
-		RTLD_NOW);
+SecStaticCodeRef getStaticCodeRef(NSString *binaryPath) {
+	if (binaryPath == nil) {
+		return NULL;
+	}
+	
+	CFURLRef binaryURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, (__bridge CFStringRef)binaryPath, kCFURLPOSIXPathStyle, false);
+	if (binaryURL == NULL) {
+		return NULL;
+	}
+	
+	SecStaticCodeRef codeRef = NULL;
+	OSStatus result;
+	
+	result = SecStaticCodeCreateWithPathAndAttributes(binaryURL, kSecCSDefaultFlags, NULL, &codeRef);
+	
+	CFRelease(binaryURL);
+	
+	if (result != errSecSuccess) {
+		return NULL;
+	}
+		
+	return codeRef;
+}
 
-	LSApplicationWorkspace *workspace =
-		[LSApplicationWorkspace defaultWorkspace];
-	if (unregister && ![[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithUTF8String:path]]) {
-		LSApplicationProxy *app = [LSApplicationProxy
-			applicationProxyForIdentifier:[NSString stringWithUTF8String:path]];
-		if (app.bundleURL)
-			path = (char *)[[app bundleURL] fileSystemRepresentation];
+NSDictionary *dumpEntitlements(SecStaticCodeRef codeRef) {
+	if (codeRef == NULL) {
+		return nil;
+	}
+	
+	CFDictionaryRef signingInfo = NULL;
+	OSStatus result;
+	
+	result = SecCodeCopySigningInformation(codeRef, kSecCSRequirementInformation, &signingInfo);
+	
+	if (result != errSecSuccess) {
+		return nil;
+	}
+	
+	NSDictionary *entitlementsNSDict = nil;
+	
+	CFDictionaryRef entitlements = CFDictionaryGetValue(signingInfo, kSecCodeInfoEntitlementsDict);
+	if (entitlements) {
+		if (CFGetTypeID(entitlements) == CFDictionaryGetTypeID()) {
+			entitlementsNSDict = (__bridge NSDictionary *)(entitlements);
+		}
+	}
+	CFRelease(signingInfo);
+	return entitlementsNSDict;
+}
+
+NSDictionary *dumpEntitlementsFromBinaryAtPath(NSString *binaryPath) {
+	if (binaryPath == nil) {
+		return nil;
+	}
+	
+	SecStaticCodeRef codeRef = getStaticCodeRef(binaryPath);
+	if (codeRef == NULL) {
+		return nil;
+	}
+	
+	NSDictionary *entitlements = dumpEntitlements(codeRef);
+	CFRelease(codeRef);
+
+	return entitlements;
+}
+
+NSDictionary *constructGroupsContainersForEntitlements(NSDictionary *entitlements, BOOL systemGroups) {
+	if (!entitlements) return nil;
+
+	NSString *entitlementForGroups;
+	Class mcmClass;
+	if (systemGroups) {
+		entitlementForGroups = @"com.apple.security.system-groups";
+		mcmClass = [MCMSystemDataContainer class];
+	}
+	else {
+		entitlementForGroups = @"com.apple.security.application-groups";
+		mcmClass = [MCMSharedDataContainer class];
 	}
 
-	if ([[NSString stringWithUTF8String:path]
-			hasPrefix:@"/private/var/containers/Bundle/Application"] ||
-		[[NSString stringWithUTF8String:path]
-			hasPrefix:@"/var/containers/Bundle/Application"]) {
-		printf(_("uicache does not support App Store apps.\n"));
-		if (force)
-			printf(_("Continuing anyway...\n"));
-		else
-			return;
+	NSArray *groupIDs = entitlements[entitlementForGroups];
+	if (groupIDs && [groupIDs isKindOfClass:[NSArray class]]) {
+		NSMutableDictionary *groupContainers = [NSMutableDictionary new];
+
+		for (NSString *groupID in groupIDs) {
+			MCMContainer *container = [mcmClass containerWithIdentifier:groupID createIfNecessary:YES existed:nil error:nil];
+			if (container.url) {
+				groupContainers[groupID] = container.url.path;
+			}
+		}
+
+		return groupContainers.copy;
 	}
 
-	NSString *rawPath = [NSString stringWithUTF8String:path];
-	rawPath = [rawPath stringByResolvingSymlinksInPath];
+	return nil;
+}
 
-	NSDictionary *infoPlist = [NSDictionary
-		dictionaryWithContentsOfFile:
-			[rawPath stringByAppendingPathComponent:@"Info.plist"]];
-	NSString *bundleID = [infoPlist objectForKey:@"CFBundleIdentifier"];
+BOOL constructContainerizationForEntitlements(NSDictionary *entitlements) {
+	NSNumber *noContainer = entitlements[@"com.apple.private.security.no-container"];
+	if (noContainer && [noContainer isKindOfClass:[NSNumber class]]) {
+		if (noContainer.boolValue) {
+			return NO;
+		}
+	}
 
-	NSURL *url = [NSURL fileURLWithPath:rawPath];
+	NSNumber *containerRequired = entitlements[@"com.apple.private.security.container-required"];
+	if (containerRequired && [containerRequired isKindOfClass:[NSNumber class]]) {
+		if (!containerRequired.boolValue) {
+			return NO;
+		}
+	}
 
-	if (bundleID && !unregister) {
-		MCMContainer *appContainer = [objc_getClass("MCMAppDataContainer")
-			containerWithIdentifier:bundleID
-				  createIfNecessary:YES
-							existed:nil
-							  error:nil];
+	return YES;
+}
+
+NSString *constructTeamIdentifierForEntitlements(NSDictionary *entitlements) {
+	NSString *teamIdentifier = entitlements[@"com.apple.developer.team-identifier"];
+	if (teamIdentifier && [teamIdentifier isKindOfClass:[NSString class]]) {
+		return teamIdentifier;
+	}
+	return nil;
+}
+
+NSDictionary *constructEnvironmentVariablesForContainerPath(NSString *containerPath) {
+	NSString *tmpDir = [containerPath stringByAppendingPathComponent:@"tmp"];
+	return @{
+		@"CFFIXED_USER_HOME" : containerPath,
+		@"HOME" : containerPath,
+		@"TMPDIR" : tmpDir
+	};
+}
+
+void registerPath(NSString *path, BOOL unregister, BOOL forceSystem) {
+	if (!path) return;
+
+	LSApplicationWorkspace *workspace = [LSApplicationWorkspace defaultWorkspace];
+	if (unregister && ![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+		LSApplicationProxy *app = [LSApplicationProxy applicationProxyForIdentifier:path];
+		if (app.bundleURL) {
+			path = [app bundleURL].path;
+		}
+	}
+
+	path = path.stringByResolvingSymlinksInPath.stringByStandardizingPath;
+
+	NSDictionary *appInfoPlist = [NSDictionary dictionaryWithContentsOfFile:[path stringByAppendingPathComponent:@"Info.plist"]];
+	NSString *appBundleID = [appInfoPlist objectForKey:@"CFBundleIdentifier"];
+
+	if (appBundleID && !unregister) {
+		MCMContainer *appContainer = [NSClassFromString(@"MCMAppDataContainer") containerWithIdentifier:appBundleID createIfNecessary:YES existed:nil error:nil];
 		NSString *containerPath = [appContainer url].path;
 
-		NSMutableDictionary *plist = [NSMutableDictionary dictionary];
-		[plist setObject:@"System" forKey:@"ApplicationType"];
-		[plist setObject:@1 forKey:@"BundleNameIsLocalized"];
-		[plist setObject:bundleID forKey:@"CFBundleIdentifier"];
-		[plist setObject:@0 forKey:@"CompatibilityState"];
-		if (containerPath) [plist setObject:containerPath forKey:@"Container"];
-		[plist setObject:@0 forKey:@"IsDeletable"];
-		[plist setObject:rawPath forKey:@"Path"];
+		BOOL isRemovableSystemApp = [[NSFileManager defaultManager] fileExistsAtPath:[@"/System/Library/AppSignatures" stringByAppendingPathComponent:appBundleID]];
+		BOOL registerAsUser = [path hasPrefix:@"/var/containers"] && !isRemovableSystemApp && !forceSystem;
 
-		NSString *pluginsPath =
-			[rawPath stringByAppendingPathComponent:@"PlugIns"];
-		NSArray *plugins = [[NSFileManager defaultManager]
-			contentsOfDirectoryAtPath:pluginsPath
-								error:nil];
+		NSMutableDictionary *dictToRegister = [NSMutableDictionary dictionary];
+
+		// Add entitlements
+
+		NSString *appExecutablePath = [path stringByAppendingPathComponent:appInfoPlist[@"CFBundleExecutable"]];
+        NSDictionary *entitlements = dumpEntitlementsFromBinaryAtPath(appExecutablePath);
+		if (entitlements) {
+			dictToRegister[@"Entitlements"] = entitlements;
+		}
+
+		// Misc
+
+		dictToRegister[@"ApplicationType"] = registerAsUser ? @"User" : @"System";
+		dictToRegister[@"CFBundleIdentifier"] = appBundleID;
+		dictToRegister[@"CodeInfoIdentifier"] = appBundleID;
+		dictToRegister[@"CompatibilityState"] = @0;
+		if (containerPath) {
+			dictToRegister[@"Container"] = containerPath;
+			dictToRegister[@"EnvironmentVariables"] = constructEnvironmentVariablesForContainerPath(containerPath);
+		}
+		dictToRegister[@"IsDeletable"] = @(registerAsUser || isRemovableSystemApp);
+		dictToRegister[@"Path"] = path;
+		dictToRegister[@"IsContainerized"] = @(constructContainerizationForEntitlements(entitlements));
+		dictToRegister[@"SignerOrganization"] = @"Apple Inc.";
+		dictToRegister[@"SignatureVersion"] = @132352;
+		dictToRegister[@"SignerIdentity"] = @"Apple iPhone OS Application Signing";
+		dictToRegister[@"IsAdHocSigned"] = @YES;
+		dictToRegister[@"LSInstallType"] = @1;
+		dictToRegister[@"HasMIDBasedSINF"] = @0;
+		dictToRegister[@"MissingSINF"] = @0;
+		dictToRegister[@"FamilyID"] = @0;
+		dictToRegister[@"IsOnDemandInstallCapable"] = @0;
+
+		NSString *teamIdentifier = constructTeamIdentifierForEntitlements(entitlements);
+		if (teamIdentifier) dictToRegister[@"TeamIdentifier"] = teamIdentifier;
+
+		// Add group containers
+
+		NSDictionary *appGroupContainers = constructGroupsContainersForEntitlements(entitlements, NO);
+		NSDictionary *systemGroupContainers = constructGroupsContainersForEntitlements(entitlements, YES);
+		NSMutableDictionary *groupContainers = [NSMutableDictionary new];
+		[groupContainers addEntriesFromDictionary:appGroupContainers];
+		[groupContainers addEntriesFromDictionary:systemGroupContainers];
+		if (groupContainers.count) {
+			if (appGroupContainers.count) {
+				dictToRegister[@"HasAppGroupContainers"] = @YES;
+			}
+			if (systemGroupContainers.count) {
+				dictToRegister[@"HasSystemGroupContainers"] = @YES;
+			}
+			dictToRegister[@"GroupContainers"] = groupContainers.copy;
+		}
+
+		// Add plugins
+
+		NSString *pluginsPath = [path stringByAppendingPathComponent:@"PlugIns"];
+		NSArray *plugins = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:pluginsPath error:nil];
 
 		NSMutableDictionary *bundlePlugins = [NSMutableDictionary dictionary];
 		for (NSString *pluginName in plugins) {
-			NSString *fullPath =
-				[pluginsPath stringByAppendingPathComponent:pluginName];
+			NSString *pluginPath = [pluginsPath stringByAppendingPathComponent:pluginName];
 
-			NSDictionary *infoPlist = [NSDictionary
-				dictionaryWithContentsOfFile:
-					[fullPath stringByAppendingPathComponent:@"Info.plist"]];
-			NSString *pluginBundleID =
-				[infoPlist objectForKey:@"CFBundleIdentifier"];
+			NSDictionary *pluginInfoPlist = [NSDictionary dictionaryWithContentsOfFile:[pluginPath stringByAppendingPathComponent:@"Info.plist"]];
+			NSString *pluginBundleID = [pluginInfoPlist objectForKey:@"CFBundleIdentifier"];
+
 			if (!pluginBundleID) continue;
-			MCMContainer *pluginContainer =
-				[objc_getClass("MCMPluginKitPluginDataContainer")
-					containerWithIdentifier:pluginBundleID
-						  createIfNecessary:YES
-									existed:nil
-									  error:nil];
+			MCMContainer *pluginContainer = [NSClassFromString(@"MCMPluginKitPluginDataContainer") containerWithIdentifier:pluginBundleID createIfNecessary:YES existed:nil error:nil];
 			NSString *pluginContainerPath = [pluginContainer url].path;
 
-			NSMutableDictionary *pluginPlist = [NSMutableDictionary dictionary];
-			[pluginPlist setObject:@"PluginKitPlugin"
-							forKey:@"ApplicationType"];
-			[pluginPlist setObject:@1 forKey:@"BundleNameIsLocalized"];
-			[pluginPlist setObject:pluginBundleID forKey:@"CFBundleIdentifier"];
-			[pluginPlist setObject:@0 forKey:@"CompatibilityState"];
-			[pluginPlist setObject:pluginContainerPath forKey:@"Container"];
-			[pluginPlist setObject:fullPath forKey:@"Path"];
-			[pluginPlist setObject:bundleID forKey:@"PluginOwnerBundleID"];
-			[bundlePlugins setObject:pluginPlist forKey:pluginBundleID];
+			NSMutableDictionary *pluginDict = [NSMutableDictionary dictionary];
+
+			// Add entitlements
+
+			NSString *pluginExecutablePath = [pluginPath stringByAppendingPathComponent:pluginInfoPlist[@"CFBundleExecutable"]];
+            NSDictionary *pluginEntitlements = dumpEntitlementsFromBinaryAtPath(pluginExecutablePath);
+			if (pluginEntitlements) {
+				pluginDict[@"Entitlements"] = pluginEntitlements;
+			}
+
+			// Misc
+
+			pluginDict[@"ApplicationType"] = @"PluginKitPlugin";
+			pluginDict[@"CFBundleIdentifier"] = pluginBundleID;
+			pluginDict[@"CodeInfoIdentifier"] = pluginBundleID;
+			pluginDict[@"CompatibilityState"] = @0;
+			if (pluginContainerPath) {
+				pluginDict[@"Container"] = pluginContainerPath;
+				pluginDict[@"EnvironmentVariables"] = constructEnvironmentVariablesForContainerPath(pluginContainerPath);
+			}
+			pluginDict[@"Path"] = pluginPath;
+			pluginDict[@"PluginOwnerBundleID"] = appBundleID;
+			pluginDict[@"IsContainerized"] = @(constructContainerizationForEntitlements(pluginEntitlements));
+			pluginDict[@"SignerOrganization"] = @"Apple Inc.";
+			pluginDict[@"SignatureVersion"] = @132352;
+			pluginDict[@"SignerIdentity"] = @"Apple iPhone OS Application Signing";
+
+			NSString *pluginTeamIdentifier = constructTeamIdentifierForEntitlements(pluginEntitlements);
+			if (pluginTeamIdentifier) pluginDict[@"TeamIdentifier"] = pluginTeamIdentifier;
+
+			// Add plugin group containers
+
+			NSDictionary *pluginAppGroupContainers = constructGroupsContainersForEntitlements(pluginEntitlements, NO);
+			NSDictionary *pluginSystemGroupContainers = constructGroupsContainersForEntitlements(pluginEntitlements, YES);
+			NSMutableDictionary *pluginGroupContainers = [NSMutableDictionary new];
+			[pluginGroupContainers addEntriesFromDictionary:pluginAppGroupContainers];
+			[pluginGroupContainers addEntriesFromDictionary:pluginSystemGroupContainers];
+			if (pluginGroupContainers.count) {
+				if (pluginAppGroupContainers.count) {
+					pluginDict[@"HasAppGroupContainers"] = @YES;
+				}
+				if (pluginSystemGroupContainers.count) {
+					pluginDict[@"HasSystemGroupContainers"] = @YES;
+				}
+				pluginDict[@"GroupContainers"] = pluginGroupContainers.copy;
+			}
+
+			[bundlePlugins setObject:pluginDict forKey:pluginBundleID];
 		}
-		[plist setObject:bundlePlugins forKey:@"_LSBundlePlugins"];
-		if (![workspace registerApplicationDictionary:plist]) {
-			fprintf(stderr, _("Error: Unable to register %s\n"), path);
+		[dictToRegister setObject:bundlePlugins forKey:@"_LSBundlePlugins"];
+
+		if (verbose) {
+			printf("Registering dictionary: %s\n", dictToRegister.description.UTF8String);
 		}
-	} else {
+
+		if (![workspace registerApplicationDictionary:dictToRegister]) {
+			fprintf(stderr, _("Error: Unable to register %s\n"), path.fileSystemRepresentation);
+		}
+	}
+	else {
+		NSURL *url = [NSURL fileURLWithPath:path];
 		if (![workspace unregisterApplication:url]) {
-			fprintf(stderr, _("Error: Unable to unregister %s\n"), path);
+			fprintf(stderr, _("Error: Unable to unregister %s\n"), path.fileSystemRepresentation);
 		}
 	}
 }
 
 void listBundleID() {
-	LSApplicationWorkspace *workspace =
-		[LSApplicationWorkspace defaultWorkspace];
+	LSApplicationWorkspace *workspace = [LSApplicationWorkspace defaultWorkspace];
 	for (LSApplicationProxy *app in [workspace allApplications]) {
-		printf("%s : %s\n", [[app bundleIdentifier] UTF8String],
-			   [[app bundleURL] fileSystemRepresentation]);
+		printf("%s : %s\n", [[app bundleIdentifier] UTF8String], [[app bundleURL] fileSystemRepresentation]);
 	}
 }
 
 void infoForBundleID(NSString *bundleID) {
-	LSApplicationWorkspace *workspace =
-		[LSApplicationWorkspace defaultWorkspace];
-	LSApplicationProxy *app =
-		[LSApplicationProxy applicationProxyForIdentifier:bundleID];
+	LSApplicationProxy *app = [LSApplicationProxy applicationProxyForIdentifier:bundleID];
 	if ([[app appState] isValid]) {
-		printf(_("Name: %s\n\
-BundleID: %s\n\
-ExecutableName: %s\n\
-Path: %s\n\
-Container Path: %s\n\
-VendorName: %s\n\
-TeamID: %s\n\
-Type: %s\n\
-Removeable: %s\n"),
-			[[app localizedNameForContext:nil] UTF8String],
-			[[app bundleIdentifier] UTF8String],
-			[[app bundleExecutable] UTF8String],
-			[[app bundleURL] fileSystemRepresentation],
-			[[app containerURL] fileSystemRepresentation],
-			[[app vendorName] UTF8String], [[app teamID] UTF8String],
-			[[app applicationType] UTF8String],
-			[app isDeletable] ? _("true") : _("false"));
+		printf(_("Name: %s\n"), [[app localizedNameForContext:nil] UTF8String]);
+		printf(_("Bundle Identifier: %s\n"), [[app bundleIdentifier] UTF8String]);
+		printf(_("Executable Name: %s\n"), [[app bundleExecutable] UTF8String]);
+		printf(_("Path: %s\n"), [[app bundleURL] fileSystemRepresentation]);
+		printf(_("Container Path: %s\n"), [[app containerURL] fileSystemRepresentation]);
+		printf(_("Vendor Name: %s\n"), [[app vendorName] UTF8String]);
+		printf(_("Team ID: %s\n"), [[app teamID] UTF8String]);
+		printf(_("Type: %s\n"), [[app applicationType] UTF8String]);
+		printf(_("Removable: %s\n"), [app isDeletable] ? _("true") : _("false"));
+
+		[app.groupContainerURLs enumerateKeysAndObjectsUsingBlock:^(NSString *groupID, NSURL *groupURL, BOOL *stop) {
+			printf(_("Group Container: %s -> %s\n"), groupID.UTF8String, groupURL.fileSystemRepresentation);
+		}];
+
+		for(LSPlugInKitProxy *plugin in app.plugInKitPlugins) {
+			NSURL* pluginURL = plugin.dataContainerURL;
+			if(pluginURL) {
+				printf(_("App Plugin Container: %s -> %s\n"), plugin.bundleIdentifier.UTF8String, pluginURL.fileSystemRepresentation);
+			}
+		}
+
 		if ([app respondsToSelector:@selector(claimedURLSchemes)]) {
 			for (NSString *scheme in [app claimedURLSchemes]) {
-				printf(_("URLScheme: %s\n"), [scheme UTF8String]);
+				printf(_("URL Scheme: %s\n"), [scheme UTF8String]);
 			}
 		} else {
-			NSArray<NSDictionary *> *appURLS =
-				[[NSBundle bundleWithURL:[app bundleURL]]
-					objectForInfoDictionaryKey:@"CFBundleURLTypes"];
-			for (NSDictionary *urlInfo in appURLS) {
+			NSArray<NSDictionary *> *appURLs = [[NSBundle bundleWithURL:[app bundleURL]] objectForInfoDictionaryKey:@"CFBundleURLTypes"];
+			for (NSDictionary *urlInfo in appURLs) {
 				for (NSString *urlScheme in urlInfo[@"CFBundleURLSchemes"]) {
-					printf(_("URLScheme: %s\n"), [urlScheme UTF8String]);
+					printf(_("URL Scheme: %s\n"), [urlScheme UTF8String]);
 				}
 			}
 		}
 	} else {
-		printf(_("%s is an invalid bundle id\n"),
-			   [[app bundleIdentifier] UTF8String]);
+		printf(_("%s is an invalid bundle id\n"), [[app bundleIdentifier] UTF8String]);
 	}
 }
 
 void registerAll() {
 	if (force) {
-		[[LSApplicationWorkspace defaultWorkspace]
-			_LSPrivateRebuildApplicationDatabasesForSystemApps:YES
-													  internal:YES
-														  user:NO];
+		[[LSApplicationWorkspace defaultWorkspace] _LSPrivateRebuildApplicationDatabasesForSystemApps:YES internal:YES user:NO];
 		return;
 	}
 
-	NSArray<NSString *> *files = [[NSFileManager defaultManager]
-		contentsOfDirectoryAtPath:@"/Applications"
-							error:nil];
-	NSArray<NSString *> *filesSecondary =
-		[[NSFileManager defaultManager] contentsOfDirectoryAtPath:APP_PATH
-															error:nil];
+	NSURL *appsURL = [NSURL fileURLWithPath:@"/Applications" isDirectory:YES];
+	NSURL *secondaryAppsURL = [NSURL fileURLWithPath:APP_PATH isDirectory:YES];
+	NSMutableSet<NSURL *> *installedAppURLs = [[NSMutableSet alloc] init];
 
-	NSMutableSet<NSString *> *installed = [[NSMutableSet alloc] init];
-
-	for (NSString *file in files) {
-		if ([file hasSuffix:@".app"] &&
-			[[NSFileManager defaultManager]
-				fileExistsAtPath:
-					[NSString stringWithFormat:@"/Applications/%@/Info.plist",
-											   file]] &&
-			[[NSFileManager defaultManager]
-				fileExistsAtPath:
-					[NSString
-						stringWithFormat:
-							@"/Applications/%@/%@", file,
-							[[NSDictionary
-								dictionaryWithContentsOfURL:
-									[NSURL fileURLWithPath:
-											   [NSString stringWithFormat:
-															 @"/Applications/"
-															 @"%@/Info.plist",
-															 file]]
-													  error:nil]
-								valueForKey:@"CFBundleExecutable"]]]) {
-			[installed addObject:[NSString stringWithFormat:@"/Applications/%@",
-															file]];
+	void (^installedAppEnumerator)(NSURL *appURL) = ^(NSURL *appURL) {
+		NSURL *infoPlistURL = [appURL URLByAppendingPathComponent:@"Info.plist"];
+		NSDictionary *infoPlist = [NSDictionary dictionaryWithContentsOfURL:infoPlistURL error:nil];
+		if (infoPlist) {
+			if (infoPlist[@"CFBundleExecutable"]) {
+				[installedAppURLs addObject:appURL];
+			}
 		}
+	};
+
+	for (NSURL *appURL in [[NSFileManager defaultManager] contentsOfDirectoryAtURL:appsURL includingPropertiesForKeys:nil options:0 error:nil]) {
+		installedAppEnumerator(appURL);
 	}
 
-	for (NSString *file in filesSecondary) {
-		if ([file hasSuffix:@".app"] &&
-			[[NSFileManager defaultManager]
-				fileExistsAtPath:[NSString stringWithFormat:@"%@/%@/Info.plist",
-															APP_PATH, file]] &&
-			[[NSFileManager defaultManager]
-				fileExistsAtPath:
-					[NSString
-						stringWithFormat:
-							@"%@/%@/%@", APP_PATH, file,
-							[[NSDictionary
-								dictionaryWithContentsOfURL:
-									[NSURL
-										fileURLWithPath:
-											[NSString stringWithFormat:
-														  @"%@/%@/Info.plist",
-														  APP_PATH, file]]
-													  error:nil]
-								valueForKey:@"CFBundleExecutable"]]]) {
-			[installed
-				addObject:[NSString stringWithFormat:@"%@/%@", APP_PATH, file]];
-		}
+	for (NSURL *appURL in [[NSFileManager defaultManager] contentsOfDirectoryAtURL:secondaryAppsURL includingPropertiesForKeys:nil options:0 error:nil]) {
+		installedAppEnumerator(appURL);
 	}
 
-	NSMutableSet<NSString *> *registered = [[NSMutableSet alloc] init];
+	NSMutableSet<NSURL *> *registeredAppURLs = [[NSMutableSet alloc] init];
 
-	LSApplicationWorkspace *workspace =
-		[LSApplicationWorkspace defaultWorkspace];
+	LSApplicationWorkspace *workspace = [LSApplicationWorkspace defaultWorkspace];
 	for (LSApplicationProxy *app in [workspace allApplications]) {
-		if ([[NSString
-				stringWithUTF8String:[[app bundleURL] fileSystemRepresentation]]
-				hasPrefix:@"/Applications"] ||
-			[[NSString
-				stringWithUTF8String:[[app bundleURL] fileSystemRepresentation]]
-				hasPrefix:APP_PATH]) {
-			[registered addObject:[NSString stringWithUTF8String:
-												[[app bundleURL]
-													fileSystemRepresentation]]];
+		NSString *appPath = [app bundleURL].path;
+		if ([appPath hasPrefix:@"/Applications"] || [appPath hasPrefix:APP_PATH]) {
+			[registeredAppURLs addObject:[app bundleURL]];
 		}
 	}
 
-	NSMutableSet<NSString *> *toRegister = [[NSMutableSet alloc] init];
-	for (NSString *app in installed) {
-		if (![registered containsObject:app]) {
-			[toRegister addObject:app];
+	for (NSURL *appURL in installedAppURLs) {
+		if (![registeredAppURLs containsObject:appURL]) {
+			if (verbose) printf(_("registering %s\n"), appURL.path.UTF8String);
+			registerPath(appURL.path, NO, NO);
 		}
 	}
 
-	NSMutableSet<NSString *> *toUnregister = [[NSMutableSet alloc] init];
-	for (NSString *app in registered) {
-		if (![installed containsObject:app]) {
-			[toUnregister addObject:app];
+	for (NSURL *appURL in registeredAppURLs) {
+		if (![installedAppURLs containsObject:appURL]) {
+			if (verbose) printf(_("unregistering %s\n"), appURL.path.UTF8String);
+			registerPath(appURL.path, YES, NO);
 		}
-	}
-	for (NSString *app in toRegister) {
-		if (verbose)
-			printf(_("registering %s\n"), app.UTF8String);
-		registerPath((char *)[app UTF8String], 0);
-	}
-	for (NSString *app in toUnregister) {
-		if (verbose)
-			printf(_("unregistering %s\n"), app.UTF8String);
-		registerPath((char *)[app UTF8String], 1);
 	}
 }
 
@@ -389,19 +551,19 @@ int main(int argc, char *argv[]) {
 #endif
 
 	@autoreleasepool {
-		int all = 0;
-		int respring = 0;
+		BOOL all = NO;
+		BOOL respring = NO;
+		BOOL forceSystem = NO;
 		NSMutableSet *registerSet = [[NSMutableSet alloc] init];
 		NSMutableSet *unregisterSet = [[NSMutableSet alloc] init];
-		char *path;
-		int list = 0;
+		BOOL list = NO;
 		NSMutableSet *infoSet = [[NSMutableSet alloc] init];
-		int showhelp = 0;
+		BOOL showHelp = NO;
 
-// clang-format off
 		struct option longOptions[] = {
 			{"all", no_argument, 0, 'a'},
 			{"path", required_argument, 0, 'p'},
+			{"force-system", no_argument, 0, 's'}, 
 			{"unregister", required_argument, 0, 'u'},
 			{"respring", no_argument, 0, 'r'},
 			{"list", optional_argument, 0, 'l'},
@@ -410,58 +572,53 @@ int main(int argc, char *argv[]) {
 			{"verbose", no_argument, 0, 'v'},	// verbose was added to maintain compatibility with old uikittools
 			{"force", no_argument, 0, 'f'},
 			{NULL, 0, NULL, 0}};
-// clang-format on
 
 		int index = 0, code = 0;
 
-		while ((code = getopt_long(argc, argv, "ap:u:rl::i:hfv", longOptions, &index)) != -1) {
+		while ((code = getopt_long(argc, argv, "ap:u:rl::si:hfv", longOptions, &index)) != -1) {
 			switch (code) {
 				case 'a':
-					all = 1;
+					all = YES;
 					break;
 				case 'p':
-					[registerSet
-						addObject:[NSString
-									  stringWithUTF8String:strdup(optarg)]];
+					[registerSet addObject:[NSString stringWithUTF8String:strdup(optarg)]];
+					break;
+				case 's':
+					forceSystem = YES;
 					break;
 				case 'u':
-					[unregisterSet
-						addObject:[NSString
-									  stringWithUTF8String:strdup(optarg)]];
+					[unregisterSet addObject:[NSString stringWithUTF8String:strdup(optarg)]];
 					break;
 				case 'r':
-					respring = 1;
+					respring = YES;
 					break;
 				case 'h':
-					showhelp = 1;
+					showHelp = YES;
 					break;
 				case 'l':
-					if (optarg)
-						[infoSet
-							addObject:[NSString
-										  stringWithUTF8String:strdup(optarg)]];
-					else if (NULL != argv[optind] && '-' != argv[optind][0])
-						[infoSet
-							addObject:[NSString stringWithUTF8String:
-													strdup(argv[optind++])]];
-					else
-						list = 1;
+					if (optarg) {
+						[infoSet addObject:[NSString stringWithUTF8String:strdup(optarg)]];
+					}
+					else if (NULL != argv[optind] && '-' != argv[optind][0]) {
+						[infoSet addObject:[NSString stringWithUTF8String:strdup(argv[optind++])]];
+					}
+					else {
+						list = YES;
+					}
 					break;
 				case 'i':
-					[infoSet
-						addObject:[NSString
-									  stringWithUTF8String:strdup(optarg)]];
+					[infoSet addObject:[NSString stringWithUTF8String:strdup(optarg)]];
 					break;
 				case 'f':
-					force = 1;
+					force = YES;
 					break;
 				case 'v':
-					verbose = 1;
+					verbose = YES;
 					break;
 			}
 		}
 
-		if (showhelp || argc == 1) {
+		if (showHelp || argc == 1) {
 			help();
 			return 0;
 		}
@@ -473,15 +630,16 @@ int main(int argc, char *argv[]) {
 		}
 
 		for (NSString *path in registerSet) {
-			registerPath((char *)[path UTF8String], 0);
+			registerPath(path, 0, forceSystem);
 		}
 
 		for (NSString *path in unregisterSet) {
-			registerPath((char *)[path UTF8String], 1);
+			registerPath(path, 1, forceSystem);
 		}
 
-		if (all)
+		if (all) {
 			registerAll();
+		}
 
 		if (respring) {
 			dlopen("/System/Library/PrivateFrameworks/FrontBoardServices.framework/FrontBoardServices", RTLD_NOW);
@@ -491,14 +649,9 @@ int main(int argc, char *argv[]) {
 #else
 			dlopen("/System/Library/PrivateFrameworks/SpringBoardServices.framework/SpringBoardServices", RTLD_NOW);
 
-			SBSRelaunchAction *restartAction = [objc_getClass("SBSRelaunchAction")
-				actionWithReason:@"respring"
-						 options:(SBSRelaunchActionOptionsRestartRenderServer |
-								  SBSRelaunchActionOptionsFadeToBlackTransition)
-					   targetURL:nil];
-			[(FBSSystemService *)[objc_getClass("FBSSystemService")
-				sharedService] sendActions:[NSSet setWithObject:restartAction]
-								withResult:nil];
+			SBSRelaunchActionOptions restartOptions = (SBSRelaunchActionOptionsRestartRenderServer | SBSRelaunchActionOptionsFadeToBlackTransition);
+			SBSRelaunchAction *restartAction = [objc_getClass("SBSRelaunchAction") actionWithReason:@"respring" options:restartOptions targetURL:nil];
+			[(FBSSystemService *)[objc_getClass("FBSSystemService") sharedService] sendActions:[NSSet setWithObject:restartAction] withResult:nil];
 #endif
 			sleep(2);
 		}

@@ -138,12 +138,12 @@ Modified work Copyright (C) 2021, Procursus Team. All Rights Reserved.\n\n"), ge
 
 	printf(_("  -a, --all                Update all system and internal applications\n"));
 	printf(_("  -f, --force              Force -a to reregister all Applications\n\
-                              and modify App Store apps\n"));
+							  and modify App Store apps\n"));
 	printf(_("  -p, --path <path>        Update application bundle at the specified path\n"));
 	printf(_("  -s, --force-system       When registering an app inside /var/containers, register it as system\n"));
 	printf(_("  -u, --unregister <path>  Unregister application bundle at the specified path\n"));
 	printf(_("  -r, --respring           Restart SpringBoard and backboardd after\n\
-                              updating applications\n"));
+							  updating applications\n"));
 	printf(_("  -l, --list               List the bundle ids of installed apps\n"));
 	printf(_("  -i, --info <bundleid>    Give information about given bundle id\n"));
 	printf(_("  -h, --help               Give this help list.\n\n"));
@@ -274,11 +274,12 @@ NSString *constructTeamIdentifierForEntitlements(NSDictionary *entitlements) {
 	return nil;
 }
 
-NSDictionary *constructEnvironmentVariablesForContainerPath(NSString *containerPath) {
-	NSString *tmpDir = [containerPath stringByAppendingPathComponent:@"tmp"];
+NSDictionary *constructEnvironmentVariablesForContainerPath(NSString *containerPath, BOOL isContainerized) {
+	NSString *homeDir = isContainerized ? containerPath : @"/var/mobile";
+	NSString *tmpDir = isContainerized ? [containerPath stringByAppendingPathComponent:@"tmp"] : @"/var/tmp";
 	return @{
-		@"CFFIXED_USER_HOME" : containerPath,
-		@"HOME" : containerPath,
+		@"CFFIXED_USER_HOME" : homeDir,
+		@"HOME" : homeDir,
 		@"TMPDIR" : tmpDir
 	};
 }
@@ -311,24 +312,27 @@ void registerPath(NSString *path, BOOL unregister, BOOL forceSystem) {
 		// Add entitlements
 
 		NSString *appExecutablePath = [path stringByAppendingPathComponent:appInfoPlist[@"CFBundleExecutable"]];
-        NSDictionary *entitlements = dumpEntitlementsFromBinaryAtPath(appExecutablePath);
+		NSDictionary *entitlements = dumpEntitlementsFromBinaryAtPath(appExecutablePath);
 		if (entitlements) {
 			dictToRegister[@"Entitlements"] = entitlements;
 		}
+		
 
 		// Misc
-
+	
 		dictToRegister[@"ApplicationType"] = registerAsUser ? @"User" : @"System";
 		dictToRegister[@"CFBundleIdentifier"] = appBundleID;
 		dictToRegister[@"CodeInfoIdentifier"] = appBundleID;
 		dictToRegister[@"CompatibilityState"] = @0;
+		BOOL appContainerized = constructContainerizationForEntitlements(entitlements);
+		dictToRegister[@"IsContainerized"] = @(appContainerized);
 		if (containerPath) {
 			dictToRegister[@"Container"] = containerPath;
-			dictToRegister[@"EnvironmentVariables"] = constructEnvironmentVariablesForContainerPath(containerPath);
+			dictToRegister[@"EnvironmentVariables"] = constructEnvironmentVariablesForContainerPath(containerPath, appContainerized);
 		}
 		dictToRegister[@"IsDeletable"] = @(registerAsUser || isRemovableSystemApp);
 		dictToRegister[@"Path"] = path;
-		dictToRegister[@"IsContainerized"] = @(constructContainerizationForEntitlements(entitlements));
+		
 		dictToRegister[@"SignerOrganization"] = @"Apple Inc.";
 		dictToRegister[@"SignatureVersion"] = @132352;
 		dictToRegister[@"SignerIdentity"] = @"Apple iPhone OS Application Signing";
@@ -380,7 +384,7 @@ void registerPath(NSString *path, BOOL unregister, BOOL forceSystem) {
 			// Add entitlements
 
 			NSString *pluginExecutablePath = [pluginPath stringByAppendingPathComponent:pluginInfoPlist[@"CFBundleExecutable"]];
-            NSDictionary *pluginEntitlements = dumpEntitlementsFromBinaryAtPath(pluginExecutablePath);
+			NSDictionary *pluginEntitlements = dumpEntitlementsFromBinaryAtPath(pluginExecutablePath);
 			if (pluginEntitlements) {
 				pluginDict[@"Entitlements"] = pluginEntitlements;
 			}
@@ -391,13 +395,14 @@ void registerPath(NSString *path, BOOL unregister, BOOL forceSystem) {
 			pluginDict[@"CFBundleIdentifier"] = pluginBundleID;
 			pluginDict[@"CodeInfoIdentifier"] = pluginBundleID;
 			pluginDict[@"CompatibilityState"] = @0;
+			BOOL pluginContainerized = constructContainerizationForEntitlements(pluginEntitlements);
+			pluginDict[@"IsContainerized"] = @(pluginContainerized);
 			if (pluginContainerPath) {
 				pluginDict[@"Container"] = pluginContainerPath;
-				pluginDict[@"EnvironmentVariables"] = constructEnvironmentVariablesForContainerPath(pluginContainerPath);
+				pluginDict[@"EnvironmentVariables"] = constructEnvironmentVariablesForContainerPath(pluginContainerPath, pluginContainerized);
 			}
 			pluginDict[@"Path"] = pluginPath;
 			pluginDict[@"PluginOwnerBundleID"] = appBundleID;
-			pluginDict[@"IsContainerized"] = @(constructContainerizationForEntitlements(pluginEntitlements));
 			pluginDict[@"SignerOrganization"] = @"Apple Inc.";
 			pluginDict[@"SignatureVersion"] = @132352;
 			pluginDict[@"SignerIdentity"] = @"Apple iPhone OS Application Signing";

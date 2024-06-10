@@ -13,5 +13,7 @@
 	<true/>
 	<key>com.apple.appletv.pbs.allow-relaunch</key>
 	<true/>
+	<key>com.apple.private.xpc.service-configure</key>
+	<true/>
 </dict>
 </plist>

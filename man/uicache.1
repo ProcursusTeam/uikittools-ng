@@ -1,8 +1,8 @@
 .\"
-.\" Copyright (c) 2020-2023 ProcursusTeam
+.\" Copyright (c) 2020-2024 ProcursusTeam
 .\" SPDX-License-Identifier: BSD-4-Clause
 .\"
-.Dd January 29, 2023
+.Dd June 9, 2024
 .Dt UICACHE 1
 .Os
 .Sh NAME
@@ -10,7 +10,7 @@
 .Nd Update registered applications
 .Sh SYNOPSIS
 .Nm
-.Op Fl afhlrv
+.Op Fl afhlrvs
 .Op Fl i Ar id
 .Op Fl p Ar path
 .Op Fl u Ar path
@@ -30,12 +30,6 @@ rather than just the changes.
 This option will make
 .Fl a
 significantly slower.
-When used with
-.Fl p
-or
-.Fl u ,
-.Nm
-will operate on apps installed from the App Store.
 .It Fl h , -help
 Prints help text.
 .It Fl i , -info Ar bundleid

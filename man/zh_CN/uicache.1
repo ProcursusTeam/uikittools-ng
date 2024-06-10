@@ -1,89 +1,85 @@
 .\"-
-.\" 版权所有 (c) 2020-2021 ProcursusTeam
+.\" 版权所有 (c) 2020-2024 ProcursusTeam
 .\" SPDX-License-Identifier: BSD-4-Clause
 .\"
-.Dd 2021年8月19日
+.Dd 2024年6月9日
 .Dt UICACHE 1
 .Os
 .Sh 名称
 .Nm uicache
-.Nd 更新已注册的应用程序
+.Nd 更新已注册的应用程式
 .Sh 语法
 .Nm
-.Op Fl afhlr
+.Op Fl afhlrvs
 .Op Fl i Ar 识别码
 .Op Fl p Ar 路径
 .Op Fl u Ar 路径
 .Sh 描述
-更新iOS应用程序的注册状态，然后可选地重新启动主界面（SpringBoard）。
+更新iOS已注册的应用程式，然后可选地重新启动主画面。
 .Sh 选项
 .Bl -tag -width indent
 .It Fl a , -all
-遍历每一个系统应用程序， 并更新缓存以及时映射更改。
+迭代每一个系统应用程式， 并更新快取以反映情况。
 这和旧
 .Nm
-不添加任何选项的行为一样。
+的行为一样。
 .It Fl f , -force
 当和
 .Fl a
-同时使用时强制重新注册所有的应用程序，而不仅仅是被更改的应用程序。
+一起使用时，
+强制重新注册所有的应用程式，而不是仅限于改变了的应用程式。
 这个选项会导致
 .Fl a
 的速度明显减慢。
-当和
-.Fl p
-或
-.Fl u ,
-.Nm
-一起使用时，会作用在App Store应用程序上。
 .It Fl h , -help
-输出帮助文本。
-.It Fl i , -info Ar bundleid
-显示指定Bundle ID的应用程序信息。
+印出帮助文本。
+.It Fl i , -info Ar 封装识别码
+显示指定封装识别码的应用程式资讯。
 .It Fl l , -list
-列出每一个应用程序的路径和Bundle ID。
+列出每一个应用程式的路径和封装识别码。
 .It Fl p , -path Ar 路径
 把位于指定
 .Ar 路径
-, 中的应用程序加入或更新到缓存中。
+, 中的应用程式加入到快取中， 或更新快取。
 .It Fl r , -respring
-在完成所有操作之后，重新启动SpringBoard和backboard。
+在完成所有操作之后，重新启动主画面和backboard。
 .It Fl u , -unregister Ar 路径
-从缓存中移除位于
+从快取中移除位于
 .Ar 路径
-, 的应用程序。
+的应用程式。
+.It Fl s , -force-system
+强行把应用程式注册为系统应用程式。
+.Pp
+一般来说，当注册的应用程式位于/var/containers之中，
+该应用程式会被注册为用户应用程式。
+使用这个选项时，无论应用程式是否位于/var/containers之中，
+都会被注册为系统应用程式。
 .It Fl v , -verbose
 当和
 .Fl a
-一起使用时，输出被注册或被取消注册的应用程序。
+一起使用时，印出被注册或被取消注册的应用程式。
 .El
 .Sh 例子
-刷新所有应用程序，
+要重新整理所有应用程式，
 .Dl "uicache -a"
 .Pp
-注册Sileo，
+要注册Sileo，
 .Dl "uicache -p /Applications/Sileo.app"
 .Pp
-要显示关于"设置"应用程序的资讯，
+要显示关于「设定」应用程式的资讯，
 .Dl "uicache -i com.apple.preferences"
 .Sh 另见
 .Xr sbreload 1 ,
 .Xr uiopen 1
 .Sh 历史
+这个
 .Nm
-工具首先在2008年9月14日于uikittools中出现，由
+工具程式首先在2008年9月14日在uikittools中出现，由
 .An Jay Qo Saurik Qc Freeman 编写。
 之后，它被
 .An CoolStar
-为Chimera越狱而重新实现。
+为Chimera越狱重新实现。
 .Fl l
 和
 .Fl i
 选项在2021年4月4号由Cameron Katri加到uikittools-ng中。
-.Sh 警告
-这个
-.Nm
-工具对任何由App Store安装的应用程序生效，
-这个工具会进行检查来防止对其进行改动，但仍然可以用
-.Fl f
-来强制执行。

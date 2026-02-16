@@ -22,5 +22,25 @@
 	<true/>
 	<key>com.apple.appletv.pbs.allow-relaunch</key>
 	<true/>
+  	<key>com.apple.private.installcoordinationd.daemon</key>
+  	<true/>
+  	<key>com.apple.private.coreservices.canmapbundleidtouuid</key>
+  	<true/>
+  	<key>com.apple.private.coreservices.canmaplsdatabase</key>
+  	<true/>
+  	<key>com.apple.private.coreservices.canforcedatabasegc</key>
+  	<true/>
+  	<key>com.apple.private.coreservices.can-perform-rebuild-registration</key>
+  	<true/>
+  	<key>com.apple.private.coreservices.can-register-install-results</key>
+  	<true/>
+  	<key>com.apple.private.coreservices.can-send-install-notifications</key>
+  	<true/>
+  	<key>com.apple.private.coreservices.can-force-database-save-for-testing</key>
+  	<true/>
+  	<key>com.apple.private.MobileContainerManager.delete</key>
+  	<true/>
+  	<key>com.apple.private.coreservices.lsaw</key>
+  	<true/>
 </dict>
 </plist>
